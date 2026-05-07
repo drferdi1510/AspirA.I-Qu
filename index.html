@@ -228,7 +228,8 @@ select option{background:white}textarea{resize:vertical;min-height:76px;line-hei
 
 <!-- ══ SPLASH SCREEN ══ -->
 <div id="splash">
-  <img class="splash-logo" id="splashLogo" src="logo.png" onerror="this.style.fontSize='60px';this.outerHTML='<div style=\'font-size:60px;animation:splashPop .6s cubic-bezier(.34,1.56,.64,1) forwards;opacity:0\'>🔬</div>'" alt="AspirA.I-Qu">
+  <img class="splash-logo" id="splashLogo" src="logo.png" onerror="this.src='';this.style.display='none';document.getElementById('splashFallback').style.display='block'" alt="logo">
+  <div id="splashFallback" style="display:none;font-size:60px;animation:splashPop .6s cubic-bezier(.34,1.56,.64,1) forwards">🔬</div>'" alt="AspirA.I-Qu">
   <div class="splash-name">AspirA<em>.I</em>-Qu</div>
   <div class="splash-sub">Smart BMA Identification</div>
   <div class="splash-bar"><div class="splash-prog"></div></div>
@@ -236,7 +237,7 @@ select option{background:white}textarea{resize:vertical;min-height:76px;line-hei
 
 <!-- ══ ONBOARDING ══ -->
 <div id="onboard">
-  <img class="ob-logo" src="logo.png" onerror="this.outerHTML='<div style=\'font-size:48px;margin:0 auto 16px\'>🔬</div>'" alt="logo">
+  <img class="ob-logo" src="logo.png" onerror="this.style.display='none'" alt="logo">
   <div class="ob-title">AspirA<em>.I</em>-Qu</div>
   <div class="ob-sub">Siapkan pengaturan sebelum memulai</div>
 
@@ -272,7 +273,7 @@ select option{background:white}textarea{resize:vertical;min-height:76px;line-hei
 
 <div class="hdr">
   <div class="logo">
-    <img class="logo-img" src="logo.png" onerror="this.outerHTML='<span style=\'font-size:24px\'>🔬</span>'" alt="logo">
+    <img class="logo-img" src="logo.png" onerror="this.style.display='none'" alt="logo">
     <div>
       <div class="logo-tx">AspirA<em>.I</em>-Qu</div>
       <div class="logo-sb">Smart BMA Identification</div>
@@ -382,7 +383,7 @@ select option{background:white}textarea{resize:vertical;min-height:76px;line-hei
 <!-- TAB TENTANG -->
 <div class="pnl" id="pnl-a">
   <div class="about-hero">
-    <img class="about-logo" src="logo.png" onerror="this.outerHTML='<div style=\'font-size:56px;margin:0 auto 14px\'>🔬</div>'" alt="logo">
+    <img class="about-logo" src="logo.png" onerror="this.style.display='none'" alt="logo">
     <div class="about-name">AspirA<em>.I</em>-Qu</div>
     <div class="about-tagline">Smart BMA Identification</div>
   </div>
@@ -481,7 +482,6 @@ window.addEventListener('load',()=>{
 function showMain(){
   document.getElementById('mainApp').classList.add('show');
   document.getElementById('mainDock').style.display='flex';
-  loadDB(DB_FILE_ID);
 }
 
 // ── ONBOARDING ──
