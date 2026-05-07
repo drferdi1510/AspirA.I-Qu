@@ -250,14 +250,16 @@ select option{background:white}textarea{resize:vertical;min-height:76px;line-hei
     <div class="ob-pill">Dapatkan gratis di <a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a> → Get API Key. Key hanya tersimpan di browser Anda.</div>
   </div>
 
-  <div class="ob-card">
-    <div class="ob-card-ttl"><span class="num">2</span>Database Google Drive</div>
-    <div class="fld">
-      <label class="flbl">File ID — kasus_index.json</label>
-      <input type="text" id="obDr" placeholder="1BxiMVs0XRA5..." oninput="chkDr()">
-      <div id="obDrSt"></div>
+  <div class="ob-card card-blue">
+    <div class="ob-card-ttl"><span class="num" style="background:linear-gradient(135deg,var(--marrow),var(--plasma))">2</span>Database BMA</div>
+    <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg3);border-radius:var(--r);border:.5px solid var(--border3)">
+      <span style="font-size:20px">✅</span>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--t1)">Database sudah terhubung</div>
+        <div style="font-size:11px;color:var(--t3);margin-top:2px">2.636 kasus BMA · diperbarui berkala</div>
+      </div>
     </div>
-    <div class="ob-pill">GDrive → klik kanan <b>kasus_index.json</b> → Get link → salin ID dari URL.<br>Pastikan sharing: <b>Anyone with the link</b></div>
+    <div class="ob-pill" style="background:var(--cream);border-color:var(--border3)">Database dikelola oleh Tim Empat Serangkai dan diperbarui setiap bulan secara otomatis.</div>
   </div>
 
   <button class="btn-p" style="max-width:440px;width:100%" onclick="finishOnboard()">Mulai Gunakan AspirA.I-Qu →</button>
@@ -429,12 +431,17 @@ select option{background:white}textarea{resize:vertical;min-height:76px;line-hei
       <div class="ipill">Gratis di <a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a> → Get API Key.</div>
       <button class="btn-sv" onclick="svKey()">Simpan API Key</button>
     </div>
-    <div class="slbl"><span class="dot"></span>Database Google Drive</div>
-    <div class="card">
-      <div class="fld"><label class="flbl">File ID — kasus_index.json</label><input type="text" id="sDr" placeholder="1BxiMVs0XRA5..."></div>
-      <div class="ipill">GDrive → klik kanan kasus_index.json → Get link → salin ID. Pastikan sharing: Anyone with the link</div>
-      <button class="btn-sv" onclick="svDr()">Simpan &amp; Muat Database</button>
-      <div id="sDb" style="margin-top:8px;font-size:11px;color:var(--t3)"></div>
+    <div class="slbl"><span class="dot"></span>Database BMA</div>
+    <div class="card card-blue">
+      <div style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--bg3);border-radius:var(--r);border:.5px solid var(--border3);margin-bottom:10px">
+        <span style="font-size:20px">🗄</span>
+        <div>
+          <div style="font-size:13px;font-weight:600;color:var(--t1)">Database Terhubung</div>
+          <div style="font-size:11px;color:var(--t3);margin-top:2px" id="sDb">Memuat...</div>
+        </div>
+      </div>
+      <div class="ipill" style="background:var(--cream);border-color:var(--border3)">Database dikelola Tim Empat Serangkai. Diperbarui otomatis setiap bulan — tidak perlu konfigurasi manual.</div>
+      <button class="btn-sv" onclick="loadDB(DB_FILE_ID);tst('⏳ Memuat ulang...')" style="border-color:var(--marrow);color:var(--marrow);margin-top:8px">🔄 Muat Ulang Database</button>
     </div>
   </div>
 </div>
@@ -443,6 +450,7 @@ select option{background:white}textarea{resize:vertical;min-height:76px;line-hei
 
 <script>
 'use strict';
+const DB_FILE_ID='1GsWjXfsVWkup_GeLnOhFcMP-OZHWrYE-';
 let qPh=[],iPh=[],docF=[],caseDB=null,qLast=null,iLast=null;
 
 // ── BOOT ──
@@ -467,16 +475,13 @@ window.addEventListener('load',()=>{
   document.getElementById('iTg').valueAsDate=new Date();
   const k=localStorage.getItem('bma_k');
   if(k){document.getElementById('sKey').value=k;setAS(true);}
-  const d=localStorage.getItem('bma_d');
-  if(d){document.getElementById('sDr').value=d;}
   renderH();
 });
 
 function showMain(){
   document.getElementById('mainApp').classList.add('show');
   document.getElementById('mainDock').style.display='flex';
-  const d=localStorage.getItem('bma_d');
-  if(d)loadDB(d);
+  loadDB(DB_FILE_ID);
 }
 
 // ── ONBOARDING ──
@@ -490,13 +495,9 @@ function chkDr(){
 }
 function finishOnboard(){
   const k=document.getElementById('obKey').value.trim();
-  const d=document.getElementById('obDr').value.trim();
   if(!k){tst('⚠️ Masukkan API Key dulu');return;}
-  if(!d){tst('⚠️ Masukkan File ID database dulu');return;}
   localStorage.setItem('bma_k',k);
-  localStorage.setItem('bma_d',d);
   document.getElementById('sKey').value=k;
-  document.getElementById('sDr').value=d;
   setAS(true);
   document.getElementById('onboard').classList.remove('show');
   showMain();
@@ -542,9 +543,9 @@ function setAS(ok){
   if(el)el.innerHTML=`<div class="abdg ${ok?'ok':'err'}"><div class="adot"></div>${ok?'Tersimpan':'Belum diset'}</div>`;
 }
 function svDr(){
-  const id=document.getElementById('sDr').value.trim();
-  if(!id){tst('Masukkan File ID dulu');return;}
+  const id=document.getElementById('sDr').value.trim()||DB_FILE_ID;
   localStorage.setItem('bma_d',id);caseDB=null;loadDB(id);
+  tst('✅ Memuat ulang database...');
 }
 async function loadDB(id){
   const st=document.getElementById('sDb');
