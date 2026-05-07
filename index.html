@@ -455,23 +455,25 @@ let qPh=[],iPh=[],docF=[],caseDB=null,qLast=null,iLast=null;
 
 // ── BOOT ──
 window.addEventListener('load',()=>{
+  // Start DB load in background immediately
+  const savedKey=localStorage.getItem('bma_k');
+  if(savedKey) loadDB(DB_FILE_ID);
+
+  // Splash: 2.5s then proceed regardless of DB status
   setTimeout(()=>{
     document.getElementById('splash').classList.add('hide');
     setTimeout(()=>{
       document.getElementById('splash').style.display='none';
       const hasKey=localStorage.getItem('bma_k');
-      const hasDr=localStorage.getItem('bma_d');
-      if(!hasKey||!hasDr){
+      if(!hasKey){
         document.getElementById('onboard').classList.add('show');
         const k=localStorage.getItem('bma_k');
-        const d=localStorage.getItem('bma_d');
         if(k)document.getElementById('obKey').value=k;
-        if(d)document.getElementById('obDr').value=d;
       }else{
         showMain();
       }
     },500);
-  },2200);
+  },2500);
   document.getElementById('iTg').valueAsDate=new Date();
   const k=localStorage.getItem('bma_k');
   if(k){document.getElementById('sKey').value=k;setAS(true);}
@@ -501,7 +503,8 @@ function finishOnboard(){
   setAS(true);
   document.getElementById('onboard').classList.remove('show');
   showMain();
-  tst('✅ Pengaturan tersimpan!');
+  loadDB(DB_FILE_ID);
+  tst('✅ Pengaturan tersimpan! Memuat database...');
 }
 function skipOnboard(){
   document.getElementById('onboard').classList.remove('show');
