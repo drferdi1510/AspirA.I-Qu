@@ -2,7 +2,7 @@
   "name": "BMA·AI — Interpretasi Sumsum Tulang",
   "short_name": "BMA·AI",
   "description": "Aplikasi interpretasi Bone Marrow Aspiration berbasis AI untuk Sp.PK",
-  "start_url": "/bma-ai/",
+  "start_url": ".",
   "display": "standalone",
   "background_color": "#0a1628",
   "theme_color": "#0a1628",
