@@ -2,538 +2,551 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#0a1628">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#060b12">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>BMA·AI — Interpretasi Sumsum Tulang</title>
 <link rel="manifest" href="manifest.json">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400;1,600&family=Space+Grotesk:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-:root {
-  --bg:#0a1628;--bg2:#0f1e38;--bg3:#162444;
-  --border:rgba(99,179,237,0.15);
-  --accent:#63b3ed;--accent2:#90cdf4;
-  --gold:#f6c06b;--red:#fc8181;--green:#68d391;
-  --text:#e2e8f0;--text2:#94a3b8;--text3:#64748b;
-  --radius:12px;--radius-lg:20px;
-}
-*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);min-height:100dvh;overflow-x:hidden}
-body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 60% 40% at 20% 10%,rgba(99,179,237,0.07) 0%,transparent 60%),radial-gradient(ellipse 40% 60% at 80% 80%,rgba(246,192,107,0.05) 0%,transparent 50%);pointer-events:none;z-index:0}
-#app{position:relative;z-index:1;max-width:480px;margin:0 auto;padding:0 0 80px}
-.header{padding:20px 20px 16px;border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between}
-.header-brand{display:flex;align-items:baseline;gap:8px}
-.header-logo{font-family:'DM Serif Display',serif;font-size:22px;color:var(--accent2);letter-spacing:-.5px}
-.header-logo span{color:var(--gold)}
-.header-sub{font-size:11px;color:var(--text3);letter-spacing:.5px;text-transform:uppercase}
-.btn-icon{width:36px;height:36px;border-radius:10px;border:.5px solid var(--border);background:var(--bg2);color:var(--text2);cursor:pointer;display:grid;place-items:center;font-size:16px;transition:all .2s}
-.btn-icon:hover{background:var(--bg3);color:var(--accent)}
-.panel{display:none;padding:20px}
-.panel.active{display:block;animation:fadeUp .3s ease}
-@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.section-title{font-size:11px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
-.section-title::after{content:'';flex:1;height:.5px;background:var(--border)}
-.card{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-bottom:12px}
-.field{margin-bottom:14px}.field:last-child{margin-bottom:0}
-label{display:block;font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px}
-input[type=text],input[type=date],input[type=number],input[type=password],select,textarea{width:100%;background:var(--bg3);border:.5px solid var(--border);border-radius:var(--radius);padding:10px 14px;color:var(--text);font-family:'Outfit',sans-serif;font-size:14px;outline:none;transition:border-color .2s;-webkit-appearance:none}
-input:focus,select:focus,textarea:focus{border-color:var(--accent)}
-select option{background:var(--bg2)}
-textarea{resize:vertical;min-height:80px;line-height:1.5}
-.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.photo-zone{border:1.5px dashed var(--border);border-radius:var(--radius);padding:20px;text-align:center;cursor:pointer;transition:all .2s;position:relative}
-.photo-zone:hover{border-color:var(--accent);background:rgba(99,179,237,0.05)}
-.photo-zone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.photo-icon{font-size:28px;margin-bottom:8px}
-.photo-label{font-size:13px;color:var(--text2)}
-.photo-sub{font-size:11px;color:var(--text3);margin-top:4px}
-.photo-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:10px}
-.photo-thumb{aspect-ratio:1;border-radius:8px;overflow:hidden;position:relative;border:.5px solid var(--border)}
-.photo-thumb img{width:100%;height:100%;object-fit:cover}
-.photo-thumb .del{position:absolute;top:4px;right:4px;width:20px;height:20px;background:rgba(0,0,0,.7);border-radius:50%;border:none;color:white;font-size:11px;cursor:pointer;display:grid;place-items:center}
-.btn-analyze{width:100%;padding:16px;background:linear-gradient(135deg,#2b6cb0,#2c7a7b);border:none;border-radius:var(--radius-lg);color:white;font-family:'Outfit',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:16px;letter-spacing:.3px}
-.btn-analyze:hover{transform:translateY(-1px);box-shadow:0 8px 24px rgba(43,108,176,.4)}
-.btn-analyze:disabled{opacity:.5;cursor:not-allowed;transform:none}
-.loading{display:none;text-align:center;padding:40px 20px}
-.loading.show{display:block}
-.spinner{width:48px;height:48px;border:2.5px solid var(--bg3);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 16px}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading-text{font-size:14px;color:var(--text2)}
-.loading-sub{font-size:12px;color:var(--text3);margin-top:4px;font-family:'DM Mono',monospace}
-.result{display:none}
-.result.show{display:block}
-.result-header{background:linear-gradient(135deg,var(--bg2),var(--bg3));border:.5px solid var(--border);border-radius:var(--radius-lg);padding:16px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between}
-.result-title{font-family:'DM Serif Display',serif;font-size:16px;color:var(--accent2)}
-.result-badge{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;padding:4px 10px;border-radius:20px;background:rgba(104,211,145,.15);color:var(--green);border:.5px solid rgba(104,211,145,.3)}
-.result-block{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:8px}
-.result-block-label{font-size:10px;font-weight:600;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px}
-.result-block-text{font-size:14px;color:var(--text);line-height:1.6}
-.result-kesimpulan .result-block-text{font-family:'DM Serif Display',serif;font-style:italic;font-size:15px;color:var(--accent2)}
-.result-actions{display:flex;gap:8px;margin-top:12px}
-.btn-action{flex:1;padding:12px;border-radius:var(--radius);border:.5px solid var(--border);background:var(--bg2);color:var(--text2);font-family:'Outfit',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
-.btn-action:hover{background:var(--bg3);color:var(--text)}
-.btn-action.primary{background:var(--bg3);color:var(--accent);border-color:var(--accent)}
-.history-item{background:var(--bg2);border:.5px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s}
-.history-item:hover{border-color:var(--accent);background:var(--bg3)}
-.history-name{font-size:14px;font-weight:500;color:var(--text)}
-.history-dx{font-size:12px;color:var(--accent);margin-top:3px;font-style:italic}
-.history-meta{font-size:11px;color:var(--text3);margin-top:4px;font-family:'DM Mono',monospace}
-.empty-state{text-align:center;padding:60px 20px;color:var(--text3)}
-.empty-icon{font-size:48px;margin-bottom:12px;opacity:.5}
-.settings-panel{display:none}
-.settings-panel.show{display:block;position:fixed;inset:0;z-index:100;background:var(--bg);overflow-y:auto}
-.settings-header{display:flex;align-items:center;gap:12px;padding:20px;border-bottom:.5px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:10}
-.settings-title{font-family:'DM Serif Display',serif;font-size:18px;color:var(--text)}
-.settings-body{padding:20px}
-.api-status{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:4px 10px;border-radius:20px;margin-top:8px}
-.api-status.ok{background:rgba(104,211,145,.15);color:var(--green)}
-.api-status.err{background:rgba(252,129,129,.15);color:var(--red)}
-.api-dot{width:6px;height:6px;border-radius:50%;background:currentColor}
-.btn-save{width:100%;padding:14px;background:var(--bg3);border:.5px solid var(--accent);border-radius:var(--radius);color:var(--accent);font-family:'Outfit',sans-serif;font-size:14px;font-weight:500;cursor:pointer;transition:all .2s;margin-top:8px}
-.btn-save:hover{background:rgba(99,179,237,.1)}
-.info-box{background:rgba(99,179,237,.07);border:.5px solid rgba(99,179,237,.2);border-radius:var(--radius);padding:12px 14px;font-size:12px;color:var(--text2);line-height:1.6;margin-top:8px}
-.info-box a{color:var(--accent);text-decoration:none}
-.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--bg3);border:.5px solid var(--border);border-radius:30px;padding:10px 20px;font-size:13px;color:var(--text);z-index:200;opacity:0;transition:opacity .3s;white-space:nowrap;pointer-events:none}
-.toast.show{opacity:1}
-.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(10,22,40,.95);backdrop-filter:blur(20px);border-top:.5px solid var(--border);display:flex;padding:8px 0 max(8px,env(safe-area-inset-bottom));z-index:50}
-.nav-item{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px;cursor:pointer;border:none;background:transparent;color:var(--text3);font-family:'Outfit',sans-serif;font-size:10px;font-weight:500;transition:color .2s;letter-spacing:.3px}
-.nav-item.active{color:var(--accent)}
-.nav-icon{font-size:20px}
-::-webkit-scrollbar{width:4px}
-::-webkit-scrollbar-track{background:transparent}
-::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:4px}
+:root{--void:#060b12;--deep:#0a1220;--layer:#0f1a2e;--surface:#142038;--raised:#1a2a48;--blood:#8b1a1a;--crimson:#c0392b;--scarlet:#e84343;--blush:rgba(200,60,60,0.12);--bone:#e8dcc8;--ivory:#f0e8d8;--marrow:#1e6b9e;--plasma:#2e86c1;--cyan:#5dade2;--ok:#27ae60;--t1:#e8dcc8;--t2:#9aa8be;--t3:#546278;--border:rgba(232,220,200,0.1);--border2:rgba(200,60,60,0.2);--r:10px;--r2:18px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{font-family:'Space Grotesk',sans-serif;background:var(--void);color:var(--t1);min-height:100dvh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 80% 50% at 50% -10%,rgba(139,26,26,0.15) 0%,transparent 60%),radial-gradient(ellipse 50% 80% at 90% 90%,rgba(30,107,158,0.08) 0%,transparent 50%);pointer-events:none}
+body::after{content:'';position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(232,220,200,0.015) 1px,transparent 1px),linear-gradient(90deg,rgba(232,220,200,0.015) 1px,transparent 1px);background-size:40px 40px;pointer-events:none}
+#app{position:relative;z-index:1;max-width:480px;margin:0 auto;padding-bottom:72px}
+.hdr{padding:14px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:.5px solid var(--border);position:sticky;top:0;background:rgba(6,11,18,0.93);backdrop-filter:blur(20px);z-index:40}
+.logo{display:flex;align-items:center;gap:10px}
+.logo-mk{width:34px;height:34px;background:linear-gradient(135deg,var(--blood),var(--crimson));border-radius:9px;display:grid;place-items:center;font-size:16px;box-shadow:0 0 20px rgba(139,26,26,0.4)}
+.logo-tx{font-family:'Playfair Display',serif;font-size:20px;font-weight:700;color:var(--bone)}
+.logo-tx em{color:var(--scarlet);font-style:normal}
+.logo-sb{font-size:9px;color:var(--t3);text-transform:uppercase;letter-spacing:1.5px;margin-top:1px}
+.btn-sm{width:34px;height:34px;border-radius:9px;border:.5px solid var(--border);background:var(--layer);color:var(--t2);cursor:pointer;display:grid;place-items:center;font-size:15px;transition:all .2s}
+.btn-sm:hover{background:var(--raised);color:var(--bone);border-color:var(--border2)}
+.nav{display:flex;gap:2px;padding:10px 18px 0;border-bottom:.5px solid var(--border);background:rgba(6,11,18,0.7);backdrop-filter:blur(10px);position:sticky;top:63px;z-index:39}
+.ntab{flex:1;padding:9px 4px 11px;border:none;background:transparent;font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:500;color:var(--t3);cursor:pointer;text-transform:uppercase;letter-spacing:.8px;transition:color .2s;position:relative}
+.ntab::after{content:'';position:absolute;bottom:0;left:10%;right:10%;height:2px;background:var(--scarlet);border-radius:2px 2px 0 0;transform:scaleX(0);transition:transform .25s}
+.ntab.on{color:var(--bone)}.ntab.on::after{transform:scaleX(1)}
+.pnl{display:none;padding:18px;animation:rise .3s ease}
+.pnl.on{display:block}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.slbl{font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.slbl::after{content:'';flex:1;height:.5px;background:var(--border)}
+.slbl .dot{width:5px;height:5px;border-radius:50%;background:var(--scarlet);flex-shrink:0}
+.card{background:var(--layer);border:.5px solid var(--border);border-radius:var(--r2);padding:16px;margin-bottom:12px}
+.card-red{border-color:var(--border2);background:linear-gradient(135deg,var(--layer),rgba(139,26,26,0.08))}
+.fld{margin-bottom:13px}.fld:last-child{margin-bottom:0}
+.flbl{display:block;font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:5px}
+input[type=text],input[type=date],input[type=number],input[type=password],select,textarea{width:100%;background:var(--surface);border:.5px solid var(--border);border-radius:var(--r);padding:10px 13px;color:var(--t1);font-family:'Space Grotesk',sans-serif;font-size:14px;outline:none;transition:border-color .2s,background .2s;-webkit-appearance:none}
+input:focus,select:focus,textarea:focus{border-color:var(--scarlet);background:var(--raised)}
+select option{background:var(--layer)}textarea{resize:vertical;min-height:76px;line-height:1.5}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.dropzone{border:1.5px dashed rgba(200,60,60,0.3);border-radius:var(--r);padding:28px 20px;text-align:center;cursor:pointer;transition:all .25s;position:relative;background:rgba(139,26,26,0.04)}
+.dropzone:hover{border-color:var(--scarlet);background:rgba(200,60,60,0.07)}
+.dropzone input{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
+.dz-ico{font-size:32px;margin-bottom:10px}.dz-ttl{font-size:14px;color:var(--t1);font-weight:500}.dz-sub{font-size:11px;color:var(--t3);margin-top:4px}
+.pstrip{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.pthumb{width:80px;height:80px;border-radius:8px;overflow:hidden;position:relative;border:.5px solid var(--border);flex-shrink:0}
+.pthumb img{width:100%;height:100%;object-fit:cover}
+.pthumb .del{position:absolute;top:3px;right:3px;width:18px;height:18px;background:rgba(0,0,0,.8);border-radius:50%;border:none;color:white;font-size:10px;cursor:pointer;display:grid;place-items:center}
+.btn-p{width:100%;padding:15px;background:linear-gradient(135deg,var(--blood),var(--crimson));border:none;border-radius:var(--r2);color:var(--ivory);font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:all .3s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:14px;box-shadow:0 4px 20px rgba(139,26,26,0.35)}
+.btn-p:hover{transform:translateY(-1px);box-shadow:0 8px 28px rgba(139,26,26,0.5)}
+.btn-p:disabled{opacity:.45;cursor:not-allowed;transform:none;box-shadow:none}
+.btn-s{flex:1;padding:11px;border-radius:var(--r);border:.5px solid var(--border);background:var(--layer);color:var(--t2);font-family:'Space Grotesk',sans-serif;font-size:12px;font-weight:500;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:5px}
+.btn-s:hover{background:var(--raised);color:var(--t1)}
+.btn-s.red{color:var(--scarlet);border-color:var(--border2)}
+.brow{display:flex;gap:8px;margin-top:10px}
+.btn-sv{width:100%;padding:13px;background:var(--surface);border:.5px solid var(--scarlet);border-radius:var(--r);color:var(--scarlet);font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:500;cursor:pointer;transition:all .2s;margin-top:8px}
+.btn-sv:hover{background:rgba(200,60,60,0.1)}
+.modesw{display:flex;gap:4px;background:var(--surface);border-radius:12px;padding:4px;margin-bottom:16px}
+.mbtn{flex:1;padding:8px;border:none;background:transparent;border-radius:9px;color:var(--t3);font-family:'Space Grotesk',sans-serif;font-size:11px;font-weight:500;cursor:pointer;transition:all .2s;text-transform:uppercase;letter-spacing:.5px}
+.mbtn.on{background:var(--raised);color:var(--bone);box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.loading{display:none;padding:48px 20px;text-align:center}
+.loading.on{display:block}
+.pring{width:56px;height:56px;margin:0 auto 20px;border-radius:50%;position:relative}
+.pring::before,.pring::after{content:'';position:absolute;inset:0;border-radius:50%;border:2px solid var(--scarlet)}
+.pring::before{animation:pa .9s ease-out infinite}
+.pring::after{animation:pa .9s ease-out .45s infinite}
+.pinn{position:absolute;inset:12px;background:linear-gradient(135deg,var(--blood),var(--crimson));border-radius:50%;display:grid;place-items:center;font-size:14px}
+@keyframes pa{0%{opacity:1;transform:scale(.6)}100%{opacity:0;transform:scale(1.4)}}
+.lttl{font-size:14px;color:var(--t1);font-weight:500}
+.lstep{font-size:11px;color:var(--t3);margin-top:5px;font-family:'JetBrains Mono',monospace}
+.qres{display:none}.qres.on{display:block}
+.qrhdr{background:linear-gradient(135deg,var(--layer),rgba(139,26,26,0.15));border:.5px solid var(--border2);border-radius:var(--r2);padding:16px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:flex-start}
+.qrttl{font-family:'Playfair Display',serif;font-size:17px;color:var(--bone)}
+.qrbdg{font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;padding:3px 10px;border-radius:20px;background:rgba(39,174,96,.15);color:#5dba7e;border:.5px solid rgba(39,174,96,.3)}
+.cblk{background:var(--layer);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:8px}
+.cblk-ttl{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.bdg{font-size:9px;padding:2px 7px;border-radius:10px;font-weight:600}
+.be{background:rgba(231,76,60,.15);color:#e97;border:.5px solid rgba(231,76,60,.3)}
+.bg{background:rgba(52,152,219,.15);color:#7be;border:.5px solid rgba(52,152,219,.3)}
+.bm{background:rgba(155,89,182,.15);color:#c9a;border:.5px solid rgba(155,89,182,.3)}
+.bo{background:rgba(243,156,18,.15);color:#fb8;border:.5px solid rgba(243,156,18,.3)}
+.crow{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.crow:last-child{margin-bottom:0}
+.cnm{font-size:12px;color:var(--t2);min-width:130px}
+.cbw{flex:1;background:var(--surface);border-radius:4px;height:6px;overflow:hidden}
+.cbar{height:100%;border-radius:4px;transition:width .8s cubic-bezier(.4,0,.2,1)}
+.cpct{font-size:11px;color:var(--t1);font-family:'JetBrains Mono',monospace;min-width:36px;text-align:right}
+.cbar.e{background:linear-gradient(90deg,#c0392b,#e74c3c)}
+.cbar.g{background:linear-gradient(90deg,#2980b9,#3498db)}
+.cbar.m{background:linear-gradient(90deg,#8e44ad,#9b59b6)}
+.cbar.o{background:linear-gradient(90deg,#d35400,#e67e22)}
+.rchip{display:inline-flex;align-items:center;gap:6px;background:var(--surface);border:.5px solid var(--border);border-radius:20px;padding:5px 12px;font-size:12px;color:var(--t1);font-family:'JetBrains Mono',monospace;margin-bottom:10px}
+.rchip .rl{font-family:'Space Grotesk',sans-serif;font-size:10px;color:var(--t3)}
+.kbox{background:linear-gradient(135deg,var(--layer),rgba(139,26,26,0.12));border:.5px solid var(--border2);border-radius:var(--r);padding:14px;margin-bottom:8px}
+.kbox .kl{font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:1.2px;margin-bottom:7px}
+.kdx{font-family:'Playfair Display',serif;font-style:italic;font-size:15px;color:var(--bone);line-height:1.5}
+.kks{font-size:13px;color:var(--t1);line-height:1.6}
+.kct{font-size:12px;color:var(--t2);line-height:1.5;font-style:italic}
+.sim-item{background:var(--surface);border:.5px solid var(--border);border-radius:8px;padding:10px 12px;margin-bottom:6px;display:flex;justify-content:space-between;align-items:flex-start}
+.sim-dx{font-size:12px;color:var(--t1);font-style:italic}
+.sim-mt{font-size:10px;color:var(--t3);margin-top:2px;font-family:'JetBrains Mono',monospace}
+.sim-sc{font-size:10px;color:var(--scarlet);font-weight:600;font-family:'JetBrains Mono',monospace}
+.hitm{background:var(--layer);border:.5px solid var(--border);border-radius:var(--r);padding:14px;margin-bottom:8px;cursor:pointer;transition:all .2s}
+.hitm:hover{border-color:var(--border2);background:var(--raised)}
+.hnm{font-size:14px;font-weight:500;color:var(--bone)}
+.hdx{font-size:12px;color:var(--scarlet);margin-top:3px;font-style:italic;font-family:'Playfair Display',serif}
+.hmt{font-size:10px;color:var(--t3);margin-top:5px;font-family:'JetBrains Mono',monospace}
+.empty{text-align:center;padding:60px 20px;color:var(--t3)}
+.empty-i{font-size:44px;margin-bottom:12px;opacity:.4}
+.ov{display:none}
+.ov.on{display:block;position:fixed;inset:0;z-index:100;background:var(--void);overflow-y:auto}
+.ovhdr{display:flex;align-items:center;gap:12px;padding:16px 18px;border-bottom:.5px solid var(--border);position:sticky;top:0;background:rgba(6,11,18,.95);z-index:10}
+.ovttl{font-family:'Playfair Display',serif;font-size:18px;color:var(--bone)}
+.ovbdy{padding:18px}
+.abdg{display:inline-flex;align-items:center;gap:5px;font-size:10px;padding:3px 10px;border-radius:20px;margin-top:6px}
+.abdg.ok{background:rgba(39,174,96,.15);color:#5dba7e}
+.abdg.err{background:rgba(231,76,60,.15);color:var(--scarlet)}
+.adot{width:5px;height:5px;border-radius:50%;background:currentColor}
+.ipill{background:rgba(93,173,226,.07);border:.5px solid rgba(93,173,226,.2);border-radius:var(--r);padding:11px 13px;font-size:11px;color:var(--t2);line-height:1.6;margin-top:8px}
+.ipill a{color:var(--cyan);text-decoration:none}
+.toast{position:fixed;bottom:82px;left:50%;transform:translateX(-50%);background:var(--raised);border:.5px solid var(--border);border-radius:30px;padding:9px 18px;font-size:12px;color:var(--t1);z-index:200;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap}
+.toast.on{opacity:1}
+.dock{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;background:rgba(6,11,18,.95);backdrop-filter:blur(24px);border-top:.5px solid var(--border);display:flex;padding:6px 0 max(6px,env(safe-area-inset-bottom));z-index:50}
+.dbtn{flex:1;border:none;background:transparent;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:3px;padding:6px;color:var(--t3);font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;transition:color .2s}
+.dbtn.on{color:var(--bone)}
+.dbtn.on .di{filter:drop-shadow(0 0 6px rgba(200,60,60,.6))}
+.di{font-size:20px}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--raised);border-radius:3px}
 </style>
 </head>
 <body>
 <div id="app">
-  <div class="header">
-    <div class="header-brand">
-      <div class="header-logo">BMA<span>·</span>AI</div>
-      <div class="header-sub">Interpretasi Sumsum Tulang</div>
-    </div>
-    <button class="btn-icon" onclick="showSettings()">⚙</button>
+<div class="hdr">
+  <div class="logo">
+    <div class="logo-mk">🔬</div>
+    <div><div class="logo-tx">BMA<em>·</em>AI</div><div class="logo-sb">Interpretasi Sumsum Tulang</div></div>
   </div>
+  <button class="btn-sm" onclick="openOv()">⚙</button>
+</div>
+<div class="nav">
+  <button class="ntab on" id="nt-q" onclick="goTab('q')">⚡ Cepat</button>
+  <button class="ntab" id="nt-i" onclick="goTab('i')">📝 Input</button>
+  <button class="ntab" id="nt-h" onclick="goTab('h')">🗂 Riwayat</button>
+</div>
 
-  <!-- Panel Input -->
-  <div id="panel-input" class="panel active">
-    <div class="section-title">Data Pasien</div>
-    <div class="card">
-      <div class="row2">
-        <div class="field"><label>Nama Pasien</label><input type="text" id="nama" placeholder="Tn. / Ny. ..."></div>
-        <div class="field"><label>Umur</label><input type="text" id="umur" placeholder="60 Tahun"></div>
-      </div>
-      <div class="row2">
-        <div class="field"><label>Tanggal</label><input type="date" id="tanggal"></div>
-        <div class="field"><label>Lokasi</label>
-          <select id="lokasi"><option>SIPS Kiri</option><option>SIPS Kanan</option><option>SIAS Kiri</option><option>SIAS Kanan</option><option>Sternum</option></select>
-        </div>
-      </div>
-      <div class="field"><label>Keterangan Klinis</label><input type="text" id="klinis" placeholder="Susp. ..."></div>
+<!-- TAB CEPAT -->
+<div class="pnl on" id="pnl-q">
+  <div class="slbl"><span class="dot"></span>Upload Foto Morfologi</div>
+  <div class="card card-red">
+    <div class="dropzone" id="qDrop">
+      <input type="file" id="qFi" accept="image/*" multiple onchange="addPh(this,'q')">
+      <div class="dz-ico">🩸</div>
+      <div class="dz-ttl">Upload foto apusan sumsum tulang</div>
+      <div class="dz-sub">JPG/PNG · hingga 5 foto · AI hitung sel otomatis</div>
     </div>
-
-    <div class="section-title">Hasil Pemeriksaan</div>
-    <div class="card">
-      <div class="row2">
-        <div class="field"><label>Konsistensi</label>
-          <select id="konsistensi"><option>Normal</option><option>Menurun</option><option>Meningkat</option></select>
-        </div>
-        <div class="field"><label>Selularitas</label>
-          <select id="selularitas"><option>Hiperseluler</option><option>Normoselular</option><option>Hiposeluler</option><option>Sangat hiposeluler</option></select>
-        </div>
-      </div>
-      <div class="field"><label>M:E Ratio</label><input type="text" id="me_ratio" placeholder="3 : 1"></div>
-      <div class="row2">
-        <div class="field"><label>Eritropoiesis</label>
-          <select id="eritro_akt"><option>Normal</option><option>Menurun</option><option>Meningkat</option></select>
-        </div>
-        <div class="field"><label>Proporsi (%)</label><input type="number" id="eritro_pct" placeholder="20" min="0" max="100"></div>
-      </div>
-      <div class="row2">
-        <div class="field"><label>Granulopoiesis</label>
-          <select id="granulo_akt"><option>Normal</option><option>Menurun</option><option>Meningkat</option></select>
-        </div>
-        <div class="field"><label>Proporsi (%)</label><input type="number" id="granulo_pct" placeholder="60" min="0" max="100"></div>
-      </div>
-      <div class="row2">
-        <div class="field"><label>Megakariopoiesis</label>
-          <select id="mega_akt"><option>Normal</option><option>Menurun</option><option>Meningkat</option></select>
-        </div>
-        <div class="field"><label>Temuan Mega</label><input type="text" id="mega_temuan" placeholder="Adequate..."></div>
-      </div>
-      <div class="field"><label>Sel Lain</label><textarea id="sel_lain" placeholder="Tidak ditemukan sel non hematopoietik..."></textarea></div>
-    </div>
-
-    <div class="section-title">Foto Morfologi</div>
-    <div class="card">
-      <div class="photo-zone" id="photoZone">
-        <input type="file" id="photoInput" accept="image/*" multiple onchange="handlePhotos(this)">
-        <div class="photo-icon">🔬</div>
-        <div class="photo-label">Upload foto morfologi</div>
-        <div class="photo-sub">JPG/PNG · Maksimal 5 foto</div>
-      </div>
-      <div class="photo-grid" id="photoGrid"></div>
-    </div>
-
-    <button class="btn-analyze" id="btnAnalyze" onclick="analyze()">
-      <span>✦</span> Analisis &amp; Interpretasi
-    </button>
-
-    <div class="loading" id="loading">
-      <div class="spinner"></div>
-      <div class="loading-text">Menganalisis data BMA...</div>
-      <div class="loading-sub" id="loadingStep">Mencari kasus referensi</div>
-    </div>
-
-    <div class="result" id="result">
-      <div class="result-header">
-        <div class="result-title">Hasil Interpretasi</div>
-        <div class="result-badge">AI Generated</div>
-      </div>
-      <div class="result-block">
-        <div class="result-block-label">Kesan</div>
-        <div class="result-block-text" id="res-kesan"></div>
-      </div>
-      <div class="result-block result-kesimpulan">
-        <div class="result-block-label">Kesimpulan</div>
-        <div class="result-block-text" id="res-kesimpulan"></div>
-      </div>
-      <div class="result-block">
-        <div class="result-block-label">Catatan AI</div>
-        <div class="result-block-text" id="res-catatan" style="font-size:12px;color:var(--text2)"></div>
-      </div>
-      <div class="result-actions">
-        <button class="btn-action" onclick="copyResult()">📋 Salin</button>
-        <button class="btn-action primary" onclick="saveToHistory()">💾 Simpan</button>
-        <button class="btn-action" onclick="resetForm()">↺ Baru</button>
-      </div>
-    </div>
+    <div class="pstrip" id="qPs"></div>
   </div>
-
-  <!-- Panel History -->
-  <div id="panel-history" class="panel">
-    <div class="section-title">Riwayat Kasus</div>
-    <div id="historyList"></div>
+  <div class="slbl"><span class="dot"></span>Konteks Klinis (opsional)</div>
+  <div class="card">
+    <div class="fld"><label class="flbl">Keterangan Klinis</label><input type="text" id="qKl" placeholder="Susp. AML, anemia aplastik, dll..."></div>
+  </div>
+  <button class="btn-p" id="qBtn" onclick="quickAn()">🔬 Analisis Cepat</button>
+  <div class="loading" id="qLd"><div class="pring"><div class="pinn">🔬</div></div><div class="lttl">Menganalisis morfologi...</div><div class="lstep" id="qSt">Memindai foto</div></div>
+  <div class="qres" id="qR">
+    <div style="margin-top:16px"><div class="slbl"><span class="dot"></span>Komposisi Sel</div></div>
+    <div id="qRatio"></div>
+    <div class="cblk"><div class="cblk-ttl">Eritropoiesis <span class="bdg be" id="qEAk">—</span></div><div id="qEC"></div></div>
+    <div class="cblk"><div class="cblk-ttl">Granulopoiesis <span class="bdg bg" id="qGAk">—</span></div><div id="qGC"></div></div>
+    <div class="cblk"><div class="cblk-ttl">Megakariopoiesis <span class="bdg bm" id="qMAk">—</span></div><div id="qMC"></div></div>
+    <div class="cblk"><div class="cblk-ttl">Sel Lain <span class="bdg bo" id="qOLbl">—</span></div><div id="qOC"></div></div>
+    <div style="margin-top:14px"><div class="slbl"><span class="dot"></span>Interpretasi AI</div></div>
+    <div class="kbox"><div class="kl">Kesan</div><div class="kks" id="qKs"></div></div>
+    <div class="kbox"><div class="kl">Kesimpulan</div><div class="kdx" id="qKp"></div></div>
+    <div class="cblk"><div class="kl" style="font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Catatan AI</div><div class="kct" id="qCt"></div></div>
+    <div style="margin-top:14px"><div class="slbl"><span class="dot"></span>Kasus Serupa di Database</div></div>
+    <div id="qSim"></div>
+    <div class="brow"><button class="btn-s" onclick="cpQ()">📋 Salin</button><button class="btn-s red" onclick="svQ()">💾 Simpan</button><button class="btn-s" onclick="rstQ()">↺ Baru</button></div>
   </div>
 </div>
 
-<!-- Bottom Nav -->
-<div class="bottom-nav">
-  <button class="nav-item active" id="nav-input" onclick="switchTab('input',this)">
-    <span class="nav-icon">🔬</span>Input
-  </button>
-  <button class="nav-item" id="nav-history" onclick="switchTab('history',this)">
-    <span class="nav-icon">📋</span>Riwayat
-  </button>
+<!-- TAB INPUT -->
+<div class="pnl" id="pnl-i">
+  <div class="modesw">
+    <button class="mbtn on" id="mm" onclick="swMode('m')">✍ Manual</button>
+    <button class="mbtn" id="mf" onclick="swMode('f')">📄 Upload File</button>
+  </div>
+  <div id="iMan">
+    <div class="slbl"><span class="dot"></span>Data Pasien</div>
+    <div class="card">
+      <div class="g2"><div class="fld"><label class="flbl">Nama</label><input type="text" id="iNm" placeholder="Tn./Ny. ..."></div><div class="fld"><label class="flbl">Umur</label><input type="text" id="iUm" placeholder="60 Tahun"></div></div>
+      <div class="g2"><div class="fld"><label class="flbl">Tanggal</label><input type="date" id="iTg"></div><div class="fld"><label class="flbl">Lokasi</label><select id="iLo"><option>SIPS Kiri</option><option>SIPS Kanan</option><option>SIAS Kiri</option><option>SIAS Kanan</option><option>Sternum</option></select></div></div>
+      <div class="fld"><label class="flbl">Keterangan Klinis</label><input type="text" id="iKl" placeholder="Susp. ..."></div>
+    </div>
+    <div class="slbl"><span class="dot"></span>Hasil Pemeriksaan</div>
+    <div class="card">
+      <div class="g2"><div class="fld"><label class="flbl">Konsistensi</label><select id="iKo"><option>Normal</option><option>Menurun</option><option>Meningkat</option></select></div><div class="fld"><label class="flbl">Selularitas</label><select id="iSe"><option>Hiperseluler</option><option>Normoselular</option><option>Hiposeluler</option><option>Sangat hiposeluler</option></select></div></div>
+      <div class="fld"><label class="flbl">M:E Ratio</label><input type="text" id="iME" placeholder="3 : 1"></div>
+      <div class="g2"><div class="fld"><label class="flbl">Eritropoiesis</label><select id="iEA"><option>Normal</option><option>Menurun</option><option>Meningkat</option></select></div><div class="fld"><label class="flbl">Proporsi %</label><input type="number" id="iEP" placeholder="20" min="0" max="100"></div></div>
+      <div class="g2"><div class="fld"><label class="flbl">Granulopoiesis</label><select id="iGA"><option>Normal</option><option>Menurun</option><option>Meningkat</option></select></div><div class="fld"><label class="flbl">Proporsi %</label><input type="number" id="iGP" placeholder="60" min="0" max="100"></div></div>
+      <div class="g2"><div class="fld"><label class="flbl">Megakario</label><select id="iMA"><option>Normal</option><option>Menurun</option><option>Meningkat</option></select></div><div class="fld"><label class="flbl">Temuan Mega</label><input type="text" id="iMT" placeholder="Adequate..."></div></div>
+      <div class="fld"><label class="flbl">Sel Lain</label><textarea id="iSL" placeholder="Tidak ditemukan sel non hematopoietik..."></textarea></div>
+    </div>
+    <div class="slbl"><span class="dot"></span>Foto (opsional)</div>
+    <div class="card">
+      <div class="dropzone"><input type="file" id="iFi" accept="image/*" multiple onchange="addPh(this,'i')"><div class="dz-ico">📷</div><div class="dz-ttl">Upload foto</div><div class="dz-sub">Opsional · maks 5</div></div>
+      <div class="pstrip" id="iPs"></div>
+    </div>
+    <button class="btn-p" id="iBtn" onclick="inputAn()">✦ Analisis &amp; Interpretasi</button>
+    <div class="loading" id="iLd"><div class="pring"><div class="pinn">🧬</div></div><div class="lttl">Menganalisis data BMA...</div><div class="lstep" id="iSt">Mencari kasus referensi</div></div>
+    <div class="qres" id="iR">
+      <div style="margin-top:16px"><div class="slbl"><span class="dot"></span>Hasil Interpretasi</div></div>
+      <div class="kbox"><div class="kl">Kesan</div><div class="kks" id="iKs"></div></div>
+      <div class="kbox"><div class="kl">Kesimpulan</div><div class="kdx" id="iKp"></div></div>
+      <div class="cblk"><div class="kl" style="font-size:9px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:1px;margin-bottom:6px">Catatan AI</div><div class="kct" id="iCt"></div></div>
+      <div class="brow"><button class="btn-s" onclick="cpI()">📋 Salin</button><button class="btn-s red" onclick="svI()">💾 Simpan</button><button class="btn-s" onclick="rstI()">↺ Baru</button></div>
+    </div>
+  </div>
+  <div id="iFile" style="display:none">
+    <div class="slbl"><span class="dot"></span>Upload File Word</div>
+    <div class="card">
+      <div class="dropzone" style="border-color:rgba(93,173,226,0.3);background:rgba(93,173,226,0.04)">
+        <input type="file" id="dFi" accept=".doc,.docx" multiple onchange="handleDoc(this)">
+        <div class="dz-ico">📄</div><div class="dz-ttl">Upload file .doc / .docx</div>
+        <div class="dz-sub">Laporan BMA dalam format Word · AI ekstrak otomatis</div>
+      </div>
+      <div id="dList" style="margin-top:10px"></div>
+    </div>
+    <button class="btn-p" id="dBtn" onclick="procDoc()" style="display:none">⚡ Proses File</button>
+    <div class="loading" id="dLd"><div class="pring"><div class="pinn">📄</div></div><div class="lttl">Memproses file...</div><div class="lstep" id="dSt">Mengekstrak teks</div></div>
+    <div id="dResults"></div>
+  </div>
 </div>
 
-<!-- Settings -->
-<div class="settings-panel" id="settingsPanel">
-  <div class="settings-header">
-    <button class="btn-icon" onclick="hideSettings()">←</button>
-    <div class="settings-title">Pengaturan</div>
-  </div>
-  <div class="settings-body">
-    <div class="section-title">Gemini API Key</div>
-    <div class="card">
-      <div class="field">
-        <label>API Key Anda</label>
-        <input type="password" id="apiKey" placeholder="AIza...">
-        <div id="apiStatus"></div>
-      </div>
-      <div class="info-box">
-        Dapatkan API Key gratis di <a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a> → Get API Key.<br>
-        Key disimpan hanya di browser Anda, tidak dikirim ke server manapun.
-      </div>
-      <button class="btn-save" onclick="saveApiKey()">Simpan API Key</button>
-    </div>
+<!-- TAB RIWAYAT -->
+<div class="pnl" id="pnl-h">
+  <div class="slbl"><span class="dot"></span>Riwayat Kasus</div>
+  <div id="hList"></div>
+</div>
+</div>
 
-    <div class="section-title">Database (Google Drive)</div>
-    <div class="card">
-      <div class="field">
-        <label>File ID — kasus_index.json</label>
-        <input type="text" id="driveFileId" placeholder="1BxiMVs0XRA5nFMdKvBd...">
-      </div>
-      <div class="info-box">
-        Buka <b>kasus_index.json</b> di Google Drive → klik kanan → <b>Get link</b> → salin ID dari URL.<br>
-        Contoh: drive.google.com/file/d/<b style="color:var(--accent)">INI_FILE_ID_NYA</b>/view
-      </div>
-      <button class="btn-save" onclick="saveDriveId()">Simpan &amp; Muat Database</button>
-      <div id="dbStatus" style="margin-top:8px;font-size:12px;color:var(--text3)"></div>
-    </div>
+<!-- DOCK -->
+<div class="dock">
+  <button class="dbtn on" id="db-q" onclick="goTab('q')"><span class="di">⚡</span>Cepat</button>
+  <button class="dbtn" id="db-i" onclick="goTab('i')"><span class="di">📝</span>Input</button>
+  <button class="dbtn" id="db-h" onclick="goTab('h')"><span class="di">🗂</span>Riwayat</button>
+</div>
 
-    <div class="section-title">Tentang</div>
+<!-- SETTINGS -->
+<div class="ov" id="ovSet">
+  <div class="ovhdr"><button class="btn-sm" onclick="closeOv()">←</button><div class="ovttl">Pengaturan</div></div>
+  <div class="ovbdy">
+    <div class="slbl"><span class="dot"></span>Gemini API Key</div>
     <div class="card">
-      <div style="font-size:13px;color:var(--text2);line-height:1.7">
-        <b style="color:var(--text)">BMA·AI v1.0</b><br>
-        Interpretasi Bone Marrow Aspiration berbasis AI untuk Sp.PK.<br><br>
-        AI Engine · Google Gemini API (key milik user)<br>
-        Database · Google Drive (2.636 kasus)<br>
-        Hosting · GitHub Pages (gratis)<br><br>
-        <span style="color:var(--text3)">Nama pasien dianonimkan. Data tidak dikirim ke server selain Gemini API.</span>
+      <div class="fld"><label class="flbl">API Key Anda</label><input type="password" id="sKey" placeholder="AIza..."><div id="sSt"></div></div>
+      <div class="ipill">Gratis di <a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a> → Get API Key. Tersimpan hanya di browser Anda.</div>
+      <button class="btn-sv" onclick="svKey()">Simpan API Key</button>
+    </div>
+    <div class="slbl"><span class="dot"></span>Database Google Drive</div>
+    <div class="card">
+      <div class="fld"><label class="flbl">File ID — kasus_index.json</label><input type="text" id="sDr" placeholder="1BxiMVs0XRA5..."></div>
+      <div class="ipill">GDrive → klik kanan kasus_index.json → <b>Get link</b><br>Salin ID dari URL. Pastikan sharing: <b>Anyone with the link</b></div>
+      <button class="btn-sv" onclick="svDr()">Simpan &amp; Muat Database</button>
+      <div id="sDb" style="margin-top:8px;font-size:11px;color:var(--t3)"></div>
+    </div>
+    <div class="slbl"><span class="dot"></span>Tentang</div>
+    <div class="card">
+      <div style="font-size:12px;color:var(--t2);line-height:1.8">
+        <b style="color:var(--bone);font-family:'Playfair Display',serif;font-size:15px">BMA·AI v2.0</b><br>
+        Interpretasi Bone Marrow Aspiration untuk Sp.PK Indonesia<br><br>
+        🧬 AI Engine · Google Gemini 2.0 Flash<br>
+        🗄 Database · Google Drive (2.636 kasus)<br>
+        🌐 Hosting · GitHub Pages · 💰 Rp 0<br><br>
+        <span style="color:var(--t3)">Data pasien dianonimkan. Key tidak disimpan di server.</span>
       </div>
     </div>
   </div>
 </div>
 
-<div class="toast" id="toast"></div>
+<div class="toast" id="tst"></div>
 
 <script>
-let photos = [], caseDB = null, lastResult = null;
+'use strict';
+let qPh=[],iPh=[],docF=[],caseDB=null,qLast=null,iLast=null;
 
-document.addEventListener('DOMContentLoaded', () => {
-  document.getElementById('tanggal').valueAsDate = new Date();
-  const k = localStorage.getItem('gemini_key');
-  if (k) { document.getElementById('apiKey').value = k; updateApiStatus(true); }
-  const d = localStorage.getItem('drive_file_id');
-  if (d) { document.getElementById('driveFileId').value = d; loadCaseDB(d); }
-  renderHistory();
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('iTg').valueAsDate=new Date();
+  const k=localStorage.getItem('bma_k');
+  if(k){document.getElementById('sKey').value=k;setAS(true);}
+  const d=localStorage.getItem('bma_d');
+  if(d){document.getElementById('sDr').value=d;loadDB(d);}
+  renderH();
 });
 
-function showSettings() { document.getElementById('settingsPanel').classList.add('show'); }
-function hideSettings()  { document.getElementById('settingsPanel').classList.remove('show'); }
-
-function saveApiKey() {
-  const k = document.getElementById('apiKey').value.trim();
-  if (!k) { showToast('Masukkan API Key terlebih dahulu'); return; }
-  localStorage.setItem('gemini_key', k);
-  updateApiStatus(true);
-  showToast('✅ API Key tersimpan');
+function goTab(t){
+  ['q','i','h'].forEach(x=>{
+    document.getElementById('pnl-'+x).classList.toggle('on',x===t);
+    document.getElementById('nt-'+x).classList.toggle('on',x===t);
+    document.getElementById('db-'+x).classList.toggle('on',x===t);
+  });
+  if(t==='h')renderH();
 }
 
-function updateApiStatus(ok) {
-  document.getElementById('apiStatus').innerHTML = ok
-    ? '<div class="api-status ok"><div class="api-dot"></div>API Key tersimpan</div>'
-    : '<div class="api-status err"><div class="api-dot"></div>Belum diset</div>';
+function swMode(m){
+  document.getElementById('iMan').style.display=m==='m'?'block':'none';
+  document.getElementById('iFile').style.display=m==='f'?'block':'none';
+  document.getElementById('mm').classList.toggle('on',m==='m');
+  document.getElementById('mf').classList.toggle('on',m==='f');
 }
 
-function saveDriveId() {
-  const id = document.getElementById('driveFileId').value.trim();
-  if (!id) { showToast('Masukkan File ID terlebih dahulu'); return; }
-  localStorage.setItem('drive_file_id', id);
-  caseDB = null;
-  loadCaseDB(id);
+function openOv(){document.getElementById('ovSet').classList.add('on');}
+function closeOv(){document.getElementById('ovSet').classList.remove('on');}
+
+function svKey(){
+  const k=document.getElementById('sKey').value.trim();
+  if(!k){tst('Masukkan API Key dulu');return;}
+  localStorage.setItem('bma_k',k);setAS(true);tst('✅ API Key tersimpan');
+}
+function setAS(ok){
+  document.getElementById('sSt').innerHTML=`<div class="abdg ${ok?'ok':'err'}"><div class="adot"></div>${ok?'Tersimpan':'Belum diset'}</div>`;
+}
+function svDr(){
+  const id=document.getElementById('sDr').value.trim();
+  if(!id){tst('Masukkan File ID dulu');return;}
+  localStorage.setItem('bma_d',id);caseDB=null;loadDB(id);
+}
+async function loadDB(id){
+  const st=document.getElementById('sDb');
+  if(st)st.textContent='⏳ Memuat...';
+  try{
+    const r=await fetch(`https://drive.google.com/uc?export=download&id=${id}`);
+    if(!r.ok)throw new Error('Gagal');
+    caseDB=await r.json();
+    const n=caseDB.meta?.total_kasus||caseDB.kasus?.length||0;
+    if(st)st.textContent=`✅ ${n} kasus dimuat`;
+    tst(`✅ Database: ${n} kasus`);
+  }catch(e){if(st)st.textContent='❌ Gagal — pastikan "Anyone with the link"';}
 }
 
-async function loadCaseDB(fileId) {
-  if (!fileId) return;
-  const st = document.getElementById('dbStatus');
-  if (st) st.textContent = '⏳ Memuat database...';
-  try {
-    const url = `https://drive.google.com/uc?export=download&id=${fileId}`;
-    const res = await fetch(url);
-    if (!res.ok) throw new Error('Gagal mengunduh');
-    caseDB = await res.json();
-    const n = caseDB.meta?.total_kasus || caseDB.kasus?.length || 0;
-    if (st) st.textContent = `✅ Database dimuat: ${n} kasus`;
-    showToast(`✅ Database: ${n} kasus siap`);
-  } catch(e) {
-    if (st) st.textContent = '❌ Gagal memuat — pastikan file dibagikan (Anyone with link)';
-    console.warn('DB:', e.message);
-  }
+function findSim(kl,sel,slain,me,k=4){
+  if(!caseDB?.kasus?.length)return[];
+  const q=[kl,sel,slain].join(' ').toLowerCase();
+  return caseDB.kasus.map(x=>{
+    let s=0;
+    const kt=[x.keterangan_klinis,x.selularitas,x.sel_lain,x.kesimpulan].join(' ').toLowerCase();
+    q.split(/\s+/).filter(w=>w.length>3).forEach(w=>{if(kt.includes(w))s++;});
+    if(x.selularitas?.toLowerCase()===(sel||'').toLowerCase())s+=3;
+    const mi=parseFloat(me),mk=parseFloat(x.me_ratio);
+    if(!isNaN(mi)&&!isNaN(mk)&&Math.abs(mi-mk)<1)s+=2;
+    return{...x,_s:s};
+  }).filter(x=>x._s>0&&x.kesimpulan).sort((a,b)=>b._s-a._s).slice(0,k);
 }
 
-function findSimilarCases(d, topK=5) {
-  if (!caseDB?.kasus?.length) return [];
-  const q = [d.klinis, d.selularitas, d.sel_lain].join(' ').toLowerCase();
-  return caseDB.kasus
-    .map(k => {
-      let s = 0;
-      const kt = [k.keterangan_klinis, k.selularitas, k.sel_lain, k.kesimpulan].join(' ').toLowerCase();
-      q.split(/\s+/).filter(w=>w.length>3).forEach(w => { if(kt.includes(w)) s++; });
-      if (k.selularitas?.toLowerCase() === d.selularitas?.toLowerCase()) s += 3;
-      const mi = parseFloat(d.me_ratio), mk = parseFloat(k.me_ratio);
-      if (!isNaN(mi) && !isNaN(mk) && Math.abs(mi-mk) < 1) s += 2;
-      return {...k, _s: s};
-    })
-    .filter(k => k._s > 0 && k.kesimpulan)
-    .sort((a,b) => b._s - a._s)
-    .slice(0, topK);
+function ragCtx(sim){
+  if(!sim.length)return'';
+  return`\n\nKASUS REFERENSI (${sim.length}):\n`+sim.map((x,i)=>`[${i+1}] Klinis:${x.keterangan_klinis}|Sel:${x.selularitas}|ME:${x.me_ratio}|SelLain:${(x.sel_lain||'').slice(0,80)}|Dx:${x.kesimpulan}`).join('\n');
 }
 
-function handlePhotos(input) {
-  const rem = 5 - photos.length;
-  Array.from(input.files).slice(0, rem).forEach(f => {
-    const r = new FileReader();
-    r.onload = e => { photos.push({file:f, dataUrl:e.target.result}); renderPhotoGrid(); };
+function addPh(inp,pfx){
+  const arr=pfx==='q'?qPh:iPh;
+  const sid=pfx==='q'?'qPs':'iPs';
+  const rem=5-arr.length;
+  Array.from(inp.files).slice(0,rem).forEach(f=>{
+    const r=new FileReader();
+    r.onload=e=>{arr.push({file:f,url:e.target.result});renderPs(arr,sid,pfx);};
     r.readAsDataURL(f);
   });
-  if (input.files.length > rem) showToast('Maksimal 5 foto');
 }
-
-function removePhoto(i) { photos.splice(i,1); renderPhotoGrid(); }
-
-function renderPhotoGrid() {
-  document.getElementById('photoGrid').innerHTML = photos.map((p,i) =>
-    `<div class="photo-thumb"><img src="${p.dataUrl}"><button class="del" onclick="removePhoto(${i})">×</button></div>`
+function rmPh(pfx,i){
+  const arr=pfx==='q'?qPh:iPh;
+  const sid=pfx==='q'?'qPs':'iPs';
+  arr.splice(i,1);renderPs(arr,sid,pfx);
+}
+function renderPs(arr,sid,pfx){
+  document.getElementById(sid).innerHTML=arr.map((p,i)=>
+    `<div class="pthumb"><img src="${p.url}"><button class="del" onclick="rmPh('${pfx}',${i})">×</button></div>`
   ).join('');
 }
 
-async function analyze() {
-  const apiKey = localStorage.getItem('gemini_key');
-  if (!apiKey) { showToast('⚠️ Set API Key di Pengaturan dulu'); showSettings(); return; }
+async function callAI(prompt,photos){
+  const key=localStorage.getItem('bma_k');
+  if(!key){tst('⚠️ Set API Key di Pengaturan');openOv();throw new Error('nokey');}
+  const parts=[{text:prompt}];
+  photos.slice(0,3).forEach(p=>{parts.push({inline_data:{mime_type:p.file.type||'image/jpeg',data:p.url.split(',')[1]}});});
+  const res=await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${key}`,
+    {method:'POST',headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({contents:[{parts}],generationConfig:{temperature:0.2,maxOutputTokens:1500}})});
+  if(!res.ok){const e=await res.json();throw new Error(e.error?.message||'API error');}
+  const data=await res.json();
+  return data.candidates?.[0]?.content?.parts?.[0]?.text||'';
+}
+function pj(txt){try{return JSON.parse(txt.replace(/```json|```/g,'').trim());}catch{return null;}}
 
-  const d = {
-    nama: document.getElementById('nama').value || 'Pasien',
-    umur: document.getElementById('umur').value,
-    tanggal: document.getElementById('tanggal').value,
-    lokasi: document.getElementById('lokasi').value,
-    klinis: document.getElementById('klinis').value,
-    konsistensi: document.getElementById('konsistensi').value,
-    selularitas: document.getElementById('selularitas').value,
-    me_ratio: document.getElementById('me_ratio').value,
-    eritro_akt: document.getElementById('eritro_akt').value,
-    eritro_pct: document.getElementById('eritro_pct').value,
-    granulo_akt: document.getElementById('granulo_akt').value,
-    granulo_pct: document.getElementById('granulo_pct').value,
-    mega_akt: document.getElementById('mega_akt').value,
-    mega_temuan: document.getElementById('mega_temuan').value,
-    sel_lain: document.getElementById('sel_lain').value,
-  };
+async function quickAn(){
+  if(!qPh.length){tst('Upload minimal 1 foto dulu');return;}
+  const kl=document.getElementById('qKl').value;
+  document.getElementById('qBtn').disabled=true;
+  document.getElementById('qLd').classList.add('on');
+  document.getElementById('qR').classList.remove('on');
+  const steps=['Memindai morfologi sel...','Menghitung proporsi...','Mengidentifikasi jenis sel...','Menyusun interpretasi...'];
+  let si=0;const iv=setInterval(()=>{si=(si+1)%steps.length;document.getElementById('qSt').textContent=steps[si];},1800);
+  try{
+    const prompt=`Kamu adalah Sp.PK ahli morfologi sumsum tulang Indonesia.
+Analisis foto apusan sumsum tulang${kl?` dengan konteks klinis: "${kl}"`:'.'}.
+Jawab HANYA dalam JSON (tanpa teks lain):
+{"me_ratio":"X:1","eritropoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":25,"sel":[{"nama":"Pronormoblas","persen":2,"bar":"e"},{"nama":"Normoblas Basofilik","persen":5,"bar":"e"},{"nama":"Normoblas Polikromatik","persen":12,"bar":"e"},{"nama":"Normoblas Ortokromatik","persen":6,"bar":"e"}]},"granulopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":60,"sel":[{"nama":"Mieloblas","persen":1,"bar":"g"},{"nama":"Promielosit","persen":3,"bar":"g"},{"nama":"Mielosit","persen":8,"bar":"g"},{"nama":"Metamielosit","persen":10,"bar":"g"},{"nama":"Batang","persen":15,"bar":"g"},{"nama":"Segmen","persen":23,"bar":"g"}]},"megakariopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","temuan":"deskripsi","sel":[{"nama":"Megakariosit matur","persen":null,"bar":"m","catatan":"adequate"}]},"sel_lain":{"label":"deskripsi singkat","sel":[{"nama":"Limfosit matur","persen":5,"bar":"o"}]},"kesan":"Gambaran sumsum tulang ...","kesimpulan":"Gambaran sumsum tulang sesuai dengan ...","catatan":"Catatan singkat."}
+Isi sesuai temuan nyata dari foto. Jika tidak bisa dihitung, null.${ragCtx(findSim(kl,'','',null))}`;
+    const txt=await callAI(prompt,qPh);
+    const r=pj(txt);
+    if(!r)throw new Error('Format respons tidak valid');
+    qLast={data:r,kl,ts:new Date().toISOString()};
+    renderQR(r,kl);
+  }catch(e){if(e.message!=='nokey')tst('❌ '+e.message);}
+  finally{clearInterval(iv);document.getElementById('qLd').classList.remove('on');document.getElementById('qBtn').disabled=false;}
+}
 
-  document.getElementById('btnAnalyze').disabled = true;
-  document.getElementById('loading').classList.add('show');
-  document.getElementById('result').classList.remove('show');
+function renderQR(r,kl){
+  document.getElementById('qRatio').innerHTML=`<div class="rchip"><span class="rl">M:E Ratio</span>${r.me_ratio||'—'}</div>`;
+  document.getElementById('qEAk').textContent=r.eritropoiesis?.aktivitas||'—';
+  document.getElementById('qEC').innerHTML=renderCells(r.eritropoiesis?.sel||[]);
+  document.getElementById('qGAk').textContent=r.granulopoiesis?.aktivitas||'—';
+  document.getElementById('qGC').innerHTML=renderCells(r.granulopoiesis?.sel||[]);
+  document.getElementById('qMAk').textContent=r.megakariopoiesis?.aktivitas||'—';
+  document.getElementById('qMC').innerHTML=(r.megakariopoiesis?.temuan?`<div style="font-size:12px;color:var(--t2);margin-bottom:8px">${r.megakariopoiesis.temuan}</div>`:'')+renderCells(r.megakariopoiesis?.sel||[]);
+  document.getElementById('qOLbl').textContent=r.sel_lain?.label||'—';
+  document.getElementById('qOC').innerHTML=renderCells(r.sel_lain?.sel||[]);
+  document.getElementById('qKs').textContent=r.kesan||'—';
+  document.getElementById('qKp').textContent=r.kesimpulan||'—';
+  document.getElementById('qCt').textContent=r.catatan||'—';
+  const sim=findSim(kl,r.kesan,r.sel_lain?.label,r.me_ratio);
+  document.getElementById('qSim').innerHTML=sim.length
+    ?sim.map(x=>`<div class="sim-item"><div><div class="sim-dx">${x.kesimpulan||'—'}</div><div class="sim-mt">${x.keterangan_klinis||''} · ${x.tahun||''} · ${x.selularitas||''}</div></div><div class="sim-sc">${x._s}pt</div></div>`).join('')
+    :'<div style="font-size:12px;color:var(--t3);padding:8px">Tidak ada kasus serupa</div>';
+  document.getElementById('qR').classList.add('on');
+  document.getElementById('qR').scrollIntoView({behavior:'smooth',block:'start'});
+}
 
-  const steps = ['Mencari kasus referensi...','Menganalisis morfologi...','Menyusun interpretasi...','Memformat laporan...'];
-  let si = 0;
-  const iv = setInterval(() => { si=(si+1)%steps.length; document.getElementById('loadingStep').textContent=steps[si]; }, 2000);
+function renderCells(cells){
+  if(!cells.length)return'<div style="font-size:11px;color:var(--t3)">Tidak ditemukan</div>';
+  return cells.map(c=>{
+    const p=c.persen!==null&&c.persen!==undefined?c.persen:null;
+    const w=p!==null?Math.min(p*2,100):0;
+    return`<div class="crow"><div class="cnm">${c.nama}${c.catatan?` <span style="color:var(--t3);font-size:10px">(${c.catatan})</span>`:''}</div><div class="cbw"><div class="cbar ${c.bar||'o'}" style="width:${w}%"></div></div><div class="cpct">${p!==null?p+'%':'—'}</div></div>`;
+  }).join('');
+}
 
-  try {
-    const similar = findSimilarCases(d);
-    const rag = similar.length
-      ? `\n\nKASUS REFERENSI (${similar.length} kasus serupa):\n` +
-        similar.map((k,i) => `[${i+1}] Klinis:${k.keterangan_klinis}|Sel:${k.selularitas}|ME:${k.me_ratio}|SelLain:${(k.sel_lain||'').slice(0,80)}|Kesan:${(k.kesan||'').slice(0,100)}|Dx:${k.kesimpulan}`).join('\n')
-      : '';
-
-    const prompt = `Kamu adalah asisten Patologi Klinik Indonesia, ahli interpretasi BMA (Bone Marrow Aspiration).
-
-Jawab HANYA dalam format JSON berikut, tanpa teks lain:
-{"kesan":"...","kesimpulan":"...","catatan":"..."}
-
-Panduan:
-- kesan: gambaran deskriptif sumsum tulang (selularitas, sistem hematopoiesis, sel lain)
-- kesimpulan: diagnosis akhir, mulai dengan "Gambaran sumsum tulang sesuai dengan..."
-- catatan: diagnosis banding singkat atau saran pemeriksaan tambahan (1-2 kalimat)
-
+async function inputAn(){
+  const d={nm:document.getElementById('iNm').value||'Pasien',um:document.getElementById('iUm').value,tg:document.getElementById('iTg').value,lo:document.getElementById('iLo').value,kl:document.getElementById('iKl').value,ko:document.getElementById('iKo').value,se:document.getElementById('iSe').value,me:document.getElementById('iME').value,ea:document.getElementById('iEA').value,ep:document.getElementById('iEP').value,ga:document.getElementById('iGA').value,gp:document.getElementById('iGP').value,ma:document.getElementById('iMA').value,mt:document.getElementById('iMT').value,sl:document.getElementById('iSL').value};
+  document.getElementById('iBtn').disabled=true;
+  document.getElementById('iLd').classList.add('on');
+  document.getElementById('iR').classList.remove('on');
+  const steps=['Mencari kasus referensi...','Menganalisis data...','Menyusun interpretasi...','Memformat laporan...'];
+  let si=0;const iv=setInterval(()=>{si=(si+1)%steps.length;document.getElementById('iSt').textContent=steps[si];},2000);
+  try{
+    const sim=findSim(d.kl,d.se,d.sl,d.me);
+    const prompt=`Kamu adalah Sp.PK ahli interpretasi BMA Indonesia.
+Jawab HANYA dalam JSON: {"kesan":"...","kesimpulan":"...","catatan":"..."}
+- kesan: gambaran deskriptif sumsum tulang
+- kesimpulan: mulai "Gambaran sumsum tulang sesuai dengan..."
+- catatan: diagnosis banding + saran (1-2 kalimat)
 DATA:
-Klinis       : ${d.klinis}
-Lokasi       : ${d.lokasi}
-Konsistensi  : ${d.konsistensi}
-Selularitas  : ${d.selularitas}
-M:E Ratio    : ${d.me_ratio}
-Eritropoiesis: ${d.eritro_akt}, ${d.eritro_pct}%
-Granulopoiesis: ${d.granulo_akt}, ${d.granulo_pct}%
-Megakario    : ${d.mega_akt}, ${d.mega_temuan}
-Sel Lain     : ${d.sel_lain}
-${photos.length ? `Foto: ${photos.length} foto morfologi terlampir` : ''}
-${rag}`;
+Klinis:${d.kl}|Lokasi:${d.lo}|Konsistensi:${d.ko}|Selularitas:${d.se}|ME:${d.me}
+Eritropoiesis:${d.ea},${d.ep}%|Granulopoiesis:${d.ga},${d.gp}%|Megakario:${d.ma},${d.mt}
+Sel Lain:${d.sl}${iPh.length?`|Foto:${iPh.length} terlampir`:''}${ragCtx(sim)}`;
+    const txt=await callAI(prompt,iPh);
+    const r=pj(txt)||{kesan:txt.slice(0,200),kesimpulan:'',catatan:''};
+    iLast={inputData:d,...r,ts:new Date().toISOString()};
+    document.getElementById('iKs').textContent=r.kesan||'';
+    document.getElementById('iKp').textContent=r.kesimpulan||'';
+    document.getElementById('iCt').textContent=r.catatan||'';
+    document.getElementById('iR').classList.add('on');
+    document.getElementById('iR').scrollIntoView({behavior:'smooth',block:'start'});
+  }catch(e){if(e.message!=='nokey')tst('❌ '+e.message);}
+  finally{clearInterval(iv);document.getElementById('iLd').classList.remove('on');document.getElementById('iBtn').disabled=false;}
+}
 
-    const parts = [{text: prompt}];
-    photos.slice(0,3).forEach(p => {
-      parts.push({inline_data:{mime_type: p.file.type||'image/jpeg', data: p.dataUrl.split(',')[1]}});
-    });
+function handleDoc(inp){
+  docF=Array.from(inp.files);
+  document.getElementById('dList').innerHTML=docF.map(f=>`<div style="display:flex;align-items:center;gap:8px;padding:8px 12px;background:var(--surface);border-radius:8px;margin-bottom:4px;font-size:12px;color:var(--t2)">📄 ${f.name}<span style="color:var(--t3);margin-left:auto">${(f.size/1024).toFixed(0)} KB</span></div>`).join('');
+  document.getElementById('dBtn').style.display=docF.length?'flex':'none';
+}
 
-    const res = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`,
-      { method:'POST', headers:{'Content-Type':'application/json'},
-        body: JSON.stringify({contents:[{parts}], generationConfig:{temperature:0.3, maxOutputTokens:1024}}) }
-    );
-
-    if (!res.ok) { const e = await res.json(); throw new Error(e.error?.message||'API error'); }
-    const data = await res.json();
-    const text = data.candidates?.[0]?.content?.parts?.[0]?.text || '';
-
-    let parsed;
-    try {
-      parsed = JSON.parse(text.replace(/```json|```/g,'').trim());
-    } catch {
-      parsed = {
-        kesan: text.match(/kesan["\s:]+([^"}\n]+)/i)?.[1] || text.slice(0,200),
-        kesimpulan: text.match(/kesimpulan["\s:]+([^"}\n]+)/i)?.[1] || '',
-        catatan: 'Respons AI tidak terstruktur sempurna.'
-      };
+async function procDoc(){
+  if(!docF.length)return;
+  document.getElementById('dBtn').style.display='none';
+  document.getElementById('dLd').classList.add('on');
+  const steps=['Membaca file...','Mengekstrak teks...','Memproses AI...'];
+  let si=0;const iv=setInterval(()=>{si=(si+1)%steps.length;document.getElementById('dSt').textContent=steps[si];},2000);
+  try{
+    const results=[];
+    for(const f of docF){
+      try{
+        const txt=await new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=()=>rej();r.readAsText(f);});
+        results.push({file:f.name,ok:true,preview:txt.slice(0,100)});
+      }catch{results.push({file:f.name,ok:false});}
     }
-
-    lastResult = {...parsed, inputData: d, timestamp: new Date().toISOString()};
-    document.getElementById('res-kesan').textContent = parsed.kesan;
-    document.getElementById('res-kesimpulan').textContent = parsed.kesimpulan;
-    document.getElementById('res-catatan').textContent = parsed.catatan;
-    document.getElementById('result').classList.add('show');
-    document.getElementById('result').scrollIntoView({behavior:'smooth', block:'start'});
-
-  } catch(e) {
-    showToast('❌ ' + e.message);
-  } finally {
-    clearInterval(iv);
-    document.getElementById('loading').classList.remove('show');
-    document.getElementById('btnAnalyze').disabled = false;
-  }
+    document.getElementById('dResults').innerHTML=results.map(r=>`<div style="padding:10px 12px;background:var(--surface);border-radius:8px;margin-bottom:6px;font-size:12px"><b style="color:var(--bone)">${r.file}</b><br><span style="color:${r.ok?'var(--t2)':'var(--scarlet)'}">${r.ok?'✅ Berhasil dibaca':'❌ Gagal membaca'}</span></div>`).join('');
+    tst('✅ Selesai diproses');
+  }finally{clearInterval(iv);document.getElementById('dLd').classList.remove('on');document.getElementById('dBtn').style.display='flex';}
 }
 
-function copyResult() {
-  if (!lastResult) return;
-  navigator.clipboard.writeText(`KESAN:\n${lastResult.kesan}\n\nKESIMPULAN:\n${lastResult.kesimpulan}`)
-    .then(() => showToast('✅ Hasil disalin'));
+function svQ(){
+  if(!qLast)return;
+  const r=qLast.data;
+  const h=JSON.parse(localStorage.getItem('bma_h')||'[]');
+  h.unshift({type:'q',kl:qLast.kl,kesan:r.kesan,kesimpulan:r.kesimpulan,catatan:r.catatan,ts:qLast.ts});
+  localStorage.setItem('bma_h',JSON.stringify(h.slice(0,60)));
+  tst('✅ Tersimpan');renderH();
 }
-
-function saveToHistory() {
-  if (!lastResult) return;
-  const h = JSON.parse(localStorage.getItem('bma_history')||'[]');
-  h.unshift(lastResult);
-  localStorage.setItem('bma_history', JSON.stringify(h.slice(0,50)));
-  showToast('✅ Kasus tersimpan');
-  renderHistory();
+function svI(){
+  if(!iLast)return;
+  const h=JSON.parse(localStorage.getItem('bma_h')||'[]');
+  h.unshift({type:'i',...iLast});
+  localStorage.setItem('bma_h',JSON.stringify(h.slice(0,60)));
+  tst('✅ Tersimpan');renderH();
 }
-
-function resetForm() {
-  document.getElementById('result').classList.remove('show');
-  photos = []; renderPhotoGrid();
-  window.scrollTo({top:0,behavior:'smooth'});
-  lastResult = null;
+function renderH(){
+  const h=JSON.parse(localStorage.getItem('bma_h')||'[]');
+  const el=document.getElementById('hList');
+  if(!h.length){el.innerHTML='<div class="empty"><div class="empty-i">🗂</div><div>Belum ada kasus tersimpan</div></div>';return;}
+  el.innerHTML=h.map((x,i)=>{
+    const nm=x.inputData?.nm||(x.type==='q'?'Respons Cepat':'Pasien');
+    const um=x.inputData?.um||'';
+    const dx=x.kesimpulan||'—';
+    const kl=x.inputData?.kl||x.kl||'';
+    const tg=new Date(x.ts).toLocaleDateString('id-ID');
+    return`<div class="hitm" onclick="viewH(${i})"><div class="hnm">${x.type==='q'?'⚡':'📝'} ${nm}${um?' — '+um:''}</div><div class="hdx">${dx.slice(0,70)}</div><div class="hmt">${kl?kl+' · ':''}${tg}</div></div>`;
+  }).join('');
 }
-
-function renderHistory() {
-  const h = JSON.parse(localStorage.getItem('bma_history')||'[]');
-  const el = document.getElementById('historyList');
-  if (!h.length) {
-    el.innerHTML = '<div class="empty-state"><div class="empty-icon">📂</div><div class="empty-text">Belum ada kasus tersimpan</div></div>';
-    return;
-  }
-  el.innerHTML = h.map((k,i) => `
-    <div class="history-item" onclick="viewHistory(${i})">
-      <div class="history-name">${k.inputData?.nama||'Pasien'} — ${k.inputData?.umur||''}</div>
-      <div class="history-dx">${(k.kesimpulan||'—').slice(0,70)}</div>
-      <div class="history-meta">${k.inputData?.klinis||''} · ${new Date(k.timestamp).toLocaleDateString('id-ID')}</div>
-    </div>`).join('');
+function viewH(i){
+  const h=JSON.parse(localStorage.getItem('bma_h')||'[]');
+  const x=h[i];if(!x)return;
+  document.getElementById('iKs').textContent=x.kesan||'';
+  document.getElementById('iKp').textContent=x.kesimpulan||'';
+  document.getElementById('iCt').textContent=x.catatan||'';
+  document.getElementById('iR').classList.add('on');
+  iLast=x;goTab('i');
+  setTimeout(()=>document.getElementById('iR').scrollIntoView({behavior:'smooth'}),150);
 }
-
-function viewHistory(i) {
-  const h = JSON.parse(localStorage.getItem('bma_history')||'[]');
-  const k = h[i]; if (!k) return;
-  lastResult = k;
-  document.getElementById('res-kesan').textContent = k.kesan;
-  document.getElementById('res-kesimpulan').textContent = k.kesimpulan;
-  document.getElementById('res-catatan').textContent = k.catatan||'';
-  document.getElementById('result').classList.add('show');
-  switchTab('input', document.getElementById('nav-input'));
-  setTimeout(() => document.getElementById('result').scrollIntoView({behavior:'smooth'}), 100);
-}
-
-function switchTab(name, el) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-  document.getElementById('panel-'+name).classList.add('active');
-  el.classList.add('active');
-  if (name==='history') renderHistory();
-}
-
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg; t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
-}
+function cpQ(){if(!qLast)return;const r=qLast.data;navigator.clipboard.writeText(`KESAN:\n${r.kesan}\n\nKESIMPULAN:\n${r.kesimpulan}`).then(()=>tst('✅ Disalin'));}
+function cpI(){if(!iLast)return;navigator.clipboard.writeText(`KESAN:\n${iLast.kesan}\n\nKESIMPULAN:\n${iLast.kesimpulan}`).then(()=>tst('✅ Disalin'));}
+function rstQ(){qPh=[];renderPs(qPh,'qPs','q');document.getElementById('qR').classList.remove('on');document.getElementById('qKl').value='';qLast=null;window.scrollTo({top:0,behavior:'smooth'});}
+function rstI(){iPh=[];renderPs(iPh,'iPs','i');document.getElementById('iR').classList.remove('on');iLast=null;window.scrollTo({top:0,behavior:'smooth'});}
+function tst(msg){const t=document.getElementById('tst');t.textContent=msg;t.classList.add('on');setTimeout(()=>t.classList.remove('on'),2500);}
 </script>
 </body>
 </html>
