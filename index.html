@@ -455,25 +455,23 @@ let qPh=[],iPh=[],docF=[],caseDB=null,qLast=null,iLast=null;
 
 // ── BOOT ──
 window.addEventListener('load',()=>{
-  // Start DB load in background immediately
-  const savedKey=localStorage.getItem('bma_k');
-  if(savedKey) loadDB(DB_FILE_ID);
-
-  // Splash: 2.5s then proceed regardless of DB status
+  // Auto-dismiss splash after 2.5s NO MATTER WHAT
   setTimeout(()=>{
-    document.getElementById('splash').classList.add('hide');
+    const splash=document.getElementById('splash');
+    splash.style.transition='opacity .4s';
+    splash.style.opacity='0';
     setTimeout(()=>{
-      document.getElementById('splash').style.display='none';
-      const hasKey=localStorage.getItem('bma_k');
-      if(!hasKey){
+      splash.style.display='none';
+      // Check if first time (no API key)
+      if(!localStorage.getItem('bma_k')){
         document.getElementById('onboard').classList.add('show');
-        const k=localStorage.getItem('bma_k');
-        if(k)document.getElementById('obKey').value=k;
-      }else{
+      } else {
         showMain();
+        loadDB(DB_FILE_ID);
       }
-    },500);
+    },400);
   },2500);
+
   document.getElementById('iTg').valueAsDate=new Date();
   const k=localStorage.getItem('bma_k');
   if(k){document.getElementById('sKey').value=k;setAS(true);}
