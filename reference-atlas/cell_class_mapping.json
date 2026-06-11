@@ -1,0 +1,138 @@
+{
+  "_meta": {
+    "source": "Bone Marrow Cytomorphology MLL Helmholtz Fraunhofer (Matek et al., TCIA / Kaggle)",
+    "citation": "Matek, C., Krappe, S., Münzenmayer, C., Haferlach, T., & Marr, C. (2021). An Expert-Annotated Dataset of Bone Marrow Cytology in Hematologic Malignancies. The Cancer Imaging Archive. https://doi.org/10.7937/TCIA.AXH3-T579",
+    "note_lisensi": "Cek ulang lisensi asli TCIA (kemungkinan CC-BY-NC) sebelum digunakan di aplikasi publik. Versi re-upload di HuggingFace (ekim15) ditandai CC-BY-4.0.",
+    "total_classes": 21,
+    "image_size_px": 250,
+    "purpose": "Reference atlas — contoh morfologi per kelas untuk fitur side-by-side di AspirA.I-Qu (Skenario A)"
+  },
+  "classes": [
+    {
+      "code": "ABE",
+      "name_en": "Abnormal Eosinophil",
+      "name_id": "Eosinofil Abnormal",
+      "description_id": "Eosinofil dengan morfologi abnormal, sering dijumpai pada keganasan mieloid."
+    },
+    {
+      "code": "ART",
+      "name_en": "Artefact",
+      "name_id": "Artefak",
+      "description_id": "Bukan sel — debris, gelembung udara, atau artefak preparasi slide. Tidak relevan untuk diagnosis."
+    },
+    {
+      "code": "BAS",
+      "name_en": "Basophil",
+      "name_id": "Basofil",
+      "description_id": "Granulosit dengan granula basofilik kasar yang menutupi inti, jumlah normal sangat sedikit (<2%)."
+    },
+    {
+      "code": "BLA",
+      "name_en": "Blast",
+      "name_id": "Blas",
+      "description_id": "Sel imatur dengan kromatin halus, nukleolus jelas, rasio inti:sitoplasma tinggi. Peningkatan jumlah blas adalah penanda kunci leukemia akut."
+    },
+    {
+      "code": "EBO",
+      "name_en": "Erythroblast",
+      "name_id": "Eritroblas",
+      "description_id": "Prekursor seri eritroid (normoblas) dengan inti bulat padat dan sitoplasma basofilik/polikromatik."
+    },
+    {
+      "code": "EOS",
+      "name_en": "Eosinophil",
+      "name_id": "Eosinofil",
+      "description_id": "Granulosit matur dengan granula oranye-kemerahan khas dan inti bilobus."
+    },
+    {
+      "code": "FGC",
+      "name_en": "Faggot Cell",
+      "name_id": "Sel Faggot",
+      "description_id": "Sel blas dengan banyak batang Auer tersusun seperti ikatan kayu bakar, khas pada APL (AML M3)."
+    },
+    {
+      "code": "HAC",
+      "name_en": "Hairy Cell",
+      "name_id": "Sel Berambut",
+      "description_id": "Limfosit dengan proyeksi sitoplasma seperti rambut, khas pada Hairy Cell Leukemia."
+    },
+    {
+      "code": "KSC",
+      "name_en": "Smudge Cell",
+      "name_id": "Sel Smudge",
+      "description_id": "Sel rusak/pecah akibat preparasi apus, sering banyak dijumpai pada CLL."
+    },
+    {
+      "code": "LYI",
+      "name_en": "Immature Lymphocyte",
+      "name_id": "Limfosit Imatur",
+      "description_id": "Limfosit dengan kromatin lebih halus dan nukleolus samar, perlu dibedakan dari blas limfoid."
+    },
+    {
+      "code": "LYT",
+      "name_en": "Lymphocyte",
+      "name_id": "Limfosit",
+      "description_id": "Sel matang dengan inti padat bulat, sitoplasma sempit, rasio inti:sitoplasma tinggi."
+    },
+    {
+      "code": "MMZ",
+      "name_en": "Metamyelocyte",
+      "name_id": "Metamielosit",
+      "description_id": "Prekursor granulosit dengan inti berbentuk ginjal/cekung, granula sitoplasma sekunder mulai tampak."
+    },
+    {
+      "code": "MON",
+      "name_en": "Monocyte",
+      "name_id": "Monosit",
+      "description_id": "Sel besar dengan inti berlekuk/berbentuk tapal kuda dan sitoplasma abu-abu kebiruan bergranula halus."
+    },
+    {
+      "code": "MYB",
+      "name_en": "Myelocyte",
+      "name_id": "Mielosit",
+      "description_id": "Prekursor granulosit dengan inti oval/bulat eksentrik, granula sekunder mulai berkembang, tidak ada nukleolus."
+    },
+    {
+      "code": "NGB",
+      "name_en": "Band Neutrophil",
+      "name_id": "Neutrofil Batang",
+      "description_id": "Neutrofil dengan inti berbentuk pita/batang melengkung tanpa segmentasi penuh."
+    },
+    {
+      "code": "NGS",
+      "name_en": "Segmented Neutrophil",
+      "name_id": "Neutrofil Segmen",
+      "description_id": "Neutrofil matur dengan inti tersegmentasi 2-5 lobus dihubungkan filamen kromatin."
+    },
+    {
+      "code": "NIF",
+      "name_en": "Not Identifiable",
+      "name_id": "Tidak Teridentifikasi",
+      "description_id": "Sel yang tidak dapat diklasifikasikan dengan pasti karena kualitas gambar atau morfologi ambigu."
+    },
+    {
+      "code": "OTH",
+      "name_en": "Other",
+      "name_id": "Lainnya",
+      "description_id": "Sel/struktur lain yang tidak masuk kategori standar (misal sel non-hematopoietik, kontaminan)."
+    },
+    {
+      "code": "PEB",
+      "name_en": "Proerythroblast",
+      "name_id": "Proeritroblas",
+      "description_id": "Prekursor eritroid paling awal, sel besar dengan nukleolus jelas dan sitoplasma basofilik gelap."
+    },
+    {
+      "code": "PLM",
+      "name_en": "Plasma Cell",
+      "name_id": "Sel Plasma",
+      "description_id": "Sel dengan inti eksentrik berpola 'roda pedati' (clock-face), sitoplasma basofilik dengan halo perinuklear (Golgi zone)."
+    },
+    {
+      "code": "PMO",
+      "name_en": "Promyelocyte",
+      "name_id": "Promielosit",
+      "description_id": "Prekursor granulosit terbesar, granula primer azurofilik melimpah, nukleolus masih terlihat."
+    }
+  ]
+}
