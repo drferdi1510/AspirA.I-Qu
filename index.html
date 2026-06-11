@@ -412,6 +412,36 @@ const DB_ID='1GsWjXfsVWkup_GeLnOhFcMP-OZHWrYE-';
 const PROXY='https://script.google.com/macros/s/AKfycbwlM9U_3rtqYiPDSJLab-YQfqp3IdLSAvnqvG3e4v2smJWJldZQ5-4XzCEAaaQgVIdA/exec';
 let qPh=[],iPh=[],docF=[],caseDB=null,qLast=null,iLast=null;
 
+const NAME_TO_ATLAS = {
+  'pronormoblas': 'PEB',
+  'normoblas basofilik': 'EBO',
+  'normoblas polikromatik': 'EBO',
+  'normoblas ortokromatik': 'EBO',
+  'mieloblas': 'BLA',
+  'promielosit': 'PMO',
+  'mielosit': 'MYB',
+  'metamielosit': 'MMZ',
+  'batang': 'NGB',
+  'segmen': 'NGS',
+  'limfosit matur': 'LYT',
+  'limfosit': 'LYT',
+  'monosit': 'MON',
+  'eosinofil': 'EOS',
+  'basofil': 'BAS',
+  'sel plasma': 'PLM',
+};
+let atlasMap = null;
+async function loadAtlas() {
+  if(atlasMap) return atlasMap;
+  try {
+    var r = await fetch('reference-atlas/cell_class_mapping.json');
+    var j = await r.json();
+    atlasMap = {};
+    j.classes.forEach(function(c){ atlasMap[c.code] = c; });
+  } catch(e) { atlasMap = {}; }
+  return atlasMap;
+}  
+  
 /* ── SPLASH & BOOT ── */
 window.addEventListener('load', function() {
   // Set date
@@ -601,7 +631,7 @@ async function quickAn() {
     var r = pj(txt);
     if(!r) throw new Error('Format respons tidak valid');
     qLast = {data:r, kl:kl, ts:new Date().toISOString()};
-    renderQR(r, kl);
+    await renderQR(r, kl);
   } catch(e) {
     if(e.message !== 'nokey') tst('Error: ' + e.message);
   } finally {
@@ -610,16 +640,16 @@ async function quickAn() {
     document.getElementById('qBtn').disabled = false;
   }
 }
-function renderQR(r, kl) {
+async function renderQR(r, kl) {
   document.getElementById('qRatio').innerHTML = '<div class="rchip"><span class="rl">M:E Ratio</span>'+(r.me_ratio||'-')+'</div>';
   document.getElementById('qEAk').textContent = r.eritropoiesis ? r.eritropoiesis.aktivitas : '-';
-  document.getElementById('qEC').innerHTML = renderCells(r.eritropoiesis ? r.eritropoiesis.sel||[] : []);
+  document.getElementById('qEC').innerHTML = await renderCells(r.eritropoiesis ? r.eritropoiesis.sel||[] : []);
   document.getElementById('qGAk').textContent = r.granulopoiesis ? r.granulopoiesis.aktivitas : '-';
-  document.getElementById('qGC').innerHTML = renderCells(r.granulopoiesis ? r.granulopoiesis.sel||[] : []);
+  document.getElementById('qGC').innerHTML = await renderCells(r.granulopoiesis ? r.granulopoiesis.sel||[] : []);
   document.getElementById('qMAk').textContent = r.megakariopoiesis ? r.megakariopoiesis.aktivitas : '-';
-  document.getElementById('qMC').innerHTML = (r.megakariopoiesis && r.megakariopoiesis.temuan ? '<div style="font-size:11px;color:var(--t2);margin-bottom:7px">'+r.megakariopoiesis.temuan+'</div>' : '') + renderCells(r.megakariopoiesis ? r.megakariopoiesis.sel||[] : []);
+  document.getElementById('qMC').innerHTML = (r.megakariopoiesis && r.megakariopoiesis.temuan ? '<div style="font-size:11px;color:var(--t2);margin-bottom:7px">'+r.megakariopoiesis.temuan+'</div>' : '') + await renderCells(r.megakariopoiesis ? r.megakariopoiesis.sel||[] : []);
   document.getElementById('qOLbl').textContent = r.sel_lain ? r.sel_lain.label||'-' : '-';
-  document.getElementById('qOC').innerHTML = renderCells(r.sel_lain ? r.sel_lain.sel||[] : []);
+  document.getElementById('qOC').innerHTML = await renderCells(r.sel_lain ? r.sel_lain.sel||[] : []);
   document.getElementById('qKs').textContent = r.kesan || '-';
   document.getElementById('qKp').textContent = r.kesimpulan || '-';
   document.getElementById('qCt').textContent = r.catatan || '-';
@@ -630,13 +660,25 @@ function renderQR(r, kl) {
   document.getElementById('qR').classList.add('on');
   document.getElementById('qR').scrollIntoView({behavior:'smooth', block:'start'});
 }
-function renderCells(cells) {
-  if(!cells.length) return '<div style="font-size:10px;color:var(--t3)">Tidak ditemukan</div>';
-  return cells.map(function(c) {
-    var p = (c.persen !== null && c.persen !== undefined) ? c.persen : null;
-    var w = p !== null ? Math.min(p*2, 100) : 0;
-    return '<div class="crow"><div class="cnm">'+c.nama+(c.catatan?' <span style="color:var(--t3);font-size:9px">('+c.catatan+')</span>':'')+'</div><div class="cbw"><div class="cbar '+(c.bar||'o')+'" style="width:'+w+'%"></div></div><div class="cpct">'+(p!==null?p+'%':'-')+'</div></div>';
-  }).join('');
+async function renderCells(cells) {
+if(!cells.length) return '<div style="font-size:10px;color:var(--t3)">Tidak ditemukan</div>';
+var atlas = await loadAtlas();
+return cells.map(function(c) {
+var p = (c.persen !== null && c.persen !== undefined) ? c.persen : null;
+var w = p !== null ? Math.min(p*2, 100) : 0;
+var row = '<div class="crow"><div class="cnm">'+c.nama+(c.catatan?' <span style="color:var(--t3);font-size:9px">('+c.catatan+')</span>':'')+'</div><div class="cbw"><div class="cbar '+(c.bar||'o')+'" style="width:'+w+'%"></div></div><div class="cpct">'+(p!==null?p+'%':'-')+'</div></div>';
+var code = NAME_TO_ATLAS[(c.nama||'').toLowerCase().trim()];
+var info = code ? atlas[code] : null;
+if(info && info.images && info.images.length) {
+row += '<div style="display:flex;gap:6px;margin:4px 0 8px 28px;align-items:center">';
+row += '<span style="font-size:9px;color:var(--t3)">Ref:</span>';
+info.images.forEach(function(img){
+row += '<img src="reference-atlas/'+img+'" style="width:40px;height:40px;border-radius:6px;border:.5px solid var(--border);object-fit:cover" title="'+info.name_id+': '+info.description_id+'">';
+});
+row += '</div>';
+}
+return row;
+}).join('');
 }
 
 /* ── INPUT ANALYZE ── */
