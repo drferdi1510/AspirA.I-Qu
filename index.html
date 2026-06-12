@@ -607,7 +607,7 @@ async function callAI(prompt, photos) {
   photos.slice(0,3).forEach(function(p) {
     parts.push({inline_data:{mime_type: p.file.type||'image/jpeg', data: p.url.split(',')[1]}});
   });
-  var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key='+key, {
+  var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent?key='+key, {
     method:'POST', headers:{'Content-Type':'application/json'},
     body: JSON.stringify({contents:[{parts:parts}], generationConfig:{temperature:0.2, maxOutputTokens:1500}})
   });
