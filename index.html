@@ -254,6 +254,7 @@ select option{background:#fff}textarea{resize:vertical;min-height:72px;line-heig
   <div class="nav">
     <button class="ntab on" id="nt-q" onclick="goTab('q')">&#9889; Cepat</button>
     <button class="ntab" id="nt-i" onclick="goTab('i')">&#128221; Input</button>
+    <button class="ntab" id="nt-d" onclick="goTab('d')">&#128300; Deteksi</button>
     <button class="ntab" id="nt-h" onclick="goTab('h')">&#128193; Riwayat</button>
     <button class="ntab" id="nt-a" onclick="goTab('a')">&#8505; Tentang</button>
   </div>
@@ -285,8 +286,9 @@ select option{background:#fff}textarea{resize:vertical;min-height:72px;line-heig
       <div class="cblk"><div class="cblk-ttl">Sel Lain <span class="bdg bo" id="qOLbl">-</span></div><div id="qOC"></div></div>
       <div style="margin-top:12px"><div class="slbl"><span class="dot"></span>Interpretasi AI</div></div>
       <div class="kbox"><div class="kl">Kesan</div><div class="kks" id="qKs"></div></div>
-      <div class="kbox red"><div class="kl">Kesimpulan</div><div class="kdx" id="qKp"></div></div>
+      <div class="kbox red"><div class="kl">Observasi &amp; Diagnosis Banding (perlu konfirmasi Sp.PK)</div><div class="kdx" id="qKp"></div></div>
       <div class="kbox"><div class="kl">Catatan AI</div><div class="kct" id="qCt"></div></div>
+      <div style="font-size:10px;color:var(--t3);text-align:center;padding:8px;font-style:italic">&#9888; Hasil AI bersifat skrining awal, bukan diagnosis final. Perlu konfirmasi morfologi manual oleh Sp.PK.</div>
       <div style="margin-top:12px"><div class="slbl"><span class="dot"></span>Kasus Serupa</div></div>
       <div id="qSim"></div>
       <div class="brow">
@@ -340,6 +342,32 @@ select option{background:#fff}textarea{resize:vertical;min-height:72px;line-heig
     </div>
   </div>
 
+  <!-- TAB DETEKSI -->
+  <div class="pnl" id="pnl-d">
+    <div class="slbl"><span class="dot"></span>Upload Foto untuk Deteksi Jenis Sel</div>
+    <div class="card card-red">
+      <div class="dz">
+        <input type="file" id="dtFi" accept="image/*" multiple onchange="addPh(this,'dt')">
+        <div class="dz-ico">&#128300;</div>
+        <div class="dz-ttl">Upload foto apusan</div>
+        <div class="dz-sub">Deteksi sel per lini: Eritrosit, Leukosit, Megakariosit</div>
+      </div>
+      <div class="pstrip" id="dtPs"></div>
+    </div>
+    <button class="btn-p" id="dtBtn" onclick="detAn()">&#128300; Deteksi Jenis Sel</button>
+    <div class="loading" id="dtLd"><div class="pring"><div class="pinn">&#128300;</div></div><div class="lttl">Mendeteksi jenis sel...</div><div class="lstep" id="dtSt">Memindai foto</div></div>
+    <div class="qres" id="dtR">
+      <div style="margin-top:14px"><div class="slbl"><span class="dot"></span>Lini Eritrosit</div></div>
+      <div class="cblk"><div id="dtE"></div></div>
+      <div style="margin-top:12px"><div class="slbl"><span class="dot"></span>Lini Leukosit</div></div>
+      <div class="cblk"><div id="dtL"></div></div>
+      <div style="margin-top:12px"><div class="slbl"><span class="dot"></span>Lini Megakariosit</div></div>
+      <div class="cblk"><div id="dtM"></div></div>
+      <div style="font-size:10px;color:var(--t3);text-align:center;padding:8px;font-style:italic">&#9888; Hasil AI bersifat skrining awal, bukan diagnosis final. Perlu konfirmasi morfologi manual oleh Sp.PK.</div>
+      <div class="brow"><button class="btn-s" onclick="rstDt()">&#8634; Baru</button></div>
+    </div>
+  </div>
+
   <!-- TAB RIWAYAT -->
   <div class="pnl" id="pnl-h">
     <div class="slbl"><span class="dot"></span>Riwayat Kasus</div>
@@ -382,6 +410,7 @@ select option{background:#fff}textarea{resize:vertical;min-height:72px;line-heig
 <div class="dock" id="dock" style="display:none">
   <button class="dbtn on" id="db-q" onclick="goTab('q')"><span class="di">&#9889;</span>Cepat</button>
   <button class="dbtn" id="db-i" onclick="goTab('i')"><span class="di">&#128221;</span>Input</button>
+  <button class="dbtn" id="db-d" onclick="goTab('d')"><span class="di">&#128300;</span>Deteksi</button>
   <button class="dbtn" id="db-h" onclick="goTab('h')"><span class="di">&#128193;</span>Riwayat</button>
   <button class="dbtn" id="db-a" onclick="goTab('a')"><span class="di">&#8505;&#65039;</span>Tentang</button>
 </div>
@@ -414,7 +443,7 @@ select option{background:#fff}textarea{resize:vertical;min-height:72px;line-heig
 'use strict';
 const DB_ID='1GsWjXfsVWkup_GeLnOhFcMP-OZHWrYE-';
 const PROXY='https://script.google.com/macros/s/AKfycbwlM9U_3rtqYiPDSJLab-YQfqp3IdLSAvnqvG3e4v2smJWJldZQ5-4XzCEAaaQgVIdA/exec';
-let qPh=[],iPh=[],docF=[],caseDB=null,qLast=null,iLast=null;
+let qPh=[],iPh=[],dtPh=[],docF=[],caseDB=null,qLast=null,iLast=null;
 
 const NAME_TO_ATLAS = {
   'pronormoblas': 'PEB',
@@ -535,7 +564,7 @@ async function loadDB() {
 
 /* ── NAVIGATION ── */
 function goTab(t) {
-  ['q','i','h','a'].forEach(function(x) {
+  ['q','i','d','h','a'].forEach(function(x) {
     var p = document.getElementById('pnl-'+x);
     var n = document.getElementById('nt-'+x);
     var d = document.getElementById('db-'+x);
@@ -554,8 +583,8 @@ function swMode(m) {
 
 /* ── PHOTOS ── */
 function addPh(inp, pfx) {
-  var arr = pfx==='q' ? qPh : iPh;
-  var sid = pfx==='q' ? 'qPs' : 'iPs';
+  var arr = pfx==='q' ? qPh : (pfx==='dt' ? dtPh : iPh);
+  var sid = pfx==='q' ? 'qPs' : (pfx==='dt' ? 'dtPs' : 'iPs');
   var rem = 5 - arr.length;
   Array.from(inp.files).slice(0, rem).forEach(function(f) {
     var r = new FileReader();
@@ -564,8 +593,8 @@ function addPh(inp, pfx) {
   });
 }
 function rmPh(pfx, i) {
-  var arr = pfx==='q' ? qPh : iPh;
-  var sid = pfx==='q' ? 'qPs' : 'iPs';
+  var arr = pfx==='q' ? qPh : (pfx==='dt' ? dtPh : iPh);
+  var sid = pfx==='q' ? 'qPs' : (pfx==='dt' ? 'dtPs' : 'iPs');
   arr.splice(i, 1);
   renderPs(arr, sid, pfx);
 }
@@ -630,7 +659,7 @@ async function quickAn() {
   var si = 0;
   var iv = setInterval(function(){si=(si+1)%steps.length; document.getElementById('qSt').textContent=steps[si];}, 1800);
   try {
-    var prompt = 'Kamu adalah Sp.PK ahli morfologi sumsum tulang Indonesia.\nAnalisis foto apusan sumsum tulang'+(kl?' dengan konteks klinis: "'+kl+'"':'.')+'\nJawab HANYA dalam JSON (tanpa teks lain):\n{"me_ratio":"X:1","eritropoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":25,"sel":[{"nama":"Pronormoblas","persen":2,"bar":"e"},{"nama":"Normoblas Basofilik","persen":5,"bar":"e"},{"nama":"Normoblas Polikromatik","persen":12,"bar":"e"},{"nama":"Normoblas Ortokromatik","persen":6,"bar":"e"}]},"granulopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":60,"sel":[{"nama":"Mieloblas","persen":1,"bar":"g"},{"nama":"Promielosit","persen":3,"bar":"g"},{"nama":"Mielosit","persen":8,"bar":"g"},{"nama":"Metamielosit","persen":10,"bar":"g"},{"nama":"Batang","persen":15,"bar":"g"},{"nama":"Segmen","persen":23,"bar":"g"}]},"megakariopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","temuan":"deskripsi morfologi","sel":[{"nama":"Megakariosit","persen":null,"bar":"m","catatan":"adequate"}]},"sel_lain":{"label":"deskripsi singkat","sel":[{"nama":"Limfosit matur","persen":5,"bar":"o"}]},"kesan":"Gambaran sumsum tulang ...","kesimpulan":"Gambaran sumsum tulang sesuai dengan ...","catatan":"Catatan singkat."}\nIsi sesuai temuan foto. null jika tidak bisa dihitung.' + ragCtx(findSim(kl,'','',null));
+    var prompt = 'Kamu adalah Sp.PK ahli morfologi sumsum tulang Indonesia.\nAnalisis foto apusan sumsum tulang'+(kl?' dengan konteks klinis: "'+kl+'"':'.')+'\nJawab HANYA dalam JSON (tanpa teks lain):\n{"me_ratio":"X:1","eritropoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":"X-Y","sel":[{"nama":"Pronormoblas","rentang":"1-3","bar":"e"},{"nama":"Normoblas Basofilik","rentang":"3-7","bar":"e"},{"nama":"Normoblas Polikromatik","rentang":"8-15","bar":"e"},{"nama":"Normoblas Ortokromatik","rentang":"4-8","bar":"e"}]},"granulopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":"X-Y","sel":[{"nama":"Mieloblas","rentang":"0-2","bar":"g"},{"nama":"Promielosit","rentang":"1-4","bar":"g"},{"nama":"Mielosit","rentang":"5-10","bar":"g"},{"nama":"Metamielosit","rentang":"5-12","bar":"g"},{"nama":"Batang","rentang":"10-18","bar":"g"},{"nama":"Segmen","rentang":"15-25","bar":"g"}]},"megakariopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","temuan":"deskripsi morfologi","sel":[{"nama":"Megakariosit","rentang":null,"bar":"m","catatan":"adequate"}]},"sel_lain":{"label":"deskripsi singkat","sel":[{"nama":"Limfosit matur","rentang":"5-12","bar":"o"}]},"kesan":"Gambaran sumsum tulang ...","observasi":["Poin observasi 1 (temuan + relevansi klinis, perlu dikonfirmasi)","Poin observasi 2 (diagnosis banding yang relevan, perlu dikonfirmasi)"],"catatan":"Catatan singkat."}\nIsi sesuai temuan foto. PERSENTASE WAJIB berupa RENTANG PERKIRAAN (contoh "10-20"), BUKAN angka tunggal pasti. null jika tidak bisa diperkirakan. OBSERVASI berisi poin pengamatan & diagnosis banding yang PERLU DIKONFIRMASI Sp.PK, BUKAN diagnosis final/pasti.' + ragCtx(findSim(kl,'','',null));
     var txt = await callAI(prompt, qPh);
     var r = pj(txt);
     if(!r) throw new Error('Format respons tidak valid');
@@ -655,7 +684,8 @@ async function renderQR(r, kl) {
   document.getElementById('qOLbl').textContent = r.sel_lain ? r.sel_lain.label||'-' : '-';
   document.getElementById('qOC').innerHTML = await renderCells(r.sel_lain ? r.sel_lain.sel||[] : []);
   document.getElementById('qKs').textContent = r.kesan || '-';
-  document.getElementById('qKp').textContent = r.kesimpulan || '-';
+  var obsHtml = (r.observasi && r.observasi.length) ? r.observasi.map(function(o,i){return (i+1)+'. '+o;}).join('<br>') : '-';
+  document.getElementById('qKp').innerHTML = obsHtml;
   document.getElementById('qCt').textContent = r.catatan || '-';
   var sim = findSim(kl, r.kesan, r.sel_lain ? r.sel_lain.label : '', r.me_ratio);
   document.getElementById('qSim').innerHTML = sim.length ? sim.map(function(x) {
@@ -664,13 +694,42 @@ async function renderQR(r, kl) {
   document.getElementById('qR').classList.add('on');
   document.getElementById('qR').scrollIntoView({behavior:'smooth', block:'start'});
 }
+/* ── DETEKSI JENIS SEL ── */
+async function detAn() {
+  if(!dtPh.length) { tst('Upload minimal 1 foto dulu'); return; }
+  document.getElementById('dtBtn').disabled = true;
+  document.getElementById('dtLd').classList.add('on');
+  document.getElementById('dtR').classList.remove('on');
+  var steps = ['Memindai foto...','Mengenali jenis sel...','Menyusun hasil...'];
+  var si = 0;
+  var iv = setInterval(function(){si=(si+1)%steps.length; document.getElementById('dtSt').textContent=steps[si];}, 1800);
+  try {
+    var prompt = 'Kamu adalah Sp.PK ahli morfologi sumsum tulang Indonesia.\nDeteksi jenis-jenis sel pada foto apusan sumsum tulang ini, dikelompokkan per lini.\nJawab HANYA JSON:\n{"eritrosit":[{"nama":"Pronormoblas","rentang":"0-2","bar":"e"},{"nama":"Normoblas Basofilik","rentang":"2-5","bar":"e"},{"nama":"Normoblas Polikromatik","rentang":"5-15","bar":"e"},{"nama":"Normoblas Ortokromatik","rentang":"3-10","bar":"e"}],"leukosit":[{"nama":"Mieloblas","rentang":"0-2","bar":"g"},{"nama":"Promielosit","rentang":"1-5","bar":"g"},{"nama":"Mielosit","rentang":"5-15","bar":"g"},{"nama":"Metamielosit","rentang":"5-15","bar":"g"},{"nama":"Batang","rentang":"10-20","bar":"g"},{"nama":"Segmen","rentang":"15-30","bar":"g"},{"nama":"Limfosit matur","rentang":"5-15","bar":"o"},{"nama":"Monosit","rentang":"0-5","bar":"o"}],"megakariosit":[{"nama":"Megakariosit","rentang":null,"bar":"m","catatan":"adequate/menurun/meningkat"}]}\nHanya sertakan jenis sel yang benar-benar terlihat di foto. Rentang persen berupa PERKIRAAN (X-Y), bukan angka tunggal.';
+    var txt = await callAI(prompt, dtPh);
+    var r = pj(txt);
+    if(!r) throw new Error('Format respons tidak valid');
+    document.getElementById('dtE').innerHTML = await renderCells(r.eritrosit||[]);
+    document.getElementById('dtL').innerHTML = await renderCells(r.leukosit||[]);
+    document.getElementById('dtM').innerHTML = await renderCells(r.megakariosit||[]);
+    document.getElementById('dtR').classList.add('on');
+    document.getElementById('dtR').scrollIntoView({behavior:'smooth', block:'start'});
+  } catch(e) {
+    if(e.message !== 'nokey') tst('Error: ' + e.message);
+  } finally {
+    clearInterval(iv);
+    document.getElementById('dtLd').classList.remove('on');
+    document.getElementById('dtBtn').disabled = false;
+  }
+}
+function rstDt() { dtPh=[]; renderPs(dtPh,'dtPs','dt'); document.getElementById('dtR').classList.remove('on'); window.scrollTo({top:0,behavior:'smooth'}); }
 async function renderCells(cells) {
 if(!cells.length) return '<div style="font-size:10px;color:var(--t3)">Tidak ditemukan</div>';
 var atlas = await loadAtlas();
 return cells.map(function(c) {
-var p = (c.persen !== null && c.persen !== undefined) ? c.persen : null;
-var w = p !== null ? Math.min(p*2, 100) : 0;
-var row = '<div class="crow"><div class="cnm">'+c.nama+(c.catatan?' <span style="color:var(--t3);font-size:9px">('+c.catatan+')</span>':'')+'</div><div class="cbw"><div class="cbar '+(c.bar||'o')+'" style="width:'+w+'%"></div></div><div class="cpct">'+(p!==null?p+'%':'-')+'</div></div>';
+var rng = c.rentang || null;
+var avgP = (rng && /^\d/.test(rng)) ? (parseFloat(rng.split('-')[0]) + parseFloat(rng.split('-')[1])) / 2 : null;
+var w = avgP !== null ? Math.min(avgP*2, 100) : 0;
+var row = '<div class="crow"><div class="cnm">'+c.nama+(c.catatan?' <span style="color:var(--t3);font-size:9px">('+c.catatan+')</span>':'')+'</div><div class="cbw"><div class="cbar '+(c.bar||'o')+'" style="width:'+w+'%"></div></div><div class="cpct">'+(rng?rng+'%':'-')+'</div></div>';
 var code = NAME_TO_ATLAS[(c.nama||'').toLowerCase().trim()];
 var info = code ? atlas[code] : null;
 if(info && info.images && info.images.length) {
