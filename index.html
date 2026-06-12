@@ -688,11 +688,11 @@ async function quickAn() {
     var prompt = 'Kamu adalah Sp.PK ahli morfologi sumsum tulang Indonesia.\n' + MORPH_GUIDE + 'Analisis foto apusan sumsum tulang'+(kl?' dengan konteks klinis: "'+kl+'"':'.')+'\nJawab HANYA dalam JSON (tanpa teks lain):\n{"me_ratio":"X:1","eritropoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":"X-Y","sel":[{"nama":"Pronormoblas","rentang":"1-3","bar":"e"},{"nama":"Normoblas Basofilik","rentang":"3-7","bar":"e"},{"nama":"Normoblas Polikromatik","rentang":"8-15","bar":"e"},{"nama":"Normoblas Ortokromatik","rentang":"4-8","bar":"e"}]},"granulopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":"X-Y","sel":[{"nama":"Mieloblas","rentang":"0-2","bar":"g"},{"nama":"Promielosit","rentang":"1-4","bar":"g"},{"nama":"Mielosit","rentang":"5-10","bar":"g"},{"nama":"Metamielosit","rentang":"5-12","bar":"g"},{"nama":"Batang","rentang":"10-18","bar":"g"},{"nama":"Segmen","rentang":"15-25","bar":"g"}]},"megakariopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","temuan":"deskripsi morfologi","sel":[{"nama":"Megakariosit","rentang":null,"bar":"m","catatan":"adequate"}]},"sel_lain":{"label":"deskripsi singkat","sel":[{"nama":"Limfosit matur","rentang":"5-12","bar":"o"}]},"kesan":"Gambaran sumsum tulang ...","observasi":["Poin observasi 1 (temuan + relevansi klinis, perlu dikonfirmasi)","Poin observasi 2 (diagnosis banding yang relevan, perlu dikonfirmasi)"],"catatan":"Catatan singkat."}\nIsi sesuai temuan foto. PERSENTASE WAJIB berupa RENTANG PERKIRAAN (contoh "10-20"), BUKAN angka tunggal pasti. null jika tidak bisa diperkirakan. OBSERVASI berisi poin pengamatan & diagnosis banding yang PERLU DIKONFIRMASI Sp.PK, BUKAN diagnosis final/pasti.' + ragCtx(findSim(kl,'','',null));
     var txt = await callAI(prompt, qPh, {noThink:true, maxTokens:3000});
     var r = pj(txt);
-    if(!r) throw new Error('Format respons tidak valid');
+    if(!r) throw new Error('Format respons tidak valid. Raw: ' + (txt||'(kosong)').slice(0,300));
     qLast = {data:r, kl:kl, ts:new Date().toISOString()};
     await renderQR(r, kl);
   } catch(e) {
-    if(e.message !== 'nokey') tst('Error: ' + e.message);
+    if(e.message !== 'nokey') { if(e.message.length > 60) alert('Error: ' + e.message); else tst('Error: ' + e.message); }
   } finally {
     clearInterval(iv);
     document.getElementById('qLd').classList.remove('on');
@@ -733,14 +733,14 @@ async function detAn() {
     var prompt = 'Kamu adalah Sp.PK ahli morfologi sumsum tulang Indonesia.\n' + MORPH_GUIDE + 'Deteksi jenis-jenis sel pada foto apusan sumsum tulang ini, dikelompokkan per lini.\nJawab HANYA JSON:\n{"eritrosit":[{"nama":"Pronormoblas","rentang":"0-2","bar":"e"},{"nama":"Normoblas Basofilik","rentang":"2-5","bar":"e"},{"nama":"Normoblas Polikromatik","rentang":"5-15","bar":"e"},{"nama":"Normoblas Ortokromatik","rentang":"3-10","bar":"e"}],"leukosit":[{"nama":"Mieloblas","rentang":"0-2","bar":"g"},{"nama":"Promielosit","rentang":"1-5","bar":"g"},{"nama":"Mielosit","rentang":"5-15","bar":"g"},{"nama":"Metamielosit","rentang":"5-15","bar":"g"},{"nama":"Batang","rentang":"10-20","bar":"g"},{"nama":"Segmen","rentang":"15-30","bar":"g"},{"nama":"Limfosit matur","rentang":"5-15","bar":"o"},{"nama":"Monosit","rentang":"0-5","bar":"o"}],"megakariosit":[{"nama":"Megakariosit","rentang":null,"bar":"m","catatan":"adequate/menurun/meningkat"}]}\nHanya sertakan jenis sel yang benar-benar terlihat di foto. Rentang persen berupa PERKIRAAN (X-Y), bukan angka tunggal.';
     var txt = await callAI(prompt, dtPh, {noThink:true, maxTokens:2500});
     var r = pj(txt);
-    if(!r) throw new Error('Format respons tidak valid');
+    if(!r) throw new Error('Format respons tidak valid. Raw: ' + (txt||'(kosong)').slice(0,300));
     document.getElementById('dtE').innerHTML = await renderCells(r.eritrosit||[]);
     document.getElementById('dtL').innerHTML = await renderCells(r.leukosit||[]);
     document.getElementById('dtM').innerHTML = await renderCells(r.megakariosit||[]);
     document.getElementById('dtR').classList.add('on');
     document.getElementById('dtR').scrollIntoView({behavior:'smooth', block:'start'});
   } catch(e) {
-    if(e.message !== 'nokey') tst('Error: ' + e.message);
+    if(e.message !== 'nokey') { if(e.message.length > 60) alert('Error: ' + e.message); else tst('Error: ' + e.message); }
   } finally {
     clearInterval(iv);
     document.getElementById('dtLd').classList.remove('on');
@@ -806,7 +806,7 @@ async function inputAn() {
     document.getElementById('iR').classList.add('on');
     document.getElementById('iR').scrollIntoView({behavior:'smooth', block:'start'});
   } catch(e) {
-    if(e.message !== 'nokey') tst('Error: ' + e.message);
+    if(e.message !== 'nokey') { if(e.message.length > 60) alert('Error: ' + e.message); else tst('Error: ' + e.message); }
   } finally {
     clearInterval(iv);
     document.getElementById('iLd').classList.remove('on');
