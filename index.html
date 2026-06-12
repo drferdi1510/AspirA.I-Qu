@@ -686,7 +686,7 @@ async function quickAn() {
   var iv = setInterval(function(){si=(si+1)%steps.length; document.getElementById('qSt').textContent=steps[si];}, 1800);
   try {
     var prompt = 'Kamu adalah Sp.PK ahli morfologi sumsum tulang Indonesia.\n' + MORPH_GUIDE + 'Analisis foto apusan sumsum tulang'+(kl?' dengan konteks klinis: "'+kl+'"':'.')+'\nJawab HANYA dalam JSON (tanpa teks lain):\n{"me_ratio":"X:1","eritropoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":"X-Y","sel":[{"nama":"Pronormoblas","rentang":"1-3","bar":"e"},{"nama":"Normoblas Basofilik","rentang":"3-7","bar":"e"},{"nama":"Normoblas Polikromatik","rentang":"8-15","bar":"e"},{"nama":"Normoblas Ortokromatik","rentang":"4-8","bar":"e"}]},"granulopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":"X-Y","sel":[{"nama":"Mieloblas","rentang":"0-2","bar":"g"},{"nama":"Promielosit","rentang":"1-4","bar":"g"},{"nama":"Mielosit","rentang":"5-10","bar":"g"},{"nama":"Metamielosit","rentang":"5-12","bar":"g"},{"nama":"Batang","rentang":"10-18","bar":"g"},{"nama":"Segmen","rentang":"15-25","bar":"g"}]},"megakariopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","temuan":"deskripsi morfologi","sel":[{"nama":"Megakariosit","rentang":null,"bar":"m","catatan":"adequate"}]},"sel_lain":{"label":"deskripsi singkat","sel":[{"nama":"Limfosit matur","rentang":"5-12","bar":"o"}]},"kesan":"Gambaran sumsum tulang ...","observasi":["Poin observasi 1 (temuan + relevansi klinis, perlu dikonfirmasi)","Poin observasi 2 (diagnosis banding yang relevan, perlu dikonfirmasi)"],"catatan":"Catatan singkat."}\nIsi sesuai temuan foto. PERSENTASE WAJIB berupa RENTANG PERKIRAAN (contoh "10-20"), BUKAN angka tunggal pasti. null jika tidak bisa diperkirakan. OBSERVASI berisi poin pengamatan & diagnosis banding yang PERLU DIKONFIRMASI Sp.PK, BUKAN diagnosis final/pasti.' + ragCtx(findSim(kl,'','',null));
-    var txt = await callAI(prompt, qPh);
+    var txt = await callAI(prompt, qPh, {noThink:true, maxTokens:3000});
     var r = pj(txt);
     if(!r) throw new Error('Format respons tidak valid');
     qLast = {data:r, kl:kl, ts:new Date().toISOString()};
@@ -731,7 +731,7 @@ async function detAn() {
   var iv = setInterval(function(){si=(si+1)%steps.length; document.getElementById('dtSt').textContent=steps[si];}, 1800);
   try {
     var prompt = 'Kamu adalah Sp.PK ahli morfologi sumsum tulang Indonesia.\n' + MORPH_GUIDE + 'Deteksi jenis-jenis sel pada foto apusan sumsum tulang ini, dikelompokkan per lini.\nJawab HANYA JSON:\n{"eritrosit":[{"nama":"Pronormoblas","rentang":"0-2","bar":"e"},{"nama":"Normoblas Basofilik","rentang":"2-5","bar":"e"},{"nama":"Normoblas Polikromatik","rentang":"5-15","bar":"e"},{"nama":"Normoblas Ortokromatik","rentang":"3-10","bar":"e"}],"leukosit":[{"nama":"Mieloblas","rentang":"0-2","bar":"g"},{"nama":"Promielosit","rentang":"1-5","bar":"g"},{"nama":"Mielosit","rentang":"5-15","bar":"g"},{"nama":"Metamielosit","rentang":"5-15","bar":"g"},{"nama":"Batang","rentang":"10-20","bar":"g"},{"nama":"Segmen","rentang":"15-30","bar":"g"},{"nama":"Limfosit matur","rentang":"5-15","bar":"o"},{"nama":"Monosit","rentang":"0-5","bar":"o"}],"megakariosit":[{"nama":"Megakariosit","rentang":null,"bar":"m","catatan":"adequate/menurun/meningkat"}]}\nHanya sertakan jenis sel yang benar-benar terlihat di foto. Rentang persen berupa PERKIRAAN (X-Y), bukan angka tunggal.';
-    var txt = await callAI(prompt, dtPh);
+    var txt = await callAI(prompt, dtPh, {noThink:true, maxTokens:2500});
     var r = pj(txt);
     if(!r) throw new Error('Format respons tidak valid');
     document.getElementById('dtE').innerHTML = await renderCells(r.eritrosit||[]);
@@ -797,7 +797,7 @@ async function inputAn() {
   try {
     var sim = findSim(d.kl, d.se, d.sl, d.me);
     var prompt = 'Kamu adalah Sp.PK ahli interpretasi BMA Indonesia.\nJawab HANYA dalam JSON: {"kesan":"...","kesimpulan":"...","catatan":"..."}\nkesan: gambaran deskriptif. kesimpulan: mulai "Gambaran sumsum tulang sesuai dengan...". catatan: DD + saran 1-2 kalimat.\nDATA: Klinis:'+d.kl+'|Lokasi:'+d.lo+'|Konsistensi:'+d.ko+'|Selularitas:'+d.se+'|ME:'+d.me+'|Eritropoiesis:'+d.ea+','+d.ep+'%|Granulopoiesis:'+d.ga+','+d.gp+'%|Megakario:'+d.ma+','+d.mt+'|SelLain:'+d.sl+(iPh.length?'|Foto:'+iPh.length+'terlampir':'') + ragCtx(sim);
-    var txt = await callAI(prompt, iPh);
+    var txt = await callAI(prompt, iPh, {noThink:true, maxTokens:1500});
     var r = pj(txt) || {kesan:txt.slice(0,200), kesimpulan:'', catatan:''};
     iLast = Object.assign({inputData:d, ts:new Date().toISOString()}, r);
     document.getElementById('iKs').textContent = r.kesan || '';
