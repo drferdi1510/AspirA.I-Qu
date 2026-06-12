@@ -255,7 +255,6 @@ select option{background:#fff}textarea{resize:vertical;min-height:72px;line-heig
     <button class="ntab on" id="nt-q" onclick="goTab('q')">&#9889; Cepat</button>
     <button class="ntab" id="nt-i" onclick="goTab('i')">&#128221; Input</button>
     <button class="ntab" id="nt-d" onclick="goTab('d')">&#128300; Deteksi</button>
-    <button class="ntab" id="nt-s" onclick="goTab('s')">&#127908; Sel Apa Ini</button>
     <button class="ntab" id="nt-h" onclick="goTab('h')">&#128193; Riwayat</button>
     <button class="ntab" id="nt-a" onclick="goTab('a')">&#8505; Tentang</button>
   </div>
@@ -369,32 +368,6 @@ select option{background:#fff}textarea{resize:vertical;min-height:72px;line-heig
     </div>
   </div>
 
-  <!-- TAB SEL APA INI -->
-  <div class="pnl" id="pnl-s">
-    <div class="slbl"><span class="dot"></span>Upload Foto untuk Identifikasi Sel</div>
-    <div class="card card-red">
-      <div class="dz">
-        <input type="file" id="sgFi" accept="image/*" onchange="addSgPh(this)">
-        <div class="dz-ico">&#127908;</div>
-        <div class="dz-ttl">Upload 1 foto apusan</div>
-        <div class="dz-sub">AI akan menandai &amp; menamai sel-sel yang terlihat</div>
-      </div>
-      <div class="pstrip" id="sgPs"></div>
-    </div>
-    <button class="btn-p" id="sgBtn" onclick="identAn()">&#127908; Tandai Sel di Foto</button>
-    <div class="loading" id="sgLd"><div class="pring"><div class="pinn">&#127908;</div></div><div class="lttl">Menandai sel pada foto...</div><div class="lstep" id="sgSt">Memindai foto</div></div>
-    <div class="qres" id="sgR">
-      <div style="margin-top:14px"><div class="slbl"><span class="dot"></span>Hasil Penandaan</div></div>
-      <div style="position:relative;width:100%;border-radius:12px;overflow:hidden;border:1px solid var(--border)">
-        <img id="sgImg" style="width:100%;display:block">
-        <canvas id="sgCv" style="position:absolute;top:0;left:0;width:100%;height:100%"></canvas>
-      </div>
-      <div style="margin-top:12px"><div class="slbl"><span class="dot"></span>Daftar Sel Terdeteksi</div></div>
-      <div class="cblk" id="sgList"></div>
-      <div style="font-size:10px;color:var(--t3);text-align:center;padding:8px;font-style:italic">&#9888; Hasil AI bersifat skrining awal, bukan diagnosis final. Perlu konfirmasi morfologi manual oleh Sp.PK.</div>
-      <div class="brow"><button class="btn-s" onclick="rstSg()">&#8634; Baru</button></div>
-    </div>
-  </div>
 
   <!-- TAB RIWAYAT -->
   <div class="pnl" id="pnl-h">
@@ -439,7 +412,6 @@ select option{background:#fff}textarea{resize:vertical;min-height:72px;line-heig
   <button class="dbtn on" id="db-q" onclick="goTab('q')"><span class="di">&#9889;</span>Cepat</button>
   <button class="dbtn" id="db-i" onclick="goTab('i')"><span class="di">&#128221;</span>Input</button>
   <button class="dbtn" id="db-d" onclick="goTab('d')"><span class="di">&#128300;</span>Deteksi</button>
-  <button class="dbtn" id="db-s" onclick="goTab('s')"><span class="di">&#127908;</span>Sel Ini</button>
   <button class="dbtn" id="db-h" onclick="goTab('h')"><span class="di">&#128193;</span>Riwayat</button>
   <button class="dbtn" id="db-a" onclick="goTab('a')"><span class="di">&#8505;&#65039;</span>Tentang</button>
 </div>
@@ -472,7 +444,7 @@ select option{background:#fff}textarea{resize:vertical;min-height:72px;line-heig
 'use strict';
 const DB_ID='1GsWjXfsVWkup_GeLnOhFcMP-OZHWrYE-';
 const PROXY='https://script.google.com/macros/s/AKfycbwlM9U_3rtqYiPDSJLab-YQfqp3IdLSAvnqvG3e4v2smJWJldZQ5-4XzCEAaaQgVIdA/exec';
-let qPh=[],iPh=[],dtPh=[],sgPh=[],docF=[],caseDB=null,qLast=null,iLast=null;
+let qPh=[],iPh=[],dtPh=[],docF=[],caseDB=null,qLast=null,iLast=null;
 const MORPH_GUIDE = 'PANDUAN MORFOLOGI (gunakan sebagai acuan pembeda):\n'
 + '- Mieloblas: inti besar bulat/oval, kromatin halus homogen, 1-2 nukleolus jelas, rasio inti:sitoplasma tinggi, sitoplasma sedikit TANPA granula.\n'
 + '- Promielosit: inti eksentrik (sering masih ada nukleolus), granula azurofilik primer KASAR melimpah menutupi sitoplasma.\n'
@@ -608,7 +580,7 @@ async function loadDB() {
 
 /* ── NAVIGATION ── */
 function goTab(t) {
-  ['q','i','d','s','h','a'].forEach(function(x) {
+  ['q','i','d','h','a'].forEach(function(x) {
     var p = document.getElementById('pnl-'+x);
     var n = document.getElementById('nt-'+x);
     var d = document.getElementById('db-'+x);
@@ -627,8 +599,8 @@ function swMode(m) {
 
 /* ── PHOTOS ── */
 function addPh(inp, pfx) {
-  var arr = pfx==='q' ? qPh : (pfx==='dt' ? dtPh : (pfx==='sg' ? sgPh : iPh));
-  var sid = pfx==='q' ? 'qPs' : (pfx==='dt' ? 'dtPs' : (pfx==='sg' ? 'sgPs' : 'iPs'));
+  var arr = pfx==='q' ? qPh : (pfx==='dt' ? dtPh : iPh);
+  var sid = pfx==='q' ? 'qPs' : (pfx==='dt' ? 'dtPs' : 'iPs');
   var rem = 5 - arr.length;
   Array.from(inp.files).slice(0, rem).forEach(function(f) {
     var r = new FileReader();
@@ -637,9 +609,8 @@ function addPh(inp, pfx) {
   });
 }
 function rmPh(pfx, i) {
-  var arr = pfx==='q' ? qPh : (pfx==='dt' ? dtPh : (pfx==='sg' ? sgPh : iPh));
-  var sid = pfx==='q' ? 'qPs' : (pfx==='dt' ? 'dtPs' : (pfx==='sg' ? 'sgPs' : 'iPs'));
-  if(pfx==='sg') { sgPh=[]; renderPs(sgPh, sid, pfx); return; }
+  var arr = pfx==='q' ? qPh : (pfx==='dt' ? dtPh : iPh);
+  var sid = pfx==='q' ? 'qPs' : (pfx==='dt' ? 'dtPs' : 'iPs');
   arr.splice(i, 1);
   renderPs(arr, sid, pfx);
 }
@@ -777,76 +748,6 @@ async function detAn() {
   }
 }
 function rstDt() { dtPh=[]; renderPs(dtPh,'dtPs','dt'); document.getElementById('dtR').classList.remove('on'); window.scrollTo({top:0,behavior:'smooth'}); }
-
-/* ── SEL APA INI (deteksi + bbox) ── */
-function addSgPh(inp) {
-  if(!inp.files.length) return;
-  var f = inp.files[0];
-  var r = new FileReader();
-  r.onload = function(e) {
-    sgPh = [{file:f, url:e.target.result}];
-    renderPs(sgPh, 'sgPs', 'sg');
-  };
-  r.readAsDataURL(f);
-}
-async function identAn() {
-  if(!sgPh.length) { tst('Upload foto dulu'); return; }
-  document.getElementById('sgBtn').disabled = true;
-  document.getElementById('sgLd').classList.add('on');
-  document.getElementById('sgR').classList.remove('on');
-  var steps = ['Memindai foto...','Menandai sel...','Menyusun hasil...'];
-  var si = 0;
-  var iv = setInterval(function(){si=(si+1)%steps.length; document.getElementById('sgSt').textContent=steps[si];}, 1800);
-  try {
-    var prompt = 'Kamu adalah Sp.PK ahli morfologi sumsum tulang Indonesia.\n' + MORPH_GUIDE
-      + 'Identifikasi SETIAP sel yang terlihat jelas pada foto apusan sumsum tulang ini (maksimal 15 sel paling jelas).\n'
-      + 'Jawab HANYA JSON array, tanpa teks lain:\n'
-      + '[{"nama":"Mieloblas","box_2d":[ymin,xmin,ymax,xmax]}, ...]\n'
-      + 'box_2d adalah koordinat kotak pembatas sel dalam skala 0-1000 (ymin,xmin,ymax,xmax), dengan (0,0) di pojok kiri-atas gambar. Setiap sel HARUS punya kotak yang rapat membungkus 1 sel saja.';
-    var txt = await callAI(prompt, sgPh, {noThink:true, maxTokens:2500});
-    var r = pj(txt);
-    if(!r || !Array.isArray(r)) throw new Error('Format respons tidak valid');
-    var img = document.getElementById('sgImg');
-    img.src = sgPh[0].url;
-    await new Promise(function(res){ if(img.complete) res(); else img.onload = res; });
-    drawSgBoxes(r);
-    document.getElementById('sgList').innerHTML = await renderCells(r.map(function(c){return {nama:c.nama, rentang:null, bar:'o'};}));
-    document.getElementById('sgR').classList.add('on');
-    document.getElementById('sgR').scrollIntoView({behavior:'smooth', block:'start'});
-  } catch(e) {
-    if(e.message !== 'nokey') tst('Error: ' + e.message);
-  } finally {
-    clearInterval(iv);
-    document.getElementById('sgLd').classList.remove('on');
-    document.getElementById('sgBtn').disabled = false;
-  }
-}
-function drawSgBoxes(cells) {
-  var img = document.getElementById('sgImg');
-  var cv = document.getElementById('sgCv');
-  var w = img.clientWidth, h = img.clientHeight;
-  cv.width = w; cv.height = h;
-  var ctx = cv.getContext('2d');
-  ctx.clearRect(0,0,w,h);
-  var colors = ['#c0392b','#1a5276','#1e8449','#8e44ad','#d35400','#16a085','#b9770e','#2c3e50'];
-  cells.forEach(function(c, i) {
-    var b = c.box_2d;
-    if(!b || b.length !== 4) return;
-    var y0 = b[0]/1000*h, x0 = b[1]/1000*w, y1 = b[2]/1000*h, x1 = b[3]/1000*w;
-    var col = colors[i % colors.length];
-    ctx.strokeStyle = col;
-    ctx.lineWidth = 2;
-    ctx.strokeRect(x0, y0, x1-x0, y1-y0);
-    ctx.font = 'bold 11px sans-serif';
-    var label = (i+1)+'. '+(c.nama||'?');
-    var tw = ctx.measureText(label).width;
-    ctx.fillStyle = col;
-    ctx.fillRect(x0, Math.max(0,y0-14), tw+6, 14);
-    ctx.fillStyle = '#fff';
-    ctx.fillText(label, x0+3, Math.max(11,y0-3));
-  });
-}
-function rstSg() { sgPh=[]; renderPs(sgPh,'sgPs','sg'); document.getElementById('sgR').classList.remove('on'); window.scrollTo({top:0,behavior:'smooth'}); }
 async function renderCells(cells) {
 if(!cells.length) return '<div style="font-size:10px;color:var(--t3)">Tidak ditemukan</div>';
 var atlas = await loadAtlas();
