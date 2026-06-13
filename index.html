@@ -8,7 +8,6 @@
 <title>AspirA.I-Qu</title>
 <link rel="manifest" href="manifest.json">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<script src="https://unpkg.com/lucide@latest"></script>
 <style>
 :root {
   --bg: #f8fafc;
@@ -38,221 +37,212 @@
   --shadow-sm: 0 1px 3px rgba(15,23,42,0.03);
   --shadow-md: 0 4px 6px -1px rgba(15,23,42,0.05), 0 2px 4px -2px rgba(15,23,42,0.05);
   --shadow-lg: 0 10px 15px -3px rgba(15,23,42,0.08), 0 4px 6px -4px rgba(15,23,42,0.08);
-  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent }
 body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--t1); min-height:100dvh; overflow-x:hidden; -webkit-font-smoothing:antialiased }
 
 /* PREMIUM SPLASH SCREEN */
-#splash { position:fixed; inset:0; z-index:9999; background:radial-gradient(circle at center, #ffffff, #f8fafc); display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:1; transition: opacity 0.4s ease }
-.sp-logo { width:100px; height:100px; border-radius:24px; object-fit:contain; filter: drop-shadow(0 10px 15px rgba(15,23,42,0.08)); animation: pulseGlow 2.5s infinite ease-in-out }
-.sp-name { font-family:'Playfair Display',serif; font-size:32px; font-weight:700; color:var(--blood); margin-top:20px; letter-spacing:-0.5px }
+#splash { position:fixed; inset:0; z-index:9999; background:radial-gradient(circle at center, #ffffff, #f8fafc); display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:1; transition: opacity 0.35s ease }
+.sp-logo { width:110px; height:110px; border-radius:22px; object-fit:contain; filter: drop-shadow(0 10px 15px rgba(15,23,42,0.06)); animation: pulseGlow 2.5s infinite ease-in-out }
+.sp-name { font-family:'Playfair Display',serif; font-size:30px; font-weight:700; color:var(--blood); margin-top:18px; letter-spacing:-0.5px }
 .sp-name em { color:var(--bone); font-style:normal }
-.sp-sub { font-size:12px; color:var(--t3); margin-top:6px; text-transform:uppercase; letter-spacing:2px; font-weight:500 }
-.sp-bar { width:120px; height:4px; background:var(--border); border-radius:4px; margin-top:32px; overflow:hidden }
-.sp-prog { height:100%; background:linear-gradient(90deg, var(--blood), var(--scarlet)); border-radius:4px; animation:prog 2.2s cubic-bezier(0.65, 0, 0.35, 1) forwards }
+.sp-sub { font-size:11px; color:var(--t3); margin-top:5px; text-transform:uppercase; letter-spacing:1.5px; font-weight:500 }
+.sp-bar { width:110px; height:4px; background:var(--border); border-radius:4px; margin-top:28px; overflow:hidden }
+.sp-prog { height:100%; background:linear-gradient(90deg, var(--blood), var(--crimson)); border-radius:4px; animation:prog 2s cubic-bezier(0.65, 0, 0.35, 1) forwards }
 @keyframes prog { 0%{width:0%} 100%{width:100%} }
-@keyframes pulseGlow { 0%, 100% { transform: scale(1); filter: drop-shadow(0 10px 15px rgba(15,23,42,0.08)); } 50% { transform: scale(1.03); filter: drop-shadow(0 15px 25px rgba(185,28,28,0.15)); } }
+@keyframes pulseGlow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); filter: drop-shadow(0 12px 22px rgba(185,28,28,0.12)); } }
 
 /* ONBOARDING WITH GLASSMORPHISM */
-#onboard { display:none; min-height:100dvh; background:linear-gradient(135deg, #f8fafc, #f1f5f9); padding:40px 24px; overflow-y:auto }
-#onboard.show { display:block; animation: fadeIn 0.5s ease }
-.ob-wrap { max-width:420px; margin:0 auto }
-.ob-logo { width:64px; height:64px; border-radius:16px; object-fit:contain; display:block; margin:0 auto 16px }
-.ob-title { font-family:'Playfair Display',serif; font-size:28px; font-weight:700; color:var(--blood); text-align:center }
+#onboard { display:none; min-height:100dvh; background:linear-gradient(135deg, #f8fafc, #f1f5f9); padding:36px 20px; overflow-y:auto }
+#onboard.show { display:block; animation: fadeIn 0.4s ease }
+.ob-wrap { max-width:430px; margin:0 auto }
+.ob-logo { width:64px; height:64px; border-radius:15px; object-fit:contain; display:block; margin:0 auto 14px }
+.ob-title { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; color:var(--blood); text-align:center }
 .ob-title em { color:var(--bone); font-style:normal }
-.ob-sub { font-size:13px; color:var(--t3); text-align:center; margin-top:6px; margin-bottom:32px }
-.ob-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--r2); padding:20px; margin-bottom:16px; box-shadow:var(--shadow-md) }
-.ob-num { display:inline-flex; align-items:center; gap:10px; font-size:13px; font-weight:700; color:var(--blood); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:16px }
-.ob-badge { width:24px; height:24px; background:linear-gradient(135deg,var(--blood),var(--crimson)); border-radius:50%; display:grid; place-items:center; font-size:11px; color:#fff; font-weight:700 }
-.ob-pill { background:var(--blush); border:1px solid var(--border2); border-radius:var(--r); padding:12px; font-size:12px; color:var(--t2); line-height:1.6; margin-top:12px }
+.ob-sub { font-size:12px; color:var(--t3); text-align:center; margin-top:5px; margin-bottom:28px }
+.ob-card { background:var(--bg2); border:1px solid var(--border); border-radius:var(--r2); padding:20px; margin-bottom:14px; box-shadow:var(--shadow-md) }
+.ob-num { display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; color:var(--blood); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:12px }
+.ob-badge { width:22px; height:22px; background:linear-gradient(135deg,var(--blood),var(--crimson)); border-radius:50%; display:grid; place-items:center; font-size:10px; color:#fff; font-weight:700 }
+.ob-pill { background:var(--blush); border:1px solid var(--border2); border-radius:var(--r); padding:10px 12px; font-size:11px; color:var(--t2); line-height:1.6; margin-top:8px }
 .ob-pill a { color:var(--blood); font-weight:700; text-decoration:none; border-bottom: 1.5px dashed var(--blood) }
-.ob-db { display:flex; align-items:center; gap:12px; padding:12px; background:var(--bg3); border-radius:var(--r); border:1px solid var(--border) }
-.ob-skip { font-size:13px; color:var(--t3); text-align:center; margin-top:16px; cursor:pointer; transition:var(--transition) }
-.ob-skip:hover { color:var(--blood); text-decoration:underline }
+.ob-db { display:flex; align-items:center; gap:10px; padding:10px 12px; background:var(--bg3); border-radius:var(--r); border:1px solid var(--border3) }
+.ob-skip { font-size:12px; color:var(--t3); text-align:center; margin-top:14px; cursor:pointer; text-decoration:underline }
 
 /* MAIN CONTAINERS */
 #main { display:none }
 #main.show { display:block }
-#app { max-width:480px; margin:0 auto; padding-bottom:90px }
+#app { max-width:480px; margin:0 auto; padding-bottom:80px }
 
 /* CLINICAL HEADER */
-.hdr { padding:16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(248,250,252,0.92); backdrop-filter:blur(20px); z-index:40 }
-.logo { display:flex; align-items:center; gap:12px }
-.logo-img { width:36px; height:36px; border-radius:10px; object-fit:contain }
-.logo-tx { font-family:'Playfair Display',serif; font-size:20px; font-weight:700; color:var(--blood); letter-spacing:-0.3px }
+.hdr { padding:14px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(248,250,252,0.92); backdrop-filter:blur(20px); z-index:40 }
+.logo { display:flex; align-items:center; gap:10px }
+.logo-img { width:34px; height:34px; border-radius:8px; object-fit:contain }
+.logo-tx { font-family:'Playfair Display',serif; font-size:18px; font-weight:700; color:var(--blood); letter-spacing:-0.3px }
 .logo-tx em { color:var(--bone); font-style:normal }
-.logo-sb { font-size:9px; color:var(--t3); text-transform:uppercase; letter-spacing:1px; margin-top:2px; font-weight:600 }
-.btn-sm { width:36px; height:36px; border-radius:10px; border:1px solid var(--border); background:#fff; color:var(--t2); cursor:pointer; display:grid; place-items:center; transition:var(--transition); box-shadow:var(--shadow-sm) }
-.btn-sm:hover { background:var(--blush); color:var(--blood); border-color:var(--border2); transform:rotate(45deg) }
+.logo-sb { font-size:8px; color:var(--t3); text-transform:uppercase; letter-spacing:1px; margin-top:2px; font-weight:600 }
+.btn-sm { width:34px; height:34px; border-radius:9px; border:1px solid var(--border); background:#fff; color:var(--t2); cursor:pointer; display:grid; place-items:center; transition:var(--transition); box-shadow:var(--shadow-sm); font-size:15px }
+.btn-sm:hover { background:var(--blush); color:var(--blood); border-color:var(--border2); transform:scale(1.05) }
 
 /* TAB NAVIGATION (DOCK DESIGN) */
-.nav { display:flex; padding:4px 8px; border-bottom:1px solid var(--border); background:rgba(256,256,256,0.85); backdrop-filter:blur(10px); position:sticky; top:69px; z-index:39; gap:4px }
-.ntab { flex:1; padding:12px 2px; border:none; background:transparent; font-family:'Plus Jakarta Sans',sans-serif; font-size:10px; font-weight:700; color:var(--t3); cursor:pointer; text-transform:uppercase; letter-spacing:0.5px; transition:var(--transition); display:flex; flex-direction:column; align-items:center; gap:4px; border-radius:10px }
-.ntab lucide-icon, .ntab i, .ntab svg { width: 16px; height: 16px; stroke-width: 2.5 }
-.ntab:hover { background: var(--bg3); color: var(--t2); }
-.ntab.on { color:var(--blood); background: var(--blush); font-weight: 700 }
+.nav { display:flex; padding:0 6px; border-bottom:1px solid var(--border); background:rgba(256,256,256,0.85); backdrop-filter:blur(10px); position:sticky; top:61px; z-index:39 }
+.ntab { flex:1; padding:12px 2px 14px; border:none; background:transparent; font-family:'Plus Jakarta Sans',sans-serif; font-size:9px; font-weight:700; color:var(--t3); cursor:pointer; text-transform:uppercase; letter-spacing:0.5px; transition:var(--transition); position:relative; display:flex; flex-direction:column; align-items:center; gap:3px }
+.ntab::after { content:''; position:absolute; bottom:0; left:20%; right:20%; height:2.5px; background:var(--blood); border-radius:3px 3px 0 0; transform:scaleX(0); transition:var(--transition) }
+.ntab.on { color:var(--blood); font-weight:700 }
+.ntab.on::after { transform:scaleX(1) }
 
-/* SMOOTH TRANSITIONS FOR WORKSPACE PANELS */
-.pnl { display:none; padding:20px 16px }
-.pnl.on { display:block; animation: slideUpSmooth 0.4s cubic-bezier(0.16, 1, 0.3, 1) }
-@keyframes slideUpSmooth { from{opacity:0; transform:translateY(12px)} to{opacity:1; transform:translateY(0)} }
+/* PANEL PANEL */
+.pnl { display:none; padding:18px 16px }
+.pnl.on { display:block; animation: slideUpSmooth 0.35s cubic-bezier(0.16, 1, 0.3, 1) }
+@keyframes slideUpSmooth { from{opacity:0; transform:translateY(10px)} to{opacity:1; transform:translateY(0)} }
 @keyframes fadeIn { from{opacity:0} to{opacity:1} }
 
 /* LABELS & CARD CONTAINER STRUCTURES */
-.slbl { font-size:10px; font-weight:700; color:var(--t3); text-transform:uppercase; letter-spacing:1.5px; margin-top:14px; margin-bottom:12px; display:flex; align-items:center; gap:8px }
+.slbl { font-size:9px; font-weight:700; color:var(--t3); text-transform:uppercase; letter-spacing:1.5px; margin-bottom:12px; display:flex; align-items:center; gap:6px }
 .slbl::after { content:''; flex:1; height:1px; background:var(--border) }
-.slbl .dot { width:5px; height:5px; border-radius:50%; background:var(--blood); flex-shrink:0 }
+.slbl .dot { width:4.5px; height:4.5px; border-radius:50%; background:var(--blood); flex-shrink:0 }
 
-.card { background:#fff; border:1px solid var(--border); border-radius:var(--r2); padding:18px; margin-bottom:14px; box-shadow:var(--shadow-sm); transition:var(--transition) }
+.card { background:#fff; border:1px solid var(--border); border-radius:var(--r2); padding:16px; margin-bottom:12px; box-shadow:var(--shadow-sm); transition:var(--transition) }
 .card:hover { box-shadow:var(--shadow-md) }
 .card-red { border-color:var(--border2); background:linear-gradient(180deg,#ffffff, #fffdfd) }
 .card-blue { border-color:var(--border3); background:linear-gradient(180deg,#ffffff, #fbfdff) }
 
 /* FORM FIELD ADJUSTMENTS */
-.fld { margin-bottom:16px }
+.fld { margin-bottom:14px }
 .fld:last-child { margin-bottom:0 }
-.flbl { display:block; font-size:10px; font-weight:700; color:var(--t2); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:6px }
-input[type=text],input[type=date],input[type=number],input[type=password],select,textarea { width:100%; background:var(--bg3); border:1px solid transparent; border-radius:var(--r); padding:12px 14px; color:var(--t1); font-family:'Plus Jakarta Sans',sans-serif; font-size:14px; outline:none; transition:var(--transition); -webkit-appearance:none }
-input:focus,select:focus,textarea:focus { background:#fff; border-color:var(--blood); box-shadow:0 0 0 4px rgba(185,28,28,0.08) }
-select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; background-size: 16px }
+.flbl { display:block; font-size:9px; font-weight:700; color:var(--t3); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:5px }
+input[type=text],input[type=date],input[type=number],input[type=password],select,textarea { width:100%; background:var(--bg3); border:1px solid var(--border); border-radius:var(--r); padding:11px 13px; color:var(--t1); font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; outline:none; transition:var(--transition); -webkit-appearance:none }
+input:focus,select:focus,textarea:focus { background:#fff; border-color:var(--blood); box-shadow:0 0 0 3px rgba(185,28,28,0.06) }
+select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 12px center; background-size: 14px }
 select option { background:#fff }
-textarea { resize:vertical; min-height:80px; line-height:1.6 }
-.g2 { display:grid; grid-template-columns:1fr 1fr; gap:12px }
+textarea { resize:vertical; min-height:76px; line-height:1.5 }
+.g2 { display:grid; grid-template-columns:1fr 1fr; gap:10px }
 
 /* DROPZONE EMBEDDED EFFECT */
-.dz { border:2px dashed rgba(185,28,28,0.2); border-radius:var(--r); padding:32px 16px; text-align:center; cursor:pointer; transition:var(--transition); position:relative; background:var(--bg3) }
-.dz:hover { border-color:var(--blood); background:var(--blush); transform: scale(0.99) }
+.dz { border:1.5px dashed rgba(185,28,28,0.22); border-radius:var(--r); padding:26px 16px; text-align:center; cursor:pointer; transition:var(--transition); position:relative; background:var(--blush) }
+.dz:hover { border-color:var(--blood); background:var(--blush2); transform: scale(0.99) }
 .dz input { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100% }
-.dz-ico { color: var(--blood); margin-bottom:10px; display: flex; justify-content: center }
-.dz-ico svg { width: 32px; height: 32px; stroke-width: 1.8 }
-.dz-ttl { font-size:14px; font-weight:600; color:var(--t1) }
-.dz-sub { font-size:11px; color:var(--t3); margin-top:4px }
-.pstrip { display:flex; gap:8px; margin-top:12px; flex-wrap:wrap }
-.pthumb { width:72px; height:72px; border-radius:10px; overflow:hidden; position:relative; border:1px solid var(--border); flex-shrink:0; box-shadow:var(--shadow-sm); animation: fadeIn 0.3s ease }
+.dz-ico { font-size:30px; margin-bottom:5px; transition: var(--transition) }
+.dz:hover .dz-ico { transform: scale(1.1) }
+.dz-ttl { font-size:13px; font-weight:600; color:var(--t1) }
+.dz-sub { font-size:10px; color:var(--t3); margin-top:2px }
+.pstrip { display:flex; gap:8px; margin-top:10px; flex-wrap:wrap }
+.pthumb { width:76px; height:76px; border-radius:9px; overflow:hidden; position:relative; border:1px solid var(--border); flex-shrink:0; box-shadow:var(--shadow-sm); animation: fadeIn 0.3s ease }
 .pthumb img { width:100%; height:100%; object-fit:cover }
-.pthumb .del { position:absolute; top:4px; right:4px; width:18px; height:18px; background:rgba(185,28,28,0.9); border-radius:50%; border:none; color:#fff; font-size:10px; font-weight:700; cursor:pointer; display:grid; place-items:center; transition:var(--transition) }
+.pthumb .del { position:absolute; top:3px; right:3px; width:18px; height:18px; background:rgba(185,28,28,0.85); border-radius:50%; border:none; color:#fff; font-size:10px; font-weight:700; cursor:pointer; display:grid; place-items:center; transition:var(--transition) }
 .pthumb .del:hover { background:var(--marrow); transform: scale(1.1) }
 
 /* PREMIUM CALL-TO-ACTION BUTTONS */
-.btn-p { width:100%; padding:15px; background:linear-gradient(135deg,var(--blood),#991b1b); border:none; border-radius:var(--r2); color:#fff; font-family:'Plus Jakarta Sans',sans-serif; font-size:14px; font-weight:700; cursor:pointer; transition:var(--transition); display:flex; align-items:center; justify-content:center; gap:8px; margin-top:16px; box-shadow:0 4px 12px rgba(185,28,28,0.2) }
-.btn-p svg { width: 18px; height: 18px; stroke-width: 2.5 }
-.btn-p:hover { transform:translateY(-2px); box-shadow:0 8px 20px rgba(185,28,28,0.35) }
-.btn-p:active { transform:translateY(0); box-shadow:0 4px 12px rgba(185,28,28,0.2) }
+.btn-p { width:100%; padding:14px; background:linear-gradient(135deg,var(--blood),#991b1b); border:none; border-radius:var(--r2); color:#fff; font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; font-weight:700; cursor:pointer; transition:var(--transition); display:flex; align-items:center; justify-content:center; gap:6px; margin-top:12px; box-shadow:0 4px 12px rgba(185,28,28,0.2) }
+.btn-p:hover { transform:translateY(-1.5px); box-shadow:0 6px 18px rgba(185,28,28,0.32) }
+.btn-p:active { transform:translateY(0); }
 .btn-p:disabled { opacity:0.5; cursor:not-allowed; transform:none; box-shadow:none }
-.btn-s { flex:1; padding:12px; border-radius:var(--r); border:1px solid var(--border); background:#fff; color:var(--t2); font-family:'Plus Jakarta Sans',sans-serif; font-size:12px; font-weight:600; cursor:pointer; transition:var(--transition); display:flex; align-items:center; justify-content:center; gap:6px; box-shadow:var(--shadow-sm) }
-.btn-s svg { width: 14px; height: 14px; stroke-width: 2 }
+.btn-s { flex:1; padding:10px; border-radius:var(--r); border:1px solid var(--border); background:#fff; color:var(--t2); font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:600; cursor:pointer; transition:var(--transition); display:flex; align-items:center; justify-content:center; gap:4px; box-shadow:var(--shadow-sm) }
 .btn-s:hover { background:var(--blush); color:var(--blood); border-color:var(--border2); transform:translateY(-1px) }
-.brow { display:flex; gap:10px; margin-top:12px }
-.btn-sv { width:100%; padding:12px; background:#fff; border:1.5px solid var(--blood); border-radius:var(--r); color:var(--blood); font-family:'Plus Jakarta Sans',sans-serif; font-size:13px; font-weight:600; cursor:pointer; transition:var(--transition); margin-top:10px }
+.brow { display:flex; gap:8px; margin-top:10px }
+.btn-sv { width:100%; padding:12px; background:#fff; border:1.5px solid var(--blood); border-radius:var(--r); color:var(--blood); font-family:'Plus Jakarta Sans',sans-serif; font-size:12px; font-weight:600; cursor:pointer; transition:var(--transition); margin-top:7px }
 .btn-sv:hover { background:var(--blush); transform:translateY(-1px) }
 
 /* CRISP SEGMENT MODE SWITCH */
-.msw { display:flex; gap:4px; background:var(--bg3); border-radius:12px; padding:4px; margin-bottom:16px }
-.mbtn { flex:1; padding:10px; border:none; background:transparent; border-radius:8px; color:var(--t3); font-family:'Plus Jakarta Sans',sans-serif; font-size:11px; font-weight:700; cursor:pointer; transition:var(--transition); text-transform:uppercase; letter-spacing:0.5px; display:flex; align-items:center; justify-content:center; gap:6px }
-.mbtn svg { width: 14px; height: 14px; stroke-width: 2.5 }
+.msw { display:flex; gap:3px; background:var(--bg3); border-radius:13px; padding:3px; margin-bottom:14px; border:1px solid var(--border) }
+.mbtn { flex:1; padding:8px; border:none; background:transparent; border-radius:10px; color:var(--t3); font-family:'Plus Jakarta Sans',sans-serif; font-size:10px; font-weight:700; cursor:pointer; transition:var(--transition); text-transform:uppercase; letter-spacing:0.4px }
 .mbtn.on { background:#fff; color:var(--blood); box-shadow:var(--shadow-sm) }
 
 /* CLINICAL PROGRESS PULSE */
-.loading { display:none; padding:48px 16px; text-align:center }
+.loading { display:none; padding:44px 16px; text-align:center }
 .loading.on { display:block }
-.pring { width:56px; height:56px; margin:0 auto 20px; border-radius:50%; position:relative }
+.pring { width:52px; height:52px; margin:0 auto 18px; border-radius:50%; position:relative }
 .pring::before,.pring::after { content:''; position:absolute; inset:0; border-radius:50%; border:2px solid var(--blood) }
 .pring::before { animation:pa .9s ease-out infinite }
 .pring::after { animation:pa .9s ease-out .45s infinite }
 @keyframes pa { 0%{opacity:1; transform:scale(.6)} 100%{opacity:0; transform:scale(1.4)} }
-.pinn { position:absolute; inset:12px; background:linear-gradient(135deg,var(--blood),#991b1b); border-radius:50%; display:grid; place-items:center; font-size:14px; color:white }
-.pinn svg { width: 16px; height: 16px; stroke-width: 2.5 }
-.lttl { font-size:14px; color:var(--t1); font-weight:600 }
-.lstep { font-size:11px; color:var(--t3); margin-top:6px; font-family:'JetBrains Mono',monospace; background: var(--bg3); padding: 4px 8px; border-radius: 6px; display: inline-block }
+.pinn { position:absolute; inset:11px; background:linear-gradient(135deg,var(--blood),#991b1b); border-radius:50%; display:grid; place-items:center; font-size:13px; color:white }
+.lttl { font-size:13px; color:var(--t1); font-weight:600 }
+.lstep { font-size:10px; color:var(--t3); margin-top:4px; font-family:'JetBrains Mono',monospace }
 
 /* CLEAN DATA VISUALIZATION BARS */
 .qres { display:none }
 .qres.on { display:block }
-.cblk { background:#fff; border:1px solid var(--border); border-radius:var(--r); padding:16px; margin-bottom:10px; box-shadow:var(--shadow-sm) }
-.cblk-ttl { font-size:11px; font-weight:700; color:var(--t2); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:12px; display:flex; align-items:center; justify-content:between; width:100% }
-.bdg { font-size:10px; padding:3px 9px; border-radius:20px; font-weight:700; margin-left:auto }
-.be { background:#fef2f2; color:#991b1b }
-.bg { background:#eff6ff; color:#1e40af }
-.bm { background:#f5f3ff; color:#5b21b6 }
-.bo { background:#fef3c7; color:#92400e }
-.crow { display:flex; align-items:center; gap:12px; margin-bottom:10px }
+.cblk { background:#fff; border:1px solid var(--border); border-radius:var(--r); padding:14px; margin-bottom:8px; box-shadow:var(--shadow-sm) }
+.cblk-ttl { font-size:9px; font-weight:700; color:var(--t2); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; display:flex; align-items:center; gap:5px }
+.bdg { font-size:9px; padding:2px 8px; border-radius:10px; font-weight:700; margin-left:auto }
+.be { background:#fef2f2; color:#991b1b; border:1px solid rgba(185,28,28,0.15) }
+.bg { background:#eff6ff; color:#1e40af; border:1px solid rgba(37,99,235,0.12) }
+.bm { background:#f5f3ff; color:#5b21b6; border:1px solid rgba(124,58,237,0.12) }
+.bo { background:#fef3c7; color:#92400e; border:1px solid rgba(217,119,6,0.12) }
+.crow { display:flex; align-items:center; gap:10px; margin-bottom:6px }
 .crow:last-child { margin-bottom:0 }
-.cnm { font-size:12px; color:var(--t2); min-width:140px; font-weight:500 }
-.cbw { flex:1; background:var(--bg3); border-radius:6px; height:8px; overflow:hidden }
-.cbar { height:100%; border-radius:6px; transition:width 1s cubic-bezier(0.34, 1.56, 0.64, 1) }
-.cpct { font-size:11px; color:var(--t1); font-family:'JetBrains Mono',monospace; min-width:40px; text-align:right; font-weight:600 }
+.cnm { font-size:11px; color:var(--t2); min-width:130px; font-weight:500 }
+.cbw { flex:1; background:var(--bg3); border-radius:4px; height:7px; overflow:hidden }
+.cbar { height:100%; border-radius:4px; transition:width 0.8s cubic-bezier(0.4, 0, 0.2, 1) }
+.cpct { font-size:10px; color:var(--t1); font-family:'JetBrains Mono',monospace; min-width:36px; text-align:right; font-weight:600 }
 .cbar.e { background:linear-gradient(90deg,var(--blood),var(--scarlet)) }
 .cbar.g { background:linear-gradient(90deg,var(--plasma),#60a5fa) }
 .cbar.m { background:linear-gradient(90deg,#7c3aed,#a78bfa) }
 .cbar.o { background:linear-gradient(90deg,#d97706,#fbbf24) }
-.rchip { display:inline-flex; align-items:center; gap:8px; background:#0f172a; border-radius:20px; padding:6px 14px; font-size:12px; color:#fff; font-family:'JetBrains Mono',monospace; margin-bottom:12px; font-weight:500; box-shadow:var(--shadow-sm) }
-.rl { font-family:'Plus Jakarta Sans',sans-serif; font-size:10px; color:var(--t4); font-weight:700; text-transform:uppercase; letter-spacing:0.5px }
-.kbox { background:#fff; border:1px solid var(--border); border-radius:var(--r); padding:16px; margin-bottom:10px; box-shadow:var(--shadow-sm) }
-.kbox.red { border-color:rgba(185,28,28,0.2); background:linear-gradient(180deg,#ffffff, #fffbfb) }
-.kl { font-size:10px; font-weight:700; color:var(--t3); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px }
-.kdx font-family:'Playfair Display',serif; font-style:italic; font-size:15px; color:var(--blood); line-height:1.6; font-weight: 600 }
-.kks { font-size:13px; color:var(--t1); line-height:1.6; font-weight:500 }
-.kct { font-size:12px; color:var(--t2); line-height:1.6; font-style:italic }
-.sim-item { background:var(--cream); border:1px solid var(--border); border-radius:10px; padding:12px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:flex-start; transition:var(--transition) }
-.sim-item:hover { border-color:var(--t4); background:white }
-.sim-dx { font-size:12px; color:var(--t1); font-style:italic; font-weight:600 }
-.sim-mt { font-size:10px; color:var(--t3); margin-top:4px; font-family:'JetBrains Mono',monospace }
-.sim-sc { font-size:10px; color:var(--blood); font-weight:700; font-family:'JetBrains Mono',monospace; background:var(--blush); padding:2px 6px; border-radius:4px }
+.rchip { display:inline-flex; align-items:center; gap:7px; background:var(--cream); border:1px solid var(--border); border-radius:18px; padding:5px 14px; font-size:12px; color:var(--t1); font-family:'JetBrains Mono',monospace; margin-bottom:10px; font-weight:500; box-shadow: var(--shadow-sm) }
+.rl { font-family:'Plus Jakarta Sans',sans-serif; font-size:9px; color:var(--t3); font-weight:700; text-transform:uppercase; letter-spacing:0.5px }
+.kbox { background:#fff; border:1px solid var(--border); border-radius:var(--r); padding:14px; margin-bottom:8px; box-shadow:var(--shadow-sm) }
+.kbox.red { border-color:var(--border2); background:linear-gradient(180deg,#ffffff, #fffdfd) }
+.kl { font-size:9px; font-weight:700; color:var(--t3); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px }
+.kdx { font-family:'Playfair Display',serif; font-style:italic; font-size:14px; color:var(--blood); line-height:1.5; font-weight:600 }
+.kks { font-size:12px; color:var(--t1); line-height:1.6; font-weight:500 }
+.kct { font-size:11px; color:var(--t2); line-height:1.5; font-style:italic }
+.sim-item { background:var(--cream); border:1px solid var(--border); border-radius:9px; padding:10px 12px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:flex-start }
+.sim-dx { font-size:11px; color:var(--t1); font-style:italic; font-weight:600 }
+.sim-mt { font-size:9px; color:var(--t3); margin-top:2px; font-family:'JetBrains Mono',monospace }
+.sim-sc { font-size:9px; color:var(--blood); font-weight:700; font-family:'JetBrains Mono',monospace }
 
 /* HISTORY LISTING */
-.hitm { background:#fff; border:1px solid var(--border); border-radius:var(--r); padding:16px; margin-bottom:8px; cursor:pointer; transition:var(--transition); display: flex; flex-direction: column; gap:4px }
-.hitm:hover { border-color:var(--blood); transform:translateY(-2px); box-shadow:var(--shadow-md) }
-.hnm { font-size:14px; font-weight:600; color:var(--t1); display:flex; align-items:center; gap:8px }
-.hnm svg { width:14px; height:14px; color: var(--blood) }
-.hdx { font-size:12px; color:var(--blood); font-style:italic; font-family:'Playfair Display',serif; font-weight: 500 }
-.hmt { font-size:10px; color:var(--t3); font-family:'JetBrains Mono',monospace }
-.empty { text-align:center; padding:64px 16px; color:var(--t4); display: flex; flex-direction: column; align-items: center; gap: 8px }
-.empty svg { width: 40px; height: 40px; opacity: 0.3 }
+.hitm { background:#fff; border:1px solid var(--border); border-radius:var(--r); padding:14px; margin-bottom:8px; cursor:pointer; transition:var(--transition); display: flex; flex-direction: column; gap:2px }
+.hitm:hover { border-color:var(--border2); transform:translateY(-2px); box-shadow:var(--shadow-md) }
+.hnm { font-size:13px; font-weight:600; color:var(--t1) }
+.hdx { font-size:11px; color:var(--blood); margin-top:2px; font-style:italic; font-family:'Playfair Display',serif; font-weight:500 }
+.hmt { font-size:9px; color:var(--t3); margin-top:4px; font-family:'JetBrains Mono',monospace }
+.empty { text-align:center; padding:56px 16px; color:var(--t3) }
 
 /* ACADEMIC PROFILE & ABOUT */
-.ab-hero { text-align:center; padding:32px 16px; background:linear-gradient(135deg, #ffffff, #f1f5f9); border-radius:var(--r2); margin-bottom:16px; border:1px solid var(--border); box-shadow:var(--shadow-sm) }
-.ab-logo { width:80px; height:80px; border-radius:20px; object-fit:contain; margin:0 auto 14px; display:block; filter:drop-shadow(var(--shadow-sm)) }
-.ab-name { font-family:'Playfair Display',serif; font-size:24px; font-weight:700; color:var(--blood) }
+.ab-hero { text-align:center; padding:26px 16px 20px; background:linear-gradient(135deg, #ffffff, #f1f5f9); border-radius:var(--r2); margin-bottom:14px; border:1px solid var(--border); box-shadow:var(--shadow-sm) }
+.ab-logo { width:76px; height:76px; border-radius:15px; object-fit:contain; margin:0 auto 12px; display:block }
+.ab-name { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; color:var(--blood) }
 .ab-name em { color:var(--bone); font-style:normal }
-.ab-tag { font-size:12px; color:var(--t3); margin-top:4px; font-weight:500; text-transform:uppercase; letter-spacing:1px }
-.tm-card { background:#fff; border:1px solid var(--border); border-radius:var(--r2); padding:20px; margin-bottom:12px }
-.tm-ttl { font-size:11px; font-weight:700; color:var(--blood); text-transform:uppercase; letter-spacing:1px; margin-bottom:14px; display:flex; align-items:center; gap:6px }
-.tm-row { display:flex; align-items:center; gap:14px; padding:12px 0; border-bottom:1px solid var(--border) }
+.ab-tag { font-size:11px; color:var(--t3); margin-top:4px; font-weight:500 }
+.tm-card { background:#fff; border:1px solid var(--border); border-radius:var(--r2); padding:18px; margin-bottom:12px; box-shadow:var(--shadow-sm) }
+.tm-ttl { font-size:10px; font-weight:700; color:var(--blood); text-transform:uppercase; letter-spacing:1px; margin-bottom:12px }
+.tm-row { display:flex; align-items:center; gap:12px; padding:10px 0; border-bottom:1px solid var(--border) }
 .tm-row:last-child { border-bottom:none; padding-bottom:0 }
-.tm-num { width:24px; height:24px; background:#0f172a; border-radius:50%; display:grid; place-items:center; font-size:11px; color:#fff; font-weight:700; flex-shrink:0 }
-.tm-name { font-size:13px; font-weight:600; color:var(--t1) }
-.tm-role { font-size:11px; color:var(--t3); margin-top:2px }
-.ap-card { background:linear-gradient(180deg, #ffffff, #f8fafc); border:1px solid var(--border); border-radius:var(--r2); padding:20px; margin-bottom:12px }
-.ap-ttl { font-size:11px; font-weight:700; color:var(--t1); text-transform:uppercase; letter-spacing:1px; margin-bottom:10px; display:flex; align-items:center; gap:6px }
-.ver { text-align:center; padding:24px; font-size:11px; color:var(--t4); line-height:2; font-family:'JetBrains Mono',monospace }
+.tm-num { width:26px; height:26px; background:linear-gradient(135deg,var(--blood),var(--crimson)); border-radius:50%; display:grid; place-items:center; font-size:10px; color:#fff; font-weight:700; flex-shrink:0 }
+.tm-name { font-size:12px; font-weight:600; color:var(--t1) }
+.tm-role { font-size:10px; color:var(--t3); margin-top:2px }
+.ap-card { background:linear-gradient(180deg, #ffffff, #f8fafc); border:1px solid var(--border); border-radius:var(--r2); padding:18px; margin-bottom:12px; box-shadow:var(--shadow-sm) }
+.ap-ttl { font-size:10px; font-weight:700; color:var(--t1); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px }
+.ver { text-align:center; padding:20px; font-size:10px; color:var(--t4); line-height:2; font-family:'JetBrains Mono',monospace }
 
 /* FULL OVERLAY SCREEN FOR SETTINGS */
 .ov { display:none }
 .ov.on { display:block; position:fixed; inset:0; z-index:100; background:var(--bg); overflow-y:auto; animation: fadeIn 0.3s ease }
-.ovhdr { display:flex; align-items:center; gap:14px; padding:16px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(248,250,252,0.95); backdrop-filter:blur(10px) }
-.ovttl { font-family:'Playfair Display',serif; font-size:19px; font-weight:700; color:var(--t1) }
-.abdg { display:inline-flex; align-items:center; gap:6px; font-size:10px; padding:4px 10px; border-radius:20px; margin-top:8px; font-weight:600 }
-.abdg.ok { background:rgba(22,163,74,0.1); color:var(--ok); border:1px solid rgba(22,163,74,0.2) }
+.ovhdr { display:flex; align-items:center; gap:12px; padding:14px 16px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(248,250,252,0.95); backdrop-filter:blur(10px) }
+.ovttl { font-family:'Playfair Display',serif; font-size:18px; color:var(--t1); font-weight:700 }
+.abdg { display:inline-flex; align-items:center; gap:4px; font-size:9px; padding:3px 9px; border-radius:18px; margin-top:5px; font-weight:600 }
+.abdg.ok { background:rgba(22,163,74,0.1); color:var(--ok); border:1px solid rgba(22,163,74,0.15) }
 .abdg.err { background:rgba(220,38,38,0.1); color:var(--crimson); border:1px solid var(--border2) }
-.adot { width:5px; height:5px; border-radius:50%; background:currentColor }
-.ipill { background:var(--blush); border:1px solid var(--border2); border-radius:var(--r); padding:12px; font-size:11px; color:var(--t2); line-height:1.6; margin-top:8px }
+.adot { width:4px; height:4px; border-radius:50%; background:currentColor }
+.ipill { background:var(--blush); border:1px solid var(--border2); border-radius:var(--r); padding:10px 12px; font-size:10px; color:var(--t2); line-height:1.6; margin-top:7px }
 .ipill a { color:var(--blood); font-weight:700; text-decoration:none; border-bottom:1px dashed var(--blood) }
 
-/* DOCK PERSISTENT OVERLAY NAVIGATION */
-.dock { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:rgba(255,255,255,0.92); backdrop-filter:blur(24px); border-top:1px solid var(--border); display:flex; padding:6px 0 max(6px,env(safe-area-inset-bottom)); z-index:50; box-shadow: 0 -4px 12px rgba(15,23,42,0.03) }
-.dbtn { flex:1; border:none; background:transparent; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:3px; padding:4px; color:var(--t3); font-family:'Plus Jakarta Sans',sans-serif; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; transition:var(--transition) }
-.dbtn:hover { color: var(--t2) }
+/* DOCK PERSISTENT NAVIGATION - DIKEMBALIKAN KE CLASS ASLI */
+.dock { position:fixed; bottom:0; left:50%; transform:translateX(-50%); width:100%; max-width:480px; background:rgba(248,244,240,0.97); backdrop-filter:blur(20px); border-top:1px solid var(--border); display:flex; padding:5px 0 max(5px,env(safe-area-inset-bottom)); z-index:50 }
+.dbtn { flex:1; border:none; background:transparent; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:2px; padding:5px; color:var(--t3); font-family:'Plus Jakarta Sans',sans-serif; font-size:8px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; transition:color 0.2s }
 .dbtn.on { color:var(--blood) }
-.dbtn svg, .dbtn lucide-icon { width:18px; height:18px; stroke-width: 2.5 }
+.di { font-size:18px; font-weight:bold; font-style:normal }
 
 /* MODERN TOAST ALERT */
-.toast { position:fixed; bottom:90px; left:50%; transform:translateX(-50%); background:#0f172a; border-radius:30px; padding:10px 20px; font-size:12px; color:#fff; z-index:200; opacity:0; transition:var(--transition); pointer-events:none; white-space:nowrap; box-shadow:var(--shadow-lg); font-weight:500 }
-.toast.on { opacity:1; transform:translateX(-50%) translateY(-4px) }
+.toast { position:fixed; bottom:80px; left:50%; transform:translateX(-50%); background:var(--t1); border-radius:28px; padding:9px 18px; font-size:11px; color:#fff; z-index:200; opacity:0; transition:opacity 0.3s; pointer-events:none; white-space:nowrap; box-shadow:var(--shadow-md) }
+.toast.on { opacity:1 }
 
-::-webkit-scrollbar { width:4px }
+::-webkit-scrollbar { width:3px }
 ::-webkit-scrollbar-track { background:transparent }
-::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:3px }
 </style>
 </head>
 <body>
@@ -280,18 +270,18 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
     </div>
 
     <div class="ob-card card-blue">
-      <div class="ob-num"><span class="ob-badge" style="background:linear-gradient(135deg,var(--marrow),#334155)">2</span>Database BMA</div>
+      <div class="ob-num"><span class="ob-badge" style="background:linear-gradient(135deg,var(--marrow),var(--plasma))">2</span>Database BMA</div>
       <div class="ob-db">
-        <i data-lucide="database" style="color:var(--plasma); width:20px; height:20px"></i>
+        <span style="font-size:18px">&#x2705;</span>
         <div>
-          <div style="font-size:13px;font-weight:600;color:var(--t1)">Database sudah terhubung</div>
-          <div style="font-size:11px;color:var(--t3);margin-top:2px">Database BMA &middot; diperbarui berkala</div>
+          <div style="font-size:12px;font-weight:600;color:var(--t1)">Database sudah terhubung</div>
+          <div style="font-size:10px;color:var(--t3);margin-top:1px">Database BMA &middot; diperbarui berkala</div>
         </div>
       </div>
       <div class="ob-pill" style="background:var(--cream);border-color:var(--border3)">Database dikelola Tim Empat Serangkai dan diperbarui secara berkala.</div>
     </div>
 
-    <button class="btn-p" onclick="finishOb()"><i data-lucide="play"></i> Mulai Gunakan AspirA.I-Qu</button>
+    <button class="btn-p" onclick="finishOb()">Mulai Gunakan AspirA.I-Qu &rarr;</button>
     <div class="ob-skip" onclick="skipOb()">Lewati untuk sekarang</div>
   </div>
 </div>
@@ -306,14 +296,14 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
         <div class="logo-sb">Smart BMA Identification</div>
       </div>
     </div>
-    <button class="btn-sm" onclick="openOv()"><i data-lucide="settings"></i></button>
+    <button class="btn-sm" onclick="openOv()">&#9881;</button>
   </div>
   <div class="nav">
-    <button class="ntab on" id="nt-q" onclick="goTab('q')"><i data-lucide="zap"></i>Cepat</button>
-    <button class="ntab" id="nt-i" onclick="goTab('i')"><i data-lucide="file-text"></i>Input</button>
-    <button class="ntab" id="nt-d" onclick="goTab('d')"><i data-lucide="microscope"></i>Deteksi</button>
-    <button class="ntab" id="nt-h" onclick="goTab('h')"><i data-lucide="folder-open"></i>Riwayat</button>
-    <button class="ntab" id="nt-a" onclick="goTab('a')"><i data-lucide="info"></i>Tentang</button>
+    <button class="ntab on" id="nt-q" onclick="goTab('q')">⚡ Cepat</button>
+    <button class="ntab" id="nt-i" onclick="goTab('i')">📝 Input</button>
+    <button class="ntab" id="nt-d" onclick="goTab('d')">🔬 Deteksi</button>
+    <button class="ntab" id="nt-h" onclick="goTab('h')">📚 Riwayat</button>
+    <button class="ntab" id="nt-a" onclick="goTab('a')">ℹ️ Tentang</button>
   </div>
 
   <div class="pnl on" id="pnl-q">
@@ -321,7 +311,7 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
     <div class="card card-red">
       <div class="dz">
         <input type="file" id="qFi" accept="image/*" multiple onchange="addPh(this,'q')">
-        <div class="dz-ico"><i data-lucide="upload-cloud"></i></div>
+        <div class="dz-ico">📷</div>
         <div class="dz-ttl">Upload foto apusan sumsum tulang</div>
         <div class="dz-sub">JPG/PNG &middot; hingga 5 foto &middot; AI hitung sel otomatis</div>
       </div>
@@ -331,8 +321,8 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
     <div class="card">
       <div class="fld"><label class="flbl">Keterangan Klinis (opsional)</label><input type="text" id="qKl" placeholder="Susp. AML, anemia aplastik..."></div>
     </div>
-    <button class="btn-p" id="qBtn" onclick="quickAn()"><i data-lucide="activity"></i> Analisis Cepat</button>
-    <div class="loading" id="qLd"><div class="pring"><div class="pinn"><i data-lucide="loader"></i></div></div><div class="lttl">Menganalisis morfologi...</div><div class="lstep" id="qSt">Memindai foto</div></div>
+    <button class="btn-p" id="qBtn" onclick="quickAn()">⚡ Analisis Cepat</button>
+    <div class="loading" id="qLd"><div class="pring"><div class="pinn">🔬</div></div><div class="lttl">Menganalisis morfologi...</div><div class="lstep" id="qSt">Memindai foto</div></div>
     <div class="qres" id="qR">
       <div style="margin-top:14px"><div class="slbl"><span class="dot"></span>Komposisi Sel</div></div>
       <div id="qRatio"></div>
@@ -348,17 +338,17 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
       <div style="margin-top:12px"><div class="slbl"><span class="dot"></span>Kasus Serupa</div></div>
       <div id="qSim"></div>
       <div class="brow">
-        <button class="btn-s" onclick="cpQ()"><i data-lucide="copy"></i> Salin</button>
-        <button class="btn-s" style="color:var(--blood);border-color:var(--border2)" onclick="svQ()"><i data-lucide="save"></i> Simpan</button>
-        <button class="btn-s" onclick="rstQ()"><i data-lucide="refresh-cw"></i> Baru</button>
+        <button class="btn-s" onclick="cpQ()">📋 Salin</button>
+        <button class="btn-s" style="color:var(--blood);border-color:var(--border2)" onclick="svQ()">💾 Simpan</button>
+        <button class="btn-s" onclick="rstQ()">🔄 Baru</button>
       </div>
     </div>
   </div>
 
   <div class="pnl" id="pnl-i">
     <div class="msw">
-      <button class="mbtn on" id="mm" onclick="swMode('m')"><i data-lucide="edit-3"></i> Manual</button>
-      <button class="mbtn" id="mf" onclick="swMode('f')"><i data-lucide="file-text"></i> Upload File</button>
+      <button class="mbtn on" id="mm" onclick="swMode('m')">✍️ Manual</button>
+      <button class="mbtn" id="mf" onclick="swMode('f')">📄 Upload File</button>
     </div>
     <div id="iMan">
       <div class="slbl"><span class="dot"></span>Data Pasien</div>
@@ -377,22 +367,22 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
         <div class="fld"><label class="flbl">Sel Lain</label><textarea id="iSL" placeholder="Tidak ditemukan sel non hematopoietik..."></textarea></div>
       </div>
       <div class="slbl"><span class="dot"></span>Foto (opsional)</div>
-      <div class="card"><div class="dz"><input type="file" id="iFi" accept="image/*" multiple onchange="addPh(this,'i')"><div class="dz-ico"><i data-lucide="camera"></i></div><div class="dz-ttl">Upload foto morfologi</div><div class="dz-sub">Opsional &middot; maks 5 foto</div></div><div class="pstrip" id="iPs"></div></div>
-      <button class="btn-p" id="iBtn" onclick="inputAn()"><i data-lucide="sparkles"></i> Analisis &amp; Interpretasi</button>
-      <div class="loading" id="iLd"><div class="pring"><div class="pinn"><i data-lucide="cpu"></i></div></div><div class="lttl">Menganalisis data BMA...</div><div class="lstep" id="iSt">Mencari kasus referensi</div></div>
+      <div class="card"><div class="dz"><input type="file" id="iFi" accept="image/*" multiple onchange="addPh(this,'i')"><div class="dz-ico">📷</div><div class="dz-ttl">Upload foto morfologi</div><div class="dz-sub">Opsional &middot; maks 5 foto</div></div><div class="pstrip" id="iPs"></div></div>
+      <button class="btn-p" id="iBtn" onclick="inputAn()">✨ Analisis &amp; Interpretasi</button>
+      <div class="loading" id="iLd"><div class="pring"><div class="pinn">🤖</div></div><div class="lttl">Menganalisis data BMA...</div><div class="lstep" id="iSt">Mencari kasus referensi</div></div>
       <div class="qres" id="iR">
         <div style="margin-top:14px"><div class="slbl"><span class="dot"></span>Hasil Interpretasi</div></div>
         <div class="kbox"><div class="kl">Kesan</div><div class="kks" id="iKs"></div></div>
         <div class="kbox red"><div class="kl">Kesimpulan</div><div class="kdx" id="iKp"></div></div>
         <div class="kbox"><div class="kl">Catatan AI</div><div class="kct" id="iCt"></div></div>
-        <div class="brow"><button class="btn-s" onclick="cpI()"><i data-lucide="copy"></i> Salin</button><button class="btn-s" style="color:var(--blood);border-color:var(--border2)" onclick="svI()"><i data-lucide="save"></i> Simpan</button><button class="btn-s" onclick="rstI()"><i data-lucide="refresh-cw"></i> Baru</button></div>
+        <div class="brow"><button class="btn-s" onclick="cpI()">📋 Salin</button><button class="btn-s" style="color:var(--blood);border-color:var(--border2)" onclick="svI()">💾 Simpan</button><button class="btn-s" onclick="rstI()">🔄 Baru</button></div>
       </div>
     </div>
     <div id="iFile" style="display:none">
       <div class="slbl"><span class="dot"></span>Upload File Word</div>
-      <div class="card"><div class="dz" style="border-color:rgba(37,99,235,0.25);background:#f8fbff"><input type="file" id="dFi" accept=".doc,.docx" multiple onchange="handleDoc(this)"><div class="dz-ico" style="color:var(--plasma)"><i data-lucide="file-text"></i></div><div class="dz-ttl">Upload file .doc / .docx</div><div class="dz-sub">Laporan BMA format Word</div></div><div id="dList" style="margin-top:9px"></div></div>
-      <button class="btn-p" id="dBtn" onclick="procDoc()" style="display:none;background:linear-gradient(135deg,var(--plasma),#1e40af)"><i data-lucide="terminal"></i> Proses File</button>
-      <div class="loading" id="dLd"><div class="pring"><div class="pinn" style="background:linear-gradient(135deg,var(--plasma),#1e40af)"><i data-lucide="loader"></i></div></div><div class="lttl">Memproses file...</div><div class="lstep" id="dSt">Mengekstrak teks</div></div>
+      <div class="card"><div class="dz" style="border-color:rgba(37,99,235,0.25);background:#f8fbff"><input type="file" id="dFi" accept=".doc,.docx" multiple onchange="handleDoc(this)"><div class="dz-ico">📄</div><div class="dz-ttl">Upload file .doc / .docx</div><div class="dz-sub">Laporan BMA format Word</div></div><div id="dList" style="margin-top:9px"></div></div>
+      <button class="btn-p" id="dBtn" onclick="procDoc()" style="display:none;background:linear-gradient(135deg,var(--plasma),#1e40af)">💻 Proses File</button>
+      <div class="loading" id="dLd"><div class="pring"><div class="pinn">⚙️</div></div><div class="lttl">Memproses file...</div><div class="lstep" id="dSt">Mengekstrak teks</div></div>
       <div id="dResults"></div>
     </div>
   </div>
@@ -402,14 +392,14 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
     <div class="card card-red">
       <div class="dz">
         <input type="file" id="dtFi" accept="image/*" multiple onchange="addPh(this,'dt')">
-        <div class="dz-ico"><i data-lucide="scan-face"></i></div>
+        <div class="dz-ico">🔍</div>
         <div class="dz-ttl">Upload foto apusan</div>
         <div class="dz-sub">Deteksi sel per lini: Eritrosit, Leukosit, Megakariosit</div>
       </div>
       <div class="pstrip" id="dtPs"></div>
     </div>
-    <button class="btn-p" id="dtBtn" onclick="detAn()"><i data-lucide="search"></i> Deteksi Jenis Sel</button>
-    <div class="loading" id="dtLd"><div class="pring"><div class="pinn"><i data-lucide="microscope"></i></div></div><div class="lttl">Mendeteksi jenis sel...</div><div class="lstep" id="dtSt">Memindai foto</div></div>
+    <button class="btn-p" id="dtBtn" onclick="detAn()">🔬 Deteksi Jenis Sel</button>
+    <div class="loading" id="dtLd"><div class="pring"><div class="pinn">👁️</div></div><div class="lttl">Mendeteksi jenis sel...</div><div class="lstep" id="dtSt">Memindai foto</div></div>
     <div class="qres" id="dtR">
       <div style="margin-top:14px"><div class="slbl"><span class="dot"></span>Lini Eritrosit</div></div>
       <div class="cblk"><div id="dtE"></div></div>
@@ -418,7 +408,7 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
       <div style="margin-top:12px"><div class="slbl"><span class="dot"></span>Lini Megakariosit</div></div>
       <div class="cblk"><div id="dtM"></div></div>
       <div style="font-size:11px;color:var(--t3);text-align:center;padding:12px;font-style:italic;line-height:1.5">&rarr; Hasil AI bersifat skrining awal, bukan diagnosis final. Perlu konfirmasi morfologi manual oleh Sp.PK.</div>
-      <div class="brow"><button class="btn-s" onclick="rstDt()"><i data-lucide="refresh-cw"></i> Baru</button></div>
+      <div class="brow"><button class="btn-s" onclick="rstDt()">🔄 Baru</button></div>
     </div>
   </div>
 
@@ -437,7 +427,7 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
       <div style="font-size:13px;color:var(--t2);line-height:1.8">Selamat datang di <b style="color:var(--t1)">AspirA.I-Qu</b>! Kami hadir untuk memberikan solusi cerdas dalam identifikasi BMA. Dengan teknologi AI, foto mikroskopis Anda akan dicocokkan secara cepat dan akurat dengan database yang tersedia, memudahkan pekerjaan laboratorium dalam satu genggaman.</div>
     </div>
     <div class="tm-card">
-      <div class="tm-ttl"><i data-lucide="users" style="width:16px; height:16px"></i> Tim Empat Serangkai</div>
+      <div class="tm-ttl">👥 Tim Empat Serangkai</div>
       <div style="font-size:12px;color:var(--t3);margin-bottom:12px">PPDS Patologi Klinik &middot; FK Universitas Airlangga</div>
       <div class="tm-row"><div class="tm-num">1</div><div><div class="tm-name">Alifferdi Rahman Wiyono</div><div class="tm-role">PPDS Sp.PK &middot; FK Unair</div></div></div>
       <div class="tm-row"><div class="tm-num">2</div><div><div class="tm-name">Danang Yudha Bhirawa Pikir</div><div class="tm-role">PPDS Sp.PK &middot; FK Unair</div></div></div>
@@ -445,29 +435,29 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
       <div class="tm-row"><div class="tm-num">4</div><div><div class="tm-name">Ricky Rinaldy</div><div class="tm-role">PPDS Sp.PK &middot; FK Unair</div></div></div>
     </div>
     <div class="ap-card">
-      <div class="ap-ttl"><i data-lucide="award" style="width:16px; height:16px; color:var(--plasma)"></i> Appreciation Note</div>
+      <div class="ap-ttl">🏅 Appreciation Note</div>
       <div style="font-size:13px;color:var(--t2);line-height:1.8">Projek ini tidak akan berjalan tanpa dukungan luar biasa dari keluarga besar KSM Patologi Klinik RSUD Dr. Soetomo - FK Universitas Airlangga. Terima kasih kepada seluruh staf yang telah memberikan inspirasi dan ilmu yang sangat berharga bagi kami.</div>
     </div>
     <div class="ap-card">
-      <div class="ap-ttl"><i data-lucide="book-open" style="width:16px; height:16px; color:var(--plasma)"></i> Atribusi Dataset</div>
+      <div class="ap-ttl">📖 Atribusi Dataset</div>
       <div style="font-size:13px;color:var(--t2);line-height:1.8">Atlas referensi morfologi sel pada aplikasi ini menggunakan gambar dari dataset <i>Bone Marrow Cytomorphology</i> (Matek et al., 2019), The Cancer Imaging Archive.</div>
     </div>
-    <div class="ver">versi 0.1.0<br>Pengembangan Mei 2026<br>Tim Empat Serangkai</div>
+    <div class="ver">versi 0.1.0<br>Pengembangan Juni 2026<br>Tim Empat Serangkai</div>
   </div>
 
 </div>
 </div>
 
 <div class="dock" id="dock" style="display:none">
-  <button class="dbtn on" id="db-q" onclick="goTab('q')"><i data-lucide="zap"></i>Cepat</button>
-  <button class="dbtn" id="db-i" onclick="goTab('i')"><i data-lucide="file-text"></i>Input</button>
-  <button class="dbtn" id="db-d" onclick="goTab('d')"><i data-lucide="microscope"></i>Deteksi</button>
-  <button class="dbtn" id="db-h" onclick="goTab('h')"><i data-lucide="folder-open"></i>Riwayat</button>
-  <button class="dbtn" id="db-a" onclick="goTab('a')"><i data-lucide="info"></i>Tentang</button>
+  <button class="dbtn on" id="db-q" onclick="goTab('q')"><span class="di">⚡</span>Cepat</button>
+  <button class="dbtn" id="db-i" onclick="goTab('i')"><span class="di">📝</span>Input</button>
+  <button class="dbtn" id="db-d" onclick="goTab('d')"><span class="di">🔬</span>Deteksi</button>
+  <button class="dbtn" id="db-h" onclick="goTab('h')"><span class="di">📚</span>Riwayat</button>
+  <button class="dbtn" id="db-a" onclick="goTab('a')"><span class="di">ℹ️</span>Tentang</button>
 </div>
 
 <div class="ov" id="ovSet">
-  <div class="ovhdr"><button class="btn-sm" onclick="closeOv()"><i data-lucide="arrow-left"></i></button><div class="ovttl">Pengaturan</div></div>
+  <div class="ovhdr"><button class="btn-sm" onclick="closeOv()">&#8592;</button><div class="ovttl">Pengaturan</div></div>
   <div style="padding:20px 16px">
     <div class="slbl"><span class="dot"></span>Gemini API Key</div>
     <div class="card">
@@ -478,11 +468,11 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
     <div class="slbl"><span class="dot"></span>Database BMA</div>
     <div class="card card-blue">
       <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg3);border-radius:var(--r);border:1px solid var(--border);margin-bottom:12px">
-        <i data-lucide="database" style="color:var(--plasma); width:20px; height:20px"></i>
+        <span style="font-size:20px">🗄️</span>
         <div><div style="font-size:13px;font-weight:600;color:var(--t1)">Database Terhubung</div><div style="font-size:11px;color:var(--t3);margin-top:2px" id="sDb">Memuat...</div></div>
       </div>
       <div class="ipill" style="background:var(--cream);border-color:var(--border3)">Database dikelola Tim Empat Serangkai. Diperbarui secara berkala.</div>
-      <button class="btn-sv" onclick="reloadDB()" style="border-color:var(--plasma);color:var(--plasma);margin-top:10px"><i data-lucide="refresh-cw" style="display:inline-block; width:14px; height:14px; vertical-align:middle"></i> Muat Ulang Database</button>
+      <button class="btn-sv" onclick="reloadDB()" style="border-color:var(--plasma);color:var(--plasma);margin-top:10px">🔄 Muat Ulang Database</button>
     </div>
   </div>
 </div>
@@ -540,8 +530,8 @@ async function loadAtlas() {
   return atlasMap;
 }  
   
-/* ── SPLASH & BOOT SAFE INITIALIZATION ── */
-window.addEventListener('DOMContentLoaded', function() {
+/* ── SPLASH & BOOT LOGIC (100% GARANSI AMAN) ── */
+window.addEventListener('load', function() {
   var tg = document.getElementById('iTg');
   if(tg) tg.valueAsDate = new Date();
 
@@ -553,7 +543,6 @@ window.addEventListener('DOMContentLoaded', function() {
   }
   renderH();
 
-  // Matikan screen loading splash screen dengan aman setelah durasi animasi selesai
   setTimeout(function() {
     var sp = document.getElementById('splash');
     if (sp) {
@@ -565,13 +554,6 @@ window.addEventListener('DOMContentLoaded', function() {
         } else {
           showMain();
         }
-        
-        // Panggil inisialisasi ikon vektor hanya saat DOM sudah sepenuhnya siap tanpa memblokir siklus render utama
-        try {
-          if (typeof lucide !== 'undefined') {
-            lucide.createIcons();
-          }
-        } catch(err) { console.warn("Lucide Icons CDN delayed or unreachable:", err); }
       }, 400);
     }
   }, 2200);
@@ -579,7 +561,9 @@ window.addEventListener('DOMContentLoaded', function() {
 
 function showMain() {
   document.getElementById('main').style.display = 'block';
-  document.getElementById('dock').style.display = 'flex';
+  document.getElementById('main').classList.add('show');
+  var dk = document.getElementById('dock');
+  if (dk) dk.style.display = 'flex';
   loadDB();
 }
 
@@ -633,7 +617,7 @@ async function loadDB() {
   }
 }
 
-/* ── NAVIGATION ── */
+/* ── NAVIGATION ASLI ── */
 function goTab(t) {
   ['q','i','d','h','a'].forEach(function(x) {
     var p = document.getElementById('pnl-'+x);
@@ -874,10 +858,9 @@ async function inputAn() {
 function handleDoc(inp) {
   docF = Array.from(inp.files);
   document.getElementById('dList').innerHTML = docF.map(function(f) {
-    return '<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg3);border-radius:10px;margin-bottom:4px;font-size:12px;color:var(--t2);border:1px solid var(--border)"><i data-lucide="file" style="width:14px; height:14px; color:var(--plasma)"></i> '+f.name+'<span style="color:var(--t3);margin-left:auto;font-family:\'JetBrains Mono\'">'+Math.round(f.size/1024)+' KB</span></div>';
+    return '<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg3);border-radius:10px;margin-bottom:4px;font-size:12px;color:var(--t2);border:1px solid var(--border)">📄 '+f.name+'<span style="color:var(--t3);margin-left:auto;font-family:\'JetBrains Mono\'">'+Math.round(f.size/1024)+' KB</span></div>';
   }).join('');
   document.getElementById('dBtn').style.display = docF.length ? 'flex' : 'none';
-  try { if (typeof lucide !== 'undefined') lucide.createIcons(); } catch(e){}
 }
 async function procDoc() {
   if(!docF.length) return;
@@ -911,7 +894,7 @@ function svQ() {
   if(!qLast) return;
   var r = qLast.data;
   var h = JSON.parse(localStorage.getItem('bma_h')||'[]');
-  h.unshift({type:'q', kl:qLast.kl, kesan:r.kesan, kesimpulan:r.kesimpulan, catatan:r.catatan, ts:qLast.ts});
+  h.unshift({type:'q', kl:qLast.kl, kesan:r.kesan, kesimpulan:r.kesimpluan || r.kesimpulan, catatan:r.catatan, ts:qLast.ts});
   localStorage.setItem('bma_h', JSON.stringify(h.slice(0,60)));
   tst('Tersimpan'); renderH();
 }
@@ -927,8 +910,7 @@ function renderH() {
   var el = document.getElementById('hList');
   if(!el) return;
   if(!h.length) { 
-    el.innerHTML = '<div class="empty"><i data-lucide="folder-x"></i><div>Belum ada kasus tersimpan</div></div>'; 
-    try { if (typeof lucide !== 'undefined') lucide.createIcons(); } catch(e){}
+    el.innerHTML = '<div class="empty">📂 Belum ada kasus tersimpan</div>'; 
     return; 
   }
   el.innerHTML = h.map(function(x,i) {
@@ -937,16 +919,15 @@ function renderH() {
     var dx = x.kesimpulan || '-';
     var kl = (x.inputData && x.inputData.kl) || x.kl || '';
     var tg = new Date(x.ts).toLocaleDateString('id-ID');
-    var ico = x.type === 'q' ? '<i data-lucide="zap"></i>' : '<i data-lucide="file-text"></i>';
+    var ico = x.type === 'q' ? '⚡' : '📝';
     return '<div class="hitm" onclick="viewH('+i+')"><div class="hnm">'+ico+' '+nm+(um?' - '+um:'')+'</div><div class="hdx">'+dx.slice(0,70)+'</div><div class="hmt">'+(kl?kl+' &middot; ':'')+tg+'</div></div>';
   }).join('');
-  try { if (typeof lucide !== 'undefined') lucide.createIcons(); } catch(e){}
 }
 function viewH(i) {
   var h = JSON.parse(localStorage.getItem('bma_h')||'[]');
   var x = h[i]; if(!x) return;
   document.getElementById('iKs').textContent = x.kesan || '';
-  document.getElementById('iKp').textContent = x.kesimpulan || '';
+  document.getElementById('iKp').textContent = x.kesimpluan || x.kesimpulan || '';
   document.getElementById('iCt').textContent = x.catatan || '';
   document.getElementById('iR').classList.add('on');
   iLast = x; goTab('i');
@@ -954,7 +935,7 @@ function viewH(i) {
 }
 
 /* ── COPY / RESET ── */
-function cpQ() { if(!qLast) return; var r=qLast.data; navigator.clipboard.writeText('KESAN:\n'+r.kesan+'\n\nKESIMPULAN:\n'+r.kesimpulan).then(function(){tst('Disalin');}); }
+function cpQ() { if(!qLast) return; var r=qLast.data; navigator.clipboard.writeText('KESAN:\n'+r.kesan+'\n\nKESIMPULAN:\n'+(r.kesimpluan || r.kesimpulan)).then(function(){tst('Disalin');}); }
 function cpI() { if(!iLast) return; navigator.clipboard.writeText('KESAN:\n'+iLast.kesan+'\n\nKESIMPULAN:\n'+iLast.kesimpulan).then(function(){tst('Disalin');}); }
 function rstQ() { qPh=[]; renderPs(qPh,'qPs','q'); document.getElementById('qR').classList.remove('on'); document.getElementById('qKl').value=''; qLast=null; window.scrollTo({top:0,behavior:'smooth'}); }
 function rstI() { iPh=[]; renderPs(iPh,'iPs','i'); document.getElementById('iR').classList.remove('on'); iLast=null; window.scrollTo({top:0,behavior:'smooth'}); }
