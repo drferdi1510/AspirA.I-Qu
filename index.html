@@ -7,7 +7,6 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>AspirA.I-Qu</title>
 <link rel="manifest" href="manifest.json">
-<!-- Google Fonts & Lucide Icons for Premium UI Elements -->
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
@@ -45,7 +44,7 @@
 body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--t1); min-height:100dvh; overflow-x:hidden; -webkit-font-smoothing:antialiased }
 
 /* PREMIUM SPLASH SCREEN */
-#splash { position:fixed; inset:0; z-index:9999; background:radial-gradient(circle at center, #ffffff, #f8fafc); display:flex; flex-direction:column; align-items:center; justify-content:center }
+#splash { position:fixed; inset:0; z-index:9999; background:radial-gradient(circle at center, #ffffff, #f8fafc); display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:1; transition: opacity 0.4s ease }
 .sp-logo { width:100px; height:100px; border-radius:24px; object-fit:contain; filter: drop-shadow(0 10px 15px rgba(15,23,42,0.08)); animation: pulseGlow 2.5s infinite ease-in-out }
 .sp-name { font-family:'Playfair Display',serif; font-size:32px; font-weight:700; color:var(--blood); margin-top:20px; letter-spacing:-0.5px }
 .sp-name em { color:var(--bone); font-style:normal }
@@ -192,7 +191,7 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
 .kbox { background:#fff; border:1px solid var(--border); border-radius:var(--r); padding:16px; margin-bottom:10px; box-shadow:var(--shadow-sm) }
 .kbox.red { border-color:rgba(185,28,28,0.2); background:linear-gradient(180deg,#ffffff, #fffbfb) }
 .kl { font-size:10px; font-weight:700; color:var(--t3); text-transform:uppercase; letter-spacing:0.8px; margin-bottom:8px }
-.kdx { font-family:'Playfair Display',serif; font-style:italic; font-size:15px; color:var(--blood); line-height:1.6; font-weight: 600 }
+.kdx font-family:'Playfair Display',serif; font-style:italic; font-size:15px; color:var(--blood); line-height:1.6; font-weight: 600 }
 .kks { font-size:13px; color:var(--t1); line-height:1.6; font-weight:500 }
 .kct { font-size:12px; color:var(--t2); line-height:1.6; font-style:italic }
 .sim-item { background:var(--cream); border:1px solid var(--border); border-radius:10px; padding:12px; margin-bottom:6px; display:flex; justify-content:space-between; align-items:flex-start; transition:var(--transition) }
@@ -258,7 +257,6 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
 </head>
 <body>
 
-<!-- SPLASH SCREEN -->
 <div id="splash">
   <img class="sp-logo" src="logo.png" alt="logo" onerror="this.style.display='none'">
   <div class="sp-name">AspirA<em>.I</em>-Qu</div>
@@ -266,7 +264,6 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
   <div class="sp-bar"><div class="sp-prog"></div></div>
 </div>
 
-<!-- ONBOARDING MODAL -->
 <div id="onboard">
   <div class="ob-wrap">
     <img class="ob-logo" src="logo.png" alt="logo" onerror="this.style.display='none'">
@@ -299,7 +296,6 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
   </div>
 </div>
 
-<!-- MAIN FRAMEWORK -->
 <div id="main">
 <div id="app">
   <div class="hdr">
@@ -320,7 +316,6 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
     <button class="ntab" id="nt-a" onclick="goTab('a')"><i data-lucide="info"></i>Tentang</button>
   </div>
 
-  <!-- TAB CEPAT -->
   <div class="pnl on" id="pnl-q">
     <div class="slbl"><span class="dot"></span>Upload Foto Morfologi</div>
     <div class="card card-red">
@@ -360,7 +355,6 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
     </div>
   </div>
 
-  <!-- TAB INPUT -->
   <div class="pnl" id="pnl-i">
     <div class="msw">
       <button class="mbtn on" id="mm" onclick="swMode('m')"><i data-lucide="edit-3"></i> Manual</button>
@@ -403,7 +397,6 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
     </div>
   </div>
 
-  <!-- TAB DETEKSI -->
   <div class="pnl" id="pnl-d">
     <div class="slbl"><span class="dot"></span>Upload Foto untuk Deteksi Jenis Sel</div>
     <div class="card card-red">
@@ -429,14 +422,11 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
     </div>
   </div>
 
-
-  <!-- TAB RIWAYAT -->
   <div class="pnl" id="pnl-h">
     <div class="slbl"><span class="dot"></span>Riwayat Kasus</div>
     <div id="hList"></div>
   </div>
 
-  <!-- TAB TENTANG -->
   <div class="pnl" id="pnl-a">
     <div class="ab-hero">
       <img class="ab-logo" src="logo.png" alt="logo" onerror="this.style.display='none'">
@@ -468,7 +458,6 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
 </div>
 </div>
 
-<!-- BOTTOM DESKTOP/MOBILE DOCK -->
 <div class="dock" id="dock" style="display:none">
   <button class="dbtn on" id="db-q" onclick="goTab('q')"><i data-lucide="zap"></i>Cepat</button>
   <button class="dbtn" id="db-i" onclick="goTab('i')"><i data-lucide="file-text"></i>Input</button>
@@ -477,7 +466,6 @@ textarea { resize:vertical; min-height:80px; line-height:1.6 }
   <button class="dbtn" id="db-a" onclick="goTab('a')"><i data-lucide="info"></i>Tentang</button>
 </div>
 
-<!-- SETTINGS PANEL OVERLAY -->
 <div class="ov" id="ovSet">
   <div class="ovhdr"><button class="btn-sm" onclick="closeOv()"><i data-lucide="arrow-left"></i></button><div class="ovttl">Pengaturan</div></div>
   <div style="padding:20px 16px">
@@ -552,11 +540,8 @@ async function loadAtlas() {
   return atlasMap;
 }  
   
-/* ── SPLASH & BOOT ── */
-window.addEventListener('load', function() {
-  // Initialize Lucide Icons
-  lucide.createIcons();
-
+/* ── SPLASH & BOOT SAFE INITIALIZATION ── */
+window.addEventListener('DOMContentLoaded', function() {
   var tg = document.getElementById('iTg');
   if(tg) tg.valueAsDate = new Date();
 
@@ -568,19 +553,28 @@ window.addEventListener('load', function() {
   }
   renderH();
 
+  // Matikan screen loading splash screen dengan aman setelah durasi animasi selesai
   setTimeout(function() {
     var sp = document.getElementById('splash');
-    sp.style.opacity = '0';
-    sp.style.transition = 'opacity 0.4s ease';
-    setTimeout(function() {
-      sp.style.display = 'none';
-      if(!localStorage.getItem('bma_k')) {
-        document.getElementById('onboard').classList.add('show');
-      } else {
-        showMain();
-      }
-    }, 400);
-  }, 2500);
+    if (sp) {
+      sp.style.opacity = '0';
+      setTimeout(function() {
+        sp.style.display = 'none';
+        if(!localStorage.getItem('bma_k')) {
+          document.getElementById('onboard').classList.add('show');
+        } else {
+          showMain();
+        }
+        
+        // Panggil inisialisasi ikon vektor hanya saat DOM sudah sepenuhnya siap tanpa memblokir siklus render utama
+        try {
+          if (typeof lucide !== 'undefined') {
+            lucide.createIcons();
+          }
+        } catch(err) { console.warn("Lucide Icons CDN delayed or unreachable:", err); }
+      }, 400);
+    }
+  }, 2200);
 });
 
 function showMain() {
@@ -726,8 +720,7 @@ async function callAI(prompt, photos, opts) {
 }
 function pj(txt) {
   if(!txt) return null;
-  var clean = txt.replace(/```json|
-```/g,'').trim();
+  var clean = txt.replace(/```json|```/g,'').trim();
   try { return JSON.parse(clean); } catch(e) {}
   var arrM = clean.match(/\[[\s\S]*\]/);
   if(arrM) { try { return JSON.parse(arrM[0]); } catch(e) {} }
@@ -743,18 +736,18 @@ async function quickAn() {
   document.getElementById('qBtn').disabled = true;
   document.getElementById('qLd').classList.add('on');
   document.getElementById('qR').classList.remove('on');
-  var steps = ['Memindai morfologi sel...','Menghitung proporsi...','Mengidentifikasi jenis sel...','Menyusun interpretasi...'];
+  var steps = ['Morfologi sel...','Proporsi sel...','Mengidentifikasi sel...','Menyusun interpretasi...'];
   var si = 0;
   var iv = setInterval(function(){si=(si+1)%steps.length; document.getElementById('qSt').textContent=steps[si];}, 1800);
   try {
     var prompt = 'Kamu adalah Sp.PK ahli morfologi sumsum tulang Indonesia.\n' + MORPH_GUIDE + 'Analisis foto apusan sumsum tulang'+(kl?' dengan konteks klinis: "'+kl+'"':'.')+'\nJawab HANYA dalam JSON (tanpa teks lain):\n{"me_ratio":"X:1","eritropoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":"X-Y","sel":[{"nama":"Pronormoblas","rentang":"1-3","bar":"e"},{"nama":"Normoblas Basofilik","rentang":"3-7","bar":"e"},{"nama":"Normoblas Polikromatik","rentang":"8-15","bar":"e"},{"nama":"Normoblas Ortokromatik","rentang":"4-8","bar":"e"}]},"granulopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":"X-Y","sel":[{"nama":"Mieloblas","rentang":"0-2","bar":"g"},{"nama":"Promielosit","rentang":"1-4","bar":"g"},{"nama":"Mielosit","rentang":"5-10","bar":"g"},{"nama":"Metamielosit","rentang":"5-12","bar":"g"},{"nama":"Batang","rentang":"10-18","bar":"g"},{"nama":"Segmen","rentang":"15-25","bar":"g"}]},"megakariopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","temuan":"deskripsi morfologi","sel":[{"nama":"Megakariosit","rentang":null,"bar":"m","catatan":"adequate"}]},"sel_lain":{"label":"deskripsi singkat","sel":[{"nama":"Limfosit matur","rentang":"5-12","bar":"o"}]},"kesan":"Gambaran sumsum tulang ...","observasi":["Poin observasi 1 (temuan + relevansi klinis, perlu dikonfirmasi)","Poin observasi 2 (diagnosis banding yang relevan, perlu dikonfirmasi)"],"catatan":"Catatan singkat."}\nIsi sesuai temuan foto. PERSENTASE WAJIB berupa RENTANG PERKIRAAN (contoh "10-20"), BUKAN angka tunggal pasti. null jika tidak bisa diperkirakan. OBSERVASI berisi poin pengamatan & diagnosis banding yang PERLU DIKONFIRMASI Sp.PK, BUKAN diagnosis final/pasti.' + ragCtx(findSim(kl,'','',null));
     var txt = await callAI(prompt, qPh, {noThink:true, maxTokens:3000});
     var r = pj(txt);
-    if(!r) throw new Error('Format respons tidak valid. Raw: ' + (txt||'(kosong)').slice(0,300));
+    if(!r) throw new Error('Format respons tidak valid.');
     qLast = {data:r, kl:kl, ts:new Date().toISOString()};
     await renderQR(r, kl);
   } catch(e) {
-    if(e.message !== 'nokey') { if(e.message.length > 60) alert('Error: ' + e.message); else tst('Error: ' + e.message); }
+    if(e.message !== 'nokey') { tst('Error: ' + e.message); }
   } finally {
     clearInterval(iv);
     document.getElementById('qLd').classList.remove('on');
@@ -796,14 +789,14 @@ async function detAn() {
     var prompt = 'Kamu adalah Sp.PK ahli morfologi sumsum tulang Indonesia.\n' + MORPH_GUIDE + 'Deteksi jenis-jenis sel pada foto apusan sumsum tulang ini, dikelompokkan per lini.\nJawab HANYA JSON:\n{"eritrosit":[{"nama":"Pronormoblas","rentang":"0-2","bar":"e"},{"nama":"Normoblas Basofilik","rentang":"2-5","bar":"e"},{"nama":"Normoblas Polikromatik","rentang":"5-15","bar":"e"},{"nama":"Normoblas Ortokromatik","rentang":"3-10","bar":"e"}],"leukosit":[{"nama":"Mieloblas","rentang":"0-2","bar":"g"},{"nama":"Promielosit","rentang":"1-5","bar":"g"},{"nama":"Mielosit","rentang":"5-15","bar":"g"},{"nama":"Metamielosit","rentang":"5-15","bar":"g"},{"nama":"Batang","rentang":"10-20","bar":"g"},{"nama":"Segmen","rentang":"15-30","bar":"g"},{"nama":"Limfosit matur","rentang":"5-15","bar":"o"},{"nama":"Monosit","rentang":"0-5","bar":"o"}],"megakariosit":[{"nama":"Megakariosit","rentang":null,"bar":"m","catatan":"adequate/menurun/meningkat"}]}\nHanya sertakan jenis sel yang benar-benar terlihat di foto. Rentang persen berupa PERKIRAAN (X-Y), bukan angka tunggal.';
     var txt = await callAI(prompt, dtPh, {noThink:true, maxTokens:2500});
     var r = pj(txt);
-    if(!r) throw new Error('Format respons tidak valid. Raw: ' + (txt||'(kosong)').slice(0,300));
+    if(!r) throw new Error('Format respons tidak valid.');
     document.getElementById('dtE').innerHTML = await renderCells(r.eritrosit||[]);
     document.getElementById('dtL').innerHTML = await renderCells(r.leukosit||[]);
     document.getElementById('dtM').innerHTML = await renderCells(r.megakariosit||[]);
     document.getElementById('dtR').classList.add('on');
     document.getElementById('dtR').scrollIntoView({behavior:'smooth', block:'start'});
   } catch(e) {
-    if(e.message !== 'nokey') { if(e.message.length > 60) alert('Error: ' + e.message); else tst('Error: ' + e.message); }
+    if(e.message !== 'nokey') { tst('Error: ' + e.message); }
   } finally {
     clearInterval(iv);
     document.getElementById('dtLd').classList.remove('on');
@@ -854,7 +847,7 @@ async function inputAn() {
   document.getElementById('iBtn').disabled = true;
   document.getElementById('iLd').classList.add('on');
   document.getElementById('iR').classList.remove('on');
-  var steps = ['Mencari kasus referensi...','Menganalisis data...','Menyusun interpretasi...','Memformat...'];
+  var steps = ['Kasus referensi...','Menganalisis data...','Interpretasi AI...','Memformat...'];
   var si = 0;
   var iv = setInterval(function(){si=(si+1)%steps.length; document.getElementById('iSt').textContent=steps[si];}, 2000);
   try {
@@ -869,7 +862,7 @@ async function inputAn() {
     document.getElementById('iR').classList.add('on');
     document.getElementById('iR').scrollIntoView({behavior:'smooth', block:'start'});
   } catch(e) {
-    if(e.message !== 'nokey') { if(e.message.length > 60) alert('Error: ' + e.message); else tst('Error: ' + e.message); }
+    if(e.message !== 'nokey') { tst('Error: ' + e.message); }
   } finally {
     clearInterval(iv);
     document.getElementById('iLd').classList.remove('on');
@@ -884,7 +877,7 @@ function handleDoc(inp) {
     return '<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg3);border-radius:10px;margin-bottom:4px;font-size:12px;color:var(--t2);border:1px solid var(--border)"><i data-lucide="file" style="width:14px; height:14px; color:var(--plasma)"></i> '+f.name+'<span style="color:var(--t3);margin-left:auto;font-family:\'JetBrains Mono\'">'+Math.round(f.size/1024)+' KB</span></div>';
   }).join('');
   document.getElementById('dBtn').style.display = docF.length ? 'flex' : 'none';
-  lucide.createIcons();
+  try { if (typeof lucide !== 'undefined') lucide.createIcons(); } catch(e){}
 }
 async function procDoc() {
   if(!docF.length) return;
@@ -935,7 +928,7 @@ function renderH() {
   if(!el) return;
   if(!h.length) { 
     el.innerHTML = '<div class="empty"><i data-lucide="folder-x"></i><div>Belum ada kasus tersimpan</div></div>'; 
-    lucide.createIcons();
+    try { if (typeof lucide !== 'undefined') lucide.createIcons(); } catch(e){}
     return; 
   }
   el.innerHTML = h.map(function(x,i) {
@@ -947,7 +940,7 @@ function renderH() {
     var ico = x.type === 'q' ? '<i data-lucide="zap"></i>' : '<i data-lucide="file-text"></i>';
     return '<div class="hitm" onclick="viewH('+i+')"><div class="hnm">'+ico+' '+nm+(um?' - '+um:'')+'</div><div class="hdx">'+dx.slice(0,70)+'</div><div class="hmt">'+(kl?kl+' &middot; ':'')+tg+'</div></div>';
   }).join('');
-  lucide.createIcons();
+  try { if (typeof lucide !== 'undefined') lucide.createIcons(); } catch(e){}
 }
 function viewH(i) {
   var h = JSON.parse(localStorage.getItem('bma_h')||'[]');
