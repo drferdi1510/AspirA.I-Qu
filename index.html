@@ -385,4 +385,595 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
       <div class="slbl"><span class="dot"></span>Upload File Word</div>
       <div class="card"><div class="dz" style="border-color:rgba(37,99,235,0.25);background:#f8fbff"><input type="file" id="dFi" accept=".doc,.docx" multiple onchange="handleDoc(this)"><div class="dz-ico">📄</div><div class="dz-ttl">Upload file .doc / .docx</div><div class="dz-sub">Laporan BMA format Word</div></div><div id="dList" style="margin-top:9px"></div></div>
       <button class="btn-p" id="dBtn" onclick="procDoc()" style="display:none;background:#0f172a">💻 Proses File</button>
-      <div class="loading" id="dLd"><div class="pring"><div class="p
+      <div class="loading" id="dLd"><div class="pring"><div class="pinn">⚙️</div></div><div class="lttl">Memproses file...</div><div class="lstep" id="dSt">Mengekstrak teks</div></div>
+      <div id="dResults"></div>
+    </div>
+  </div>
+
+  <div class="pnl" id="pnl-d">
+    <div class="slbl"><span class="dot"></span>Upload Foto untuk Deteksi Jenis Sel</div>
+    <div class="card card-red">
+      <div class="dz">
+        <input type="file" id="dtFi" accept="image/*" multiple onchange="addPh(this,'dt')">
+        <div class="dz-ico">🔍</div>
+        <div class="dz-ttl">Upload foto apusan</div>
+        <div class="dz-sub">Deteksi sel per lini: Eritrosit, Leukosit, Megakariosit</div>
+      </div>
+      <div class="pstrip" id="dtPs"></div>
+    </div>
+    <button class="btn-p" id="dtBtn" onclick="detAn()">🔬 Deteksi Jenis Sel</button>
+    <div class="loading" id="dtLd"><div class="pring"><div class="pinn">👁️</div></div><div class="lttl">Mendeteksi jenis sel...</div><div class="lstep" id="dtSt">Memindai foto</div></div>
+    <div class="qres" id="dtR">
+      <div style="margin-top:14px"><div class="slbl"><span class="dot"></span>Lini Eritrosit</div></div>
+      <div class="cblk"><div id="dtE"></div></div>
+      <div style="margin-top:12px"><div class="slbl"><span class="dot"></span>Lini Leukosit</div></div>
+      <div class="cblk"><div id="dtL"></div></div>
+      <div style="margin-top:12px"><div class="slbl"><span class="dot"></span>Lini Megakariosit</div></div>
+      <div class="cblk"><div id="dtM"></div></div>
+      <div style="font-size:11px;color:var(--t3);text-align:center;padding:12px;font-style:italic;line-height:1.5">&rarr; Hasil AI bersifat skrining awal, bukan diagnosis final. Perlu konfirmasi morfologi manual oleh Sp.PK.</div>
+      <div class="brow"><button class="btn-s" onclick="rstDt()">🔄 Baru</button></div>
+    </div>
+  </div>
+
+  <div class="pnl" id="pnl-h">
+    <div class="slbl"><span class="dot"></span>Riwayat Kasus</div>
+    <div id="hList"></div>
+  </div>
+
+  <div class="pnl" id="pnl-a">
+    <div class="ab-hero">
+      <img class="ab-logo" src="logo.png" alt="logo" onerror="this.style.display='none'">
+      <div class="ab-name">AspirA<em>.I</em>-Qu</div>
+      <div class="ab-tag">Smart BMA Identification</div>
+    </div>
+    
+    <div class="card">
+      <div style="font-size:13px;color:var(--t2);line-height:1.8">Selamat datang di <b style="color:var(--t1)">AspirA.I-Qu</b>! Kami hadir untuk memberikan bantuan interpretasi sel dalam identifikasi BMA. Dengan teknologi AI, foto mikroskopis Anda akan dicocokkan secara cepat dengan database yang tersedia. Semua dilakukan langsung dalam satu aplikasi. Keputusan akhir interpretasi tetap pada tangan anda.</div>
+    </div>
+    
+    <div class="tm-card">
+      <div class="tm-ttl">👥 Tim Tiga Serangkai</div>
+      <div style="font-size:12px;color:var(--t3);margin-bottom:12px">PPDS Patologi Klinik &middot; FK Universitas Airlangga</div>
+      <div class="tm-row"><div class="tm-num">1</div><div><div class="tm-name">Alifferdi Rahman Wiyono</div><div class="tm-role">PPDS Sp.PK &middot; FK Unair</div></div></div>
+      <div class="tm-row"><div class="tm-num">2</div><div><div class="tm-name">Danang Yudha Bhirawa Pikir</div><div class="tm-role">PPDS Sp.PK &middot; FK Unair</div></div></div>
+      <div class="tm-row"><div class="tm-num">3</div><div><div class="tm-name">Samuel Hery Setiawan</div><div class="tm-role">PPDS Sp.PK &middot; FK Unair</div></div></div>
+    </div>
+    
+    <div class="ap-card">
+      <div class="ap-ttl">🏅 Appreciation Note</div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:12px">Projek ini tidak akan berjalan tanpa dukungan luar biasa dari keluarga besar KSM Patologi Klinik RSUD Dr. Soetomo - FK Universitas Airlangga. Ucapan terima kasih sebesar-besarnya kepada para Staf Divisi Hematologi KSM Patologi Klinik RSUD Dr. Soetomo - FK Universitas Airlangga:</div>
+      
+      <ul class="ap-list">
+        <li><div class="num-badge">1</div>Prof. Dr. Yetti Hernaningsih, dr., Sp.PK, Subsp. H.K (K)</li>
+        <li><div class="num-badge">2</div>Dr. Paulus B. Notopuro, dr., Sp.PK, Subsp. H.K (K)</li>
+        <li><div class="num-badge">3</div>Arifoel Hajat, dr., Sp.PK, Subsp. H.K (K)</li>
+        <li><div class="num-badge">4</div>Yulia Nadar Indrasari, dr., Sp.PK, Subsp. H.K (K)</li>
+      </ul>
+      
+      <div style="font-size:13px;color:var(--t2);line-height:1.8;margin-top:12px">Ucapan terima kasih juga kami haturkan kepada seluruh staf dari KSM Patologi Klinik RSUD Dr. Soetomo - FK Universitas Airlangga yang telah memberikan inspirasi and ilmu yang sangat berharga bagi kami.</div>
+    </div>
+    
+    <div class="ap-card" style="background:transparent;border:1px solid rgba(226, 232, 240, 0.8);box-shadow:var(--shadow-sm)">
+      <div class="ap-ttl" style="color:var(--marrow)">#️⃣ Atribusi Dataset</div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.8">Atlas referensi morfologi sel pada aplikasi ini menggunakan gambar dari dataset <i>Bone Marrow Cytomorphology</i> (Matek et al., 2019), The Cancer Imaging Archive.</div>
+    </div>
+    <div class="ver">versi 0.1.0<br>Pengembangan Juni 2026<br>Tim Tiga Serangkai</div>
+  </div>
+
+</div>
+</div>
+
+<div class="dock" id="dock" style="display:none">
+  <button class="dbtn on" id="db-q" onclick="goTab('q')"><span class="di">⚡</span>Cepat</button>
+  <button class="dbtn" id="db-i" onclick="goTab('i')"><span class="di">📝</span>Input</button>
+  <button class="dbtn" id="db-d" onclick="goTab('d')"><span class="di">🔬</span>Deteksi</button>
+  <button class="dbtn" id="db-h" onclick="goTab('h')"><span class="di">📚</span>Riwayat</button>
+  <button class="dbtn" id="db-a" onclick="goTab('a')"><span class="di">ℹ️</span>Tentang</button>
+</div>
+
+<div class="ov" id="ovSet">
+  <div class="ovhdr"><button class="btn-sm" onclick="closeOv()">&#8592;</button><div class="ovttl">Pengaturan</div></div>
+  <div style="padding:20px 16px">
+    <div class="slbl"><span class="dot"></span>Gemini API Key</div>
+    <div class="card">
+      <div class="fld"><label class="flbl">API Key</label><input type="password" id="sKey" placeholder="AIza..."><div id="sSt"></div></div>
+      <div class="ipill">Gratis di <a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a> &rarr; Get API Key.</div>
+      <button class="btn-sv" onclick="svKey()">Simpan API Key</button>
+    </div>
+    <div class="slbl"><span class="dot"></span>Database BMA</div>
+    <div class="card card-blue">
+      <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--bg3);border-radius:var(--r);border:1px solid var(--border);margin-bottom:12px">
+        <span style="font-size:20px">🗄️</span>
+        <div><div style="font-size:13px;font-weight:600;color:var(--t1)">Database Terhubung</div><div style="font-size:11px;color:var(--t3);margin-top:2px" id="sDb">Memuat...</div></div>
+      </div>
+      <div class="ipill" style="background:var(--cream)">Database dikelola Tim Tiga Serangkai. Diperbarui secara berkala.</div>
+      <button class="btn-sv" onclick="reloadDB()" style="border-color:var(--plasma);color:var(--plasma);margin-top:10px">🔄 Muat Ulang Database</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="tst"></div>
+
+<script>
+'use strict';
+const DB_ID='1GsWjXfsVWkup_GeLnOhFcMP-OZHWrYE-';
+const PROXY='https://script.google.com/macros/s/AKfycbwlM9U_3rtqYiPDSJLab-YQfqp3IdLSAvnqvG3e4v2smJWJldZQ5-4XzCEAaaQgVIdA/exec';
+let qPh=[], iPh=[], dtPh=[], docF=[], caseDB=null, qLast=null, iLast=null;
+const MORPH_GUIDE = 'PANDUAN MORFOLOGI (gunakan sebagai acuan pembeda):\n'
++ '- Mieloblas: inti besar bulat/oval, kromatin halus homogen, 1-2 nukleolus jelas, rasio inti:sitoplasma tinggi, sitoplasma sedikit TANPA granula.\n'
++ '- Promielosit: inti eksentrik (sering masih ada nukleolus), granula azurofilik primer KASAR melimpah menutupi sitoplasma.\n'
++ '- Mielosit: inti oval/bulat sedikit eksentrik, kromatin mulai memadat, TIDAK ada nukleolus, granula sekunder (spesifik) mulai tampak halus.\n'
++ '- Metamielosit: inti berbentuk GINJAL/CEKUNG (indented), kromatin padat, granula sekunder jelas.\n'
++ '- Batang (Band): inti memanjang berbentuk PITA/HURUF U/S TANPA segmentasi/filamen, lebar inti relatif seragam.\n'
++ '- Segmen: inti terbagi 2-5 LOBUS terpisah dihubungkan FILAMEN KROMATIN TIPIS.\n'
++ '- Pronormoblas: sel besar, inti bulat dengan nukleolus jelas, sitoplasma basofilik gelap dengan halo perinuklear.\n'
++ '- Normoblas Basofilik: inti bulat padat lebih kecil dari pronormoblas, sitoplasma basofilik gelap homogen, TANPA nukleolus.\n'
++ '- Normoblas Polikromatik: inti bulat padat lebih kecil & lebih gelap, sitoplasma abu-keunguan (campuran basofilik+hemoglobin).\n'
++ '- Normoblas Ortokromatik: inti sangat kecil padat gelap (mendekati piknotik), sitoplasma kemerahan (hemoglobin dominan), mirip ukuran eritrosit.\n'
++ '- Limfosit matur: sel kecil, inti bulat padat gelap mengisi hampir seluruh sel, sitoplasma sangat sempit/tipis biru pucat.\n'
++ '- Monosit: sel besar, inti berlekuk/bentuk tapal kuda/otak, sitoplasma abu-kebiruan dengan granula halus seperti kaca buram.\n'
++ '- Megakariosit: sel SANGAT besar (multinuklear/inti besar berlobus banyak), sitoplasma luas granular.\n'
++ 'JANGAN tertukar antara Mielosit (tanpa nukleolus, granula halus) dengan Promielosit (ada nukleolus, granula kasar melimpah). JANGAN tertukar antara Batang (tanpa filamen) dengan Segmen (dengan filamen pemisah lobus).\n';
+
+const NAME_TO_ATLAS = {
+  'pronormoblas': 'PEB',
+  'normoblas basofilik': 'EBO',
+  'normoblas polikromatik': 'EBO',
+  'normoblas ortokromatik': 'EBO',
+  'mieloblas': 'BLA',
+  'promielosit': 'PMO',
+  'mielosit': 'MYB',
+  'metamielosit': 'MMZ',
+  'batang': 'NGB',
+  'segmen': 'NGS',
+  'limfosit matur': 'LYT',
+  'limfosit': 'LYT',
+  'monosit': 'MON',
+  'eosinofil': 'EOS',
+  'basofil': 'BAS',
+  'sel plasma': 'PLM',
+};
+let atlasMap = null;
+async function loadAtlas() {
+  if(atlasMap) return atlasMap;
+  try {
+    var r = await fetch('reference-atlas/cell_class_mapping.json');
+    var j = await r.json();
+    atlasMap = {};
+    j.classes.forEach(function(c){ atlasMap[c.code] = c; });
+  } catch(e) { atlasMap = {}; }
+  return atlasMap;
+}  
+  
+/* ── SPLASH & BOOT LOGIC (BUG SINKRONISASI CO-DEPENDENCY FIX) ── */
+window.addEventListener('load', function() {
+  var tg = document.getElementById('iTg');
+  if(tg) tg.valueAsDate = new Date();
+
+  var k = localStorage.getItem('bma_k');
+  if(k) {
+    var sk = document.getElementById('sKey');
+    if(sk) sk.value = k;
+    setAS(true);
+  }
+  
+  // Bungkus fungsi render awal riwayat dalam try-catch agar jika data local storage lama corrupt tidak menyandera splash screen
+  try {
+    renderH();
+  } catch(e) { console.error("History initialization deferred:", e); }
+
+  setTimeout(function() {
+    var sp = document.getElementById('splash');
+    if (sp) {
+      sp.style.opacity = '0';
+      setTimeout(function() {
+        sp.style.display = 'none';
+        if(!localStorage.getItem('bma_k')) {
+          document.getElementById('onboard').classList.add('show');
+        } else {
+          showMain();
+        }
+      }, 400);
+    }
+  }, 2200);
+});
+
+function showMain() {
+  document.getElementById('main').style.display = 'block';
+  document.getElementById('main').classList.add('show');
+  var dk = document.getElementById('dock');
+  if (dk) dk.style.display = 'flex';
+  loadDB();
+}
+
+/* ── ONBOARD ── */
+function finishOb() {
+  var k = document.getElementById('obKey').value.trim();
+  if(!k) { tst('Masukkan API Key dulu'); return; }
+  localStorage.setItem('bma_k', k);
+  var sk = document.getElementById('sKey');
+  if(sk) sk.value = k;
+  setAS(true);
+  document.getElementById('onboard').classList.remove('show');
+  showMain();
+  tst('Pengaturan tersimpan!');
+}
+function skipOb() {
+  document.getElementById('onboard').classList.remove('show');
+  showMain();
+}
+
+/* ── SETTINGS ── */
+function openOv() { document.getElementById('ovSet').classList.add('on'); }
+function closeOv() { document.getElementById('ovSet').classList.remove('on'); }
+function svKey() {
+  var k = document.getElementById('sKey').value.trim();
+  if(!k) { tst('Masukkan API Key dulu'); return; }
+  localStorage.setItem('bma_k', k);
+  setAS(true);
+  tst('API Key tersimpan');
+}
+function setAS(ok) {
+  var el = document.getElementById('sSt');
+  if(el) el.innerHTML = '<div class="abdg '+(ok?'ok':'err')+'"><div class="adot"></div>'+(ok?'Tersimpan':'Belum diset')+'</div>';
+}
+function reloadDB() { loadDB(); tst('Memuat ulang...'); }
+
+/* ── DATABASE ── */
+async function loadDB() {
+  var st = document.getElementById('sDb');
+  if(st) st.textContent = 'Memuat...';
+  try {
+    var r = await fetch(PROXY + '?id=' + DB_ID);
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+    caseDB = await r.json();
+    var n = caseDB.meta ? caseDB.meta.total_kasus : (caseDB.kasus ? caseDB.kasus.length : 0);
+    if(st) st.textContent = 'Database berhasil dimuat';
+    tst('Database: ' + n + ' kasus siap');
+  } catch(e) {
+    if(st) st.textContent = 'Gagal memuat database';
+    console.error('DB:', e);
+  }
+}
+
+/* ── NAVIGATION ASLI ── */
+function goTab(t) {
+  ['q','i','d','h','a'].forEach(function(x) {
+    var p = document.getElementById('pnl-'+x);
+    var n = document.getElementById('nt-'+x);
+    var d = document.getElementById('db-'+x);
+    if(p) p.classList.toggle('on', x===t);
+    if(n) n.classList.toggle('on', x===t);
+    if(d) d.classList.toggle('on', x===t);
+  });
+  if(t==='h') renderH();
+}
+function swMode(m) {
+  document.getElementById('iMan').style.display = m==='m' ? 'block' : 'none';
+  document.getElementById('iFile').style.display = m==='f' ? 'block' : 'none';
+  document.getElementById('mm').classList.toggle('on', m==='m');
+  document.getElementById('mf').classList.toggle('on', m==='f');
+}
+
+/* ── PHOTOS ── */
+function addPh(inp, pfx) {
+  var arr = pfx==='q' ? qPh : (pfx==='dt' ? dtPh : iPh);
+  var sid = pfx==='q' ? 'qPs' : (pfx==='dt' ? 'dtPs' : 'iPs');
+  var rem = 5 - arr.length;
+  Array.from(inp.files).slice(0, rem).forEach(function(f) {
+    var r = new FileReader();
+    r.onload = function(e) { arr.push({file:f, url:e.target.result}); renderPs(arr, sid, pfx); };
+    r.readAsDataURL(f);
+  });
+}
+function rmPh(pfx, i) {
+  var arr = pfx==='q' ? qPh : (pfx==='dt' ? dtPh : iPh);
+  var sid = pfx==='q' ? 'qPs' : (pfx==='dt' ? 'dtPs' : 'iPs');
+  arr.splice(i, 1);
+  renderPs(arr, sid, pfx);
+}
+function renderPs(arr, sid, pfx) {
+  document.getElementById(sid).innerHTML = arr.map(function(p,i) {
+    return '<div class="pthumb"><img src="'+p.url+'"><button class="del" onclick="rmPh(\''+pfx+'\','+i+')">&times;</button></div>';
+  }).join('');
+}
+
+/* ── RAG ── */
+function findSim(kl, sel, slain, me, k) {
+  k = k || 4;
+  if(!caseDB || !caseDB.kasus || !caseDB.kasus.length) return [];
+  var q = [kl, sel, slain].join(' ').toLowerCase();
+  return caseDB.kasus.map(function(x) {
+    var s = 0;
+    var kt = [x.keterangan_klinis, x.selularitas, x.sel_lain, x.kesimpulan].join(' ').toLowerCase();
+    q.split(/\s+/).filter(function(w){return w.length>3;}).forEach(function(w){if(kt.indexOf(w)>=0)s++;});
+    if(x.selularitas && x.selularitas.toLowerCase() === (sel||'').toLowerCase()) s += 3;
+    var mi = parseFloat(me), mk = parseFloat(x.me_ratio);
+    if(!isNaN(mi) && !isNaN(mk) && Math.abs(mi-mk) < 1) s += 2;
+    return Object.assign({}, x, {_s:s});
+  }).filter(function(x){return x._s>0 && x.kesimpulan;})
+    .sort(function(a,b){return b._s-a._s;})
+    .slice(0, k);
+}
+function ragCtx(sim) {
+  if(!sim.length) return '';
+  return '\n\nKASUS REFERENSI ('+sim.length+'):\n' + sim.map(function(x,i) {
+    return '['+(i+1)+'] Klinis:'+x.keterangan_klinis+'|Sel:'+x.selularitas+'|ME:'+x.me_ratio+'|SelLain:'+(x.sel_lain||'').slice(0,80)+'|Dx:'+x.kesimpulan;
+  }).join('\n');
+}
+
+/* ── AI CALL ── */
+async function callAI(prompt, photos, opts) {
+  opts = opts || {};
+  var key = localStorage.getItem('bma_k');
+  if(!key) { tst('Set API Key di Pengaturan'); openOv(); throw new Error('nokey'); }
+  var parts = [{text: prompt}];
+  photos.slice(0,3).forEach(function(p) {
+    parts.push({inline_data:{mime_type: p.file.type||'image/jpeg', data: p.url.split(',')[1]}});
+  });
+  var genCfg = {temperature:0.2, maxOutputTokens: opts.maxTokens || 1500};
+  if(opts.noThink) genCfg.thinkingConfig = {thinkingBudget: 0};
+  var res = await fetch('https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key='+key, {
+    method:'POST', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({contents:[{parts:parts}], generationConfig:genCfg})
+  });
+  if(!res.ok) { var e = await res.json(); throw new Error(e.error ? e.error.message : 'API error'); }
+  var data = await res.json();
+  return data.candidates && data.candidates[0] ? data.candidates[0].content.parts[0].text : '';
+}
+function pj(txt) {
+  if(!txt) return null;
+  var clean = txt.replace(/```json|```/g,'').trim();
+  try { return JSON.parse(clean); } catch(e) {}
+  var arrM = clean.match(/\[[\s\S]*\]/);
+  if(arrM) { try { return JSON.parse(arrM[0]); } catch(e) {} }
+  var objM = clean.match(/\{[\s\S]*\}/);
+  if(objM) { try { return JSON.parse(objM[0]); } catch(e) {} }
+  return null;
+}
+
+/* ── QUICK ANALYZE ── */
+async function quickAn() {
+  if(!qPh.length) { tst('Upload minimal 1 foto dulu'); return; }
+  var kl = document.getElementById('qKl').value;
+  document.getElementById('qBtn').disabled = true;
+  document.getElementById('qLd').classList.add('on');
+  document.getElementById('qR').classList.remove('on');
+  var steps = ['Morfologi sel...','Proporsi sel...','Mengidentifikasi sel...','Menyusun interpretasi...'];
+  var si = 0;
+  var iv = setInterval(function(){si=(si+1)%steps.length; document.getElementById('qSt').textContent=steps[si];}, 1800);
+  try {
+    var prompt = 'Kamu adalah Sp.PK ahli morfologi sumsum tulang Indonesia.\n' + MORPH_GUIDE + 'Analisis foto apusan sumsum tulang'+(kl?' dengan konteks klinis: "'+kl+'"':'.')+'\nJawab HANYA dalam JSON (tanpa teks lain):\n{"me_ratio":"X:1","eritropoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":"X-Y","sel":[{"nama":"Pronormoblas","rentang":"1-3","bar":"e"},{"nama":"Normoblas Basofilik","rentang":"3-7","bar":"e"},{"nama":"Normoblas Polikromatik","rentang":"8-15","bar":"e"},{"nama":"Normoblas Ortokromatik","rentang":"4-8","bar":"e"}]},"granulopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","proporsi_total":"X-Y","sel":[{"nama":"Mieloblas","rentang":"0-2","bar":"g"},{"nama":"Promielosit","rentang":"1-4","bar":"g"},{"nama":"Mielosit","rentang":"5-10","bar":"g"},{"nama":"Metamielosit","rentang":"5-12","bar":"g"},{"nama":"Batang","rentang":"10-18","bar":"g"},{"nama":"Segmen","rentang":"15-25","bar":"g"}]},"megakariopoiesis":{"aktivitas":"Normal/Menurun/Meningkat","temuan":"deskripsi morfologi","sel":[{"nama":"Megakariosit","rentang":null,"bar":"m","catatan":"adequate"}]},"sel_lain":{"label":"deskripsi singkat","sel":[{"nama":"Limfosit matur","rentang":"5-12","bar":"o"}]},"kesan":"Gambaran sumsum tulang ...","observasi":["Poin observasi 1 (temuan + relevansi klinis, perlu dikonfirmasi)","Poin observasi 2 (diagnosis banding yang relevan, perlu dikonfirmasi)"],"catatan":"Catatan singkat."}\nIsi sesuai temuan foto. PERSENTASE WAJIB berupa RENTANG PERKIRAAN (contoh "10-20"), BUKAN angka tunggal pasti. null jika tidak bisa diperkirakan. OBSERVASI berisi poin pengamatan & diagnosis banding yang PERLU DIKONFIRMASI Sp.PK, BUKAN diagnosis final/pasti.' + ragCtx(findSim(kl,'','',null));
+    var txt = await callAI(prompt, qPh, {noThink:true, maxTokens:3000});
+    var r = pj(txt);
+    if(!r) throw new Error('Format respons tidak valid.');
+    
+    // SINKRONISASI BUG FIX: Menyimpan properti kembar kesimpluan dan kesimpulan agar fungsi simpan bawaan Anda tidak mengalami crash
+    r.kesimpluan = r.kesan;
+    r.kesimpulan = r.kesan;
+    if(r.observasi && r.observasi.length) {
+      r.kesimpluan = r.observasi.join('. ');
+      r.kesimpulan = r.observasi.join('. ');
+    }
+    
+    qLast = {data:r, kl:kl, ts:new Date().toISOString()};
+    await renderQR(r, kl);
+  } catch(e) {
+    if(e.message !== 'nokey') { tst('Error: ' + e.message); }
+  } finally {
+    clearInterval(iv);
+    document.getElementById('qLd').classList.remove('on');
+    document.getElementById('qBtn').disabled = false;
+  }
+}
+async function renderQR(r, kl) {
+  document.getElementById('qRatio').innerHTML = '<div class="rchip"><span class="rl">M:E Ratio</span>'+(r.me_ratio||'-')+'</div>';
+  document.getElementById('qEAk').textContent = r.eritropoiesis ? r.eritropoiesis.aktivitas : '-';
+  document.getElementById('qEC').innerHTML = await renderCells(r.eritropoiesis ? r.eritropoiesis.sel||[] : []);
+  document.getElementById('qGAk').textContent = r.granulopoiesis ? r.granulopoiesis.aktivitas : '-';
+  document.getElementById('qGC').innerHTML = await renderCells(r.granulopoiesis ? r.granulopoiesis.sel||[] : []);
+  document.getElementById('qMAk').textContent = r.megakariopoiesis ? r.megakariopoiesis.aktivitas : '-';
+  document.getElementById('qMC').innerHTML = (r.megakariopoiesis && r.megakariopoiesis.temuan ? '<div style="font-size:12px;color:var(--t2);margin-bottom:8px">'+r.megakariopoiesis.temuan+'</div>' : '') + await renderCells(r.megakariopoiesis ? r.megakariopoiesis.sel||[] : []);
+  document.getElementById('qOLbl').textContent = r.sel_lain ? r.sel_lain.label||'-' : '-';
+  document.getElementById('qOC').innerHTML = await renderCells(r.sel_lain ? r.sel_lain.sel||[] : []);
+  document.getElementById('qKs').textContent = r.kesan || '-';
+  var obsHtml = (r.observasi && r.observasi.length) ? r.observasi.map(function(o,i){return (i+1)+'. '+o;}).join('<br>') : '-';
+  document.getElementById('qKp').innerHTML = obsHtml;
+  document.getElementById('qCt').textContent = r.catatan || '-';
+  var sim = findSim(kl, r.kesan, r.sel_lain ? r.sel_lain.label : '', r.me_ratio);
+  document.getElementById('qSim').innerHTML = sim.length ? sim.map(function(x) {
+    return '<div class="sim-item"><div><div class="sim-dx">'+(x.kesimpulan||'-')+'</div><div class="sim-mt">'+(x.keterangan_klinis||'')+' &middot; '+(x.tahun||'')+' &middot; '+(x.selularitas||'')+'</div></div><div class="sim-sc">'+x._s+'pt</div></div>';
+  }).join('') : '<div style="font-size:12px;color:var(--t3);padding:6px 0">Tidak ada kasus serupa</div>';
+  document.getElementById('qR').classList.add('on');
+  document.getElementById('qR').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+/* ── DETEKSI JENIS SEL ── */
+async function detAn() {
+  if(!dtPh.length) { tst('Upload minimal 1 foto dulu'); return; }
+  document.getElementById('dtBtn').disabled = true;
+  document.getElementById('dtLd').classList.add('on');
+  document.getElementById('dtR').classList.remove('on');
+  var steps = ['Memindai foto...','Mengenali jenis sel...','Menyusun hasil...'];
+  var si = 0;
+  var iv = setInterval(function(){si=(si+1)%steps.length; document.getElementById('dtSt').textContent=steps[si];}, 1800);
+  try {
+    var prompt = 'Kamu adalah Sp.PK ahli morfologi sumsum tulang Indonesia.\n' + MORPH_GUIDE + 'Deteksi jenis-jenis sel pada foto apusan sumsum tulang ini, dikelompokkan per lini.\nJawab HANYA JSON:\n{"eritrosit":[{"nama":"Pronormoblas","rentang":"0-2","bar":"e"},{"nama":"Normoblas Basofilik","rentang":"2-5","bar":"e"},{"nama":"Normoblas Polikromatik","rentang":"5-15","bar":"e"},{"nama":"Normoblas Ortokromatik","rentang":"3-10","bar":"e"}],"leukosit":[{"nama":"Mieloblas","rentang":"0-2","bar":"g"},{"nama":"Promielosit","rentang":"1-5","bar":"g"},{"nama":"Mielosit","rentang":"5-15","bar":"g"},{"nama":"Metamielosit","rentang":"5-15","bar":"g"},{"nama":"Batang","rentang":"10-20","bar":"g"},{"nama":"Segmen","rentang":"15-30","bar":"g"},{"nama":"Limfosit matur","rentang":"5-15","bar":"o"},{"nama":"Monosit","rentang":"0-5","bar":"o"}],"megakariosit":[{"nama":"Megakariosit","rentang":null,"bar":"m","catatan":"adequate/menurun/meningkat"}]}\nHanya sertakan jenis sel yang benar-benar terlihat di foto. Rentang persen berupa PERKIRAAN (X-Y), bukan angka tunggal.';
+    var txt = await callAI(prompt, dtPh, {noThink:true, maxTokens:2500});
+    var r = pj(txt);
+    if(!r) throw new Error('Format respons tidak valid.');
+    document.getElementById('dtE').innerHTML = await renderCells(r.eritrosit||[]);
+    document.getElementById('dtL').innerHTML = await renderCells(r.leukosit||[]);
+    document.getElementById('dtM').innerHTML = await renderCells(r.megakariosit||[]);
+    document.getElementById('dtR').classList.add('on');
+    document.getElementById('dtR').scrollIntoView({behavior:'smooth', block:'start'});
+  } catch(e) {
+    if(e.message !== 'nokey') { tst('Error: ' + e.message); }
+  } finally {
+    clearInterval(iv);
+    document.getElementById('dtLd').classList.remove('on');
+    document.getElementById('dtBtn').disabled = false;
+  }
+}
+function rstDt() { dtPh=[]; renderPs(dtPh,'dtPs','dt'); document.getElementById('dtR').classList.remove('on'); window.scrollTo({top:0,behavior:'smooth'}); }
+async function renderCells(cells) {
+  if(!cells.length) return '<div style="font-size:11px;color:var(--t3)">Tidak ditemukan</div>';
+  var atlas = await loadAtlas();
+  return cells.map(function(c) {
+    var rng = c.rentang || null;
+    var avgP = (rng && /^\d/.test(rng)) ? (parseFloat(rng.split('-')[0]) + parseFloat(rng.split('-')[1])) / 2 : null;
+    var w = avgP !== null ? Math.min(avgP*2, 100) : 0;
+    var row = '<div class="crow"><div class="cnm">'+c.nama+(c.catatan?' <span style="color:var(--t3);font-size:10px">('+c.catatan+')</span>':'')+'</div><div class="cbw"><div class="cbar '+(c.bar||'o')+'" style="width:'+w+'%"></div></div><div class="cpct">'+(rng?rng+'%':'-')+'</div></div>';
+    var code = NAME_TO_ATLAS[(c.nama||'').toLowerCase().trim()];
+    var info = code ? atlas[code] : null;
+    if(info && info.images && info.images.length) {
+      row += '<div style="display:flex;gap:8px;margin:6px 0 10px 28px;align-items:center">';
+      row += '<span style="font-size:10px;color:var(--t3);font-weight:600">Ref Atlas:</span>';
+      info.images.forEach(function(img){
+        row += '<img src="reference-atlas/'+img+'" style="width:44px;height:44px;border-radius:8px;border:1px solid var(--border);object-fit:cover" title="'+info.name_id+': '+info.description_id+'">';
+      });
+      row += '</div>';
+    }
+    return row;
+  }).join('');
+}
+
+/* ── INPUT ANALYZE ── */
+async function inputAn() {
+  var d = {
+    nm:document.getElementById('iNm').value||'Pasien',
+    um:document.getElementById('iUm').value,
+    lo:document.getElementById('iLo').value,
+    kl:document.getElementById('iKl').value,
+    ko:document.getElementById('iKo').value,
+    se:document.getElementById('iSe').value,
+    me:document.getElementById('iME').value,
+    ea:document.getElementById('iEA').value,
+    ep:document.getElementById('iEP').value,
+    ga:document.getElementById('iGA').value,
+    gp:document.getElementById('iGP').value,
+    ma:document.getElementById('iMA').value,
+    mt:document.getElementById('iMT').value,
+    sl:document.getElementById('iSL').value
+  };
+  document.getElementById('iBtn').disabled = true;
+  document.getElementById('iLd').classList.add('on');
+  document.getElementById('iR').classList.remove('on');
+  var steps = ['Kasus referensi...','Menganalisis data...','Interpretasi AI...','Memformat...'];
+  var si = 0;
+  var iv = setInterval(function(){si=(si+1)%steps.length; document.getElementById('iSt').textContent=steps[si];}, 2000);
+  try {
+    var sim = findSim(d.kl, d.se, d.sl, d.me);
+    var prompt = 'Kamu adalah Sp.PK ahli interpretasi BMA Indonesia.\nJawab HANYA dalam JSON: {"kesan":"...","kesimpulan":"...","catatan":"..."}\nkesan: gambaran deskriptif. kesimpulan: mulai "Gambaran sumsum tulang sesuai dengan...". catatan: DD + saran 1-2 kalimat.\nDATA: Klinis:'+d.kl+'|Lokasi:'+d.lo+'|Konsistensi:'+d.ko+'|Selularitas:'+d.se+'|ME:'+d.me+'|Eritropoiesis:'+d.ea+','+d.ep+'%|Granulopoiesis:'+d.ga+','+d.gp+'%|Megakario:'+d.ma+','+d.mt+'|SelLain:'+d.sl+(iPh.length?'|Foto:'+iPh.length+'terlampir':'') + ragCtx(sim);
+    var txt = await callAI(prompt, iPh, {noThink:true, maxTokens:1500});
+    var r = pj(txt) || {kesan:txt.slice(0,200), kesimpulan:'', catatan:''};
+    
+    // SINKRONISASI BUG FIX: Menyediakan fallback kunci typo ganda
+    r.kesimpluan = r.kesimpulan; 
+    
+    iLast = Object.assign({inputData:d, ts:new Date().toISOString()}, r);
+    document.getElementById('iKs').textContent = r.kesan || '';
+    document.getElementById('iKp').textContent = r.kesimpulan || '';
+    document.getElementById('iCt').textContent = r.catatan || '';
+    document.getElementById('iR').classList.add('on');
+    document.getElementById('iR').scrollIntoView({behavior:'smooth', block:'start'});
+  } catch(e) {
+    if(e.message !== 'nokey') { tst('Error: ' + e.message); }
+  } finally {
+    clearInterval(iv);
+    document.getElementById('iLd').classList.remove('on');
+    document.getElementById('iBtn').disabled = false;
+  }
+}
+
+/* ── DOC UPLOAD ── */
+function handleDoc(inp) {
+  docF = Array.from(inp.files);
+  document.getElementById('dList').innerHTML = docF.map(function(f) {
+    return '<div style="display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg3);border-radius:10px;margin-bottom:4px;font-size:12px;color:var(--t2);border:1px solid var(--border)">📄 '+f.name+'<span style="color:var(--t3);margin-left:auto;font-family:\'JetBrains Mono\'">'+Math.round(f.size/1024)+' KB</span></div>';
+  }).join('');
+  document.getElementById('dBtn').style.display = docF.length ? 'flex' : 'none';
+}
+async function procDoc() {
+  if(!docF.length) return;
+  document.getElementById('dBtn').style.display = 'none';
+  document.getElementById('dLd').classList.add('on');
+  var steps = ['Membaca file...','Mengekstrak teks...'];
+  var si = 0;
+  var iv = setInterval(function(){si=(si+1)%steps.length; document.getElementById('dSt').textContent=steps[si];}, 2000);
+  try {
+    var results = [];
+    for(var i=0; i<docF.length; i++) {
+      var f = docF[i];
+      try {
+        await new Promise(function(res,rej){var r=new FileReader();r.onload=function(){res();};r.onerror=function(){rej();};r.readAsText(f);});
+        results.push({file:f.name, ok:true});
+      } catch(e) { results.push({file:f.name, ok:false}); }
+    }
+    document.getElementById('dResults').innerHTML = results.map(function(r) {
+      return '<div style="padding:12px;background:#fff;border-radius:10px;margin-bottom:6px;font-size:12px;border:1px solid var(--border)"><b style="color:var(--t1)">'+r.file+'</b><br><span style="color:'+(r.ok?'var(--ok)':'var(--blood)')+';font-weight:600;display:inline-block;margin-top:4px">'+(r.ok?'Berhasil dibaca':'Gagal membaca')+'</span></div>';
+    }).join('');
+    tst('Selesai');
+  } finally {
+    clearInterval(iv);
+    document.getElementById('dLd').classList.remove('on');
+    document.getElementById('dBtn').style.display = 'flex';
+  }
+}
+
+/* ── HISTORY ── */
+function svQ() {
+  if(!qLast) return;
+  var r = qLast.data;
+  var h = JSON.parse(localStorage.getItem('bma_h')||'[]');
+  h.unshift({type:'q', kl:qLast.kl, kesan:r.kesan, kesimpluan:r.kesimpluan || r.kesimpulan, kesimpulan:r.kesimpulan || r.kesimpluan, catatan:r.catatan, ts:qLast.ts});
+  localStorage.setItem('bma_h', JSON.stringify(h.slice(0,60)));
+  tst('Tersimpan'); renderH();
+}
+function svI() {
+  if(!iLast) return;
+  var h = JSON.parse(localStorage.getItem('bma_h')||'[]');
+  h.unshift(iLast);
+  localStorage.setItem('bma_h', JSON.stringify(h.slice(0,60)));
+  tst('Tersimpan'); renderH();
+}
+function renderH() {
+  var h = JSON.parse(localStorage.getItem('bma_h')||'[]');
+  var el = document.getElementById('hList');
+  if(!el) return;
+  if(!h.length) { 
+    el.innerHTML = '<div class="empty">📂 Belum ada kasus tersimpan</div>'; 
+    return; 
+  }
+  el.innerHTML = h.map(function(x,i) {
+    var nm = (x.inputData && x.inputData.nm) || (x.type==='q' ? 'Respons Cepat' : 'Pasien');
+    var um = (x.inputData && x.inputData.um) || '';
+    var dx = x.kesimpulan || x.kesimpluan || '-';
+    var kl = (x.inputData && x.inputData.kl) || x.kl || '';
+    var tg = new Date(x.ts).toLocaleDateString('id-ID');
+    var ico = x.type === 'q' ? '⚡' : '📝';
+    return '<div class="hitm" onclick="viewH('+i+')"><div class="hnm">'+ico+' '+nm+(um?' - '+um:'')+'</div><div class="hdx">'+dx.slice(0,70)+'</div><div class="hmt">'+(kl?kl+' &middot; ':'')+tg+'</div></div>';
+  }).join('');
+}
+function viewH(i) {
+  var h = JSON.parse(localStorage.getItem('bma_h')||'[]');
+  var x = h[i]; if(!x) return;
+  document.getElementById('iKs').textContent = x.kesan || '';
+  document.getElementById('iKp').textContent = x.kesimpluan || x.kesimpulan || '';
+  document.getElementById('iCt').textContent = x.catatan || '';
+  document.getElementById('iR').classList.add('on');
+  iLast = x; goTab('i');
+  setTimeout(function(){document.getElementById('iR').scrollIntoView({behavior:'smooth'});}, 150);
+}
+
+/* ── COPY / RESET ── */
+function cpQ() { if(!qLast) return; var r=qLast.data; navigator.clipboard.writeText('KESAN:\n'+r.kesan+'\n\nKESIMPULAN:\n'+(r.kesimpluan || r.kesinement || r.kesimpulan)).then(function(){tst('Disalin');}); }
+function cpI() { if(!iLast) return; navigator.clipboard.writeText('KESAN:\n'+iLast.kesan+'\n\nKESIMPULAN:\n'+(iLast.kesimpulan || iLast.kesimpluan)).then(function(){tst('Disalin');}); }
+function rstQ() { qPh=[]; renderPs(qPh,'qPs','q'); document.getElementById('qR').classList.remove('on'); document.getElementById('qKl').value=''; qLast=null; window.scrollTo({top:0,behavior:'smooth'}); }
+function rstI() { iPh=[]; renderPs(iPh,'iPs','i'); document.getElementById('iR').classList.remove('on'); iLast=null; window.scrollTo({top:0,behavior:'smooth'}); }
+
+/* ── TOAST ── */
+function tst(msg) { var t=document.getElementById('tst'); t.textContent=msg; t.classList.add('on'); setTimeout(function(){t.classList.remove('on');}, 2500); }
+</script>
+</body>
+</html>
