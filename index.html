@@ -89,15 +89,13 @@ body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:v
 .btn-sm { width:38px; height:38px; border-radius:12px; border:none; background:var(--bg3); color:var(--t1); cursor:pointer; display:grid; place-items:center; transition:var(--transition); font-size:16px }
 .btn-sm:hover { background:var(--marrow); color:#fff; transform:scale(1.05) }
 
-/* SEGMENTED TAB BAR NAVIGATION (Mirip UI Referensi) */
+/* SEGMENTED TAB BAR NAVIGATION */
 .nav { display:flex; padding:6px; background:var(--bg3); border-radius:16px; margin: 0 20px 10px; border: none }
 .ntab { flex:1; padding:12px 2px; border:none; background:transparent; font-family:'Plus Jakarta Sans',sans-serif; font-size:10px; font-weight:700; color:var(--t3); cursor:pointer; transition:var(--transition); display:flex; flex-direction:column; align-items:center; gap:4px; border-radius:12px }
-
-/* Trik Filter Sihir Emoji Menjadi Ikon Garis Elegan */
 .ntab { filter: grayscale(100%) opacity(70%); }
 .ntab.on { color:var(--blood); background:var(--bg2); box-shadow:var(--shadow-sm); filter: grayscale(0%) opacity(100%); font-weight:800 }
 
-/* SMOOTH FLAWLESS TAB SWITCHING PANELS */
+/* PANELS */
 .pnl { display:none; padding:14px 20px }
 .pnl.on { display:block; animation: slideUpSmooth 0.5s cubic-bezier(0.16, 1, 0.3, 1) }
 @keyframes slideUpSmooth { from{opacity:0; transform:translateY(16px)} to{opacity:1; transform:translateY(0)} }
@@ -217,11 +215,14 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
 .tm-num { width:26px; height:26px; background:#0f172a; border-radius:50%; display:grid; place-items:center; font-size:11px; color:#fff; font-weight:700; flex-shrink:0 }
 .tm-name { font-size:13px; font-weight:700; color:var(--t1) }
 .tm-role { font-size:11px; color:var(--t3); margin-top:2px; font-weight:500 }
-.ap-card { background:var(--bg3); border:none; border-radius:var(--r2); padding:20px; margin-bottom:12px }
-.ap-ttl { font-size:11px; font-weight:800; color:var(--marrow); text-transform:uppercase; letter-spacing:1px; margin-bottom:8px }
+.ap-card { background:#fff; border:1px solid rgba(226, 232, 240, 0.8); border-radius:var(--r2); padding:20px; margin-bottom:12px; box-shadow:var(--shadow-sm) }
+.ap-ttl { font-size:11px; font-weight:800; color:var(--blood); text-transform:uppercase; letter-spacing:1px; margin-bottom:12px }
+.ap-list { list-style:none; padding-left:0; margin:10px 0 16px 0 }
+.ap-list li { font-size:13px; color:var(--t1); font-weight:600; padding:8px 12px; background:var(--bg3); border-radius:10px; margin-bottom:6px; display:flex; align-items:center; gap:10px }
+.ap-list .num-badge { width:20px; height:20px; background:var(--marrow); color:white; border-radius:50%; display:grid; place-items:center; font-size:10px; font-weight:700 }
 .ver { text-align:center; padding:24px; font-size:10px; color:var(--t4); line-height:2; font-family:'JetBrains Mono',monospace; font-weight:600 }
 
-/* FULL OVERLAY SCREEN FOR SETTINGS */
+/* SETTINGS */
 .ov { display:none }
 .ov.on { display:block; position:fixed; inset:0; z-index:100; background:var(--bg); overflow-y:auto; animation: fadeIn 0.3s ease }
 .ovhdr { display:flex; align-items:center; gap:14px; padding:18px 20px; border-bottom:1px solid var(--border); position:sticky; top:0; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px) }
@@ -232,7 +233,7 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
 .adot { width:5px; height:5px; border-radius:50%; background:currentColor }
 .ipill { background:var(--bg3); border:none; border-radius:var(--r); padding:12px; font-size:11px; color:var(--t2); line-height:1.6; margin-top:8px }
 
-/* DOCK FLOATING TAB BAR DOCK (100% Cocok Dengan Referensi Dribbble) */
+/* DOCK FLOATING TAB BAR DOCK */
 .dock { position:fixed; bottom:16px; left:50%; transform:translateX(-50%); width:calc(100% - 32px); max-width:440px; background:rgba(15, 23, 42, 0.96); backdrop-filter:blur(20px); border-radius:24px; display:flex; padding:8px; z-index:50; box-shadow: 0 20px 40px rgba(15,23,42,0.22) }
 .dbtn { flex:1; border:none; background:transparent; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:4px; padding:8px 4px; color:rgba(255,255,255,0.5); font-family:'Plus Jakarta Sans',sans-serif; font-size:9px; font-weight:700; text-transform:uppercase; letter-spacing:0.5px; transition:var(--transition); border-radius:16px }
 .dbtn:hover { color: rgba(255,255,255,0.8); }
@@ -283,7 +284,7 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
           <div style="font-size:11px;color:var(--t3);margin-top:2px">Database BMA &middot; diperbarui berkala</div>
         </div>
       </div>
-      <div class="ob-pill" style="background:var(--cream)">Database dikelola Tim Empat Serangkai dan diperbarui secara berkala.</div>
+      <div class="ob-pill" style="background:var(--cream)">Database dikelola Tim Tiga Serangkai dan diperbarui secara berkala.</div>
     </div>
 
     <button class="btn-p" onclick="finishOb()">Mulai Gunakan AspirA.I-Qu &rarr;</button>
@@ -427,39 +428,51 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
     <div id="hList"></div>
   </div>
 
-  <!-- TAB TENTANG -->
+  <!-- TAB TENTANG (KONTEKS BARU BERHASIL DIUPDATE) -->
   <div class="pnl" id="pnl-a">
     <div class="ab-hero">
       <img class="ab-logo" src="logo.png" alt="logo" onerror="this.style.display='none'">
       <div class="ab-name">AspirA<em>.I</em>-Qu</div>
       <div class="ab-tag">Smart BMA Identification</div>
     </div>
+    
     <div class="card">
-      <div style="font-size:13px;color:var(--t2);line-height:1.8">Selamat datang di <b style="color:var(--t1)">AspirA.I-Qu</b>! Kami hadir untuk memberikan solusi cerdas dalam identifikasi BMA. Dengan teknologi AI, foto mikroskopis Anda akan dicocokkan secara cepat dan akurat dengan database yang tersedia, memudahkan pekerjaan laboratorium dalam satu genggaman.</div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.8">Selamat datang di <b style="color:var(--t1)">AspirA.I-Qu</b>! Kami hadir untuk memberikan bantuan interpretasi sel dalam identifikasi BMA. Dengan teknologi AI, foto mikroskopis Anda akan dicocokkan secara cepat dengan database yang tersedia. Semua dilakukan langsung dalam satu aplikasi. Keputusan akhir interpretasi tetap pada tangan anda.</div>
     </div>
+    
     <div class="tm-card">
-      <div class="tm-ttl">👥 Tim Empat Serangkai</div>
+      <div class="tm-ttl">👥 Tim Tiga Serangkai</div>
       <div style="font-size:12px;color:var(--t3);margin-bottom:12px">PPDS Patologi Klinik &middot; FK Universitas Airlangga</div>
       <div class="tm-row"><div class="tm-num">1</div><div><div class="tm-name">Alifferdi Rahman Wiyono</div><div class="tm-role">PPDS Sp.PK &middot; FK Unair</div></div></div>
       <div class="tm-row"><div class="tm-num">2</div><div><div class="tm-name">Danang Yudha Bhirawa Pikir</div><div class="tm-role">PPDS Sp.PK &middot; FK Unair</div></div></div>
       <div class="tm-row"><div class="tm-num">3</div><div><div class="tm-name">Samuel Hery Setiawan</div><div class="tm-role">PPDS Sp.PK &middot; FK Unair</div></div></div>
-      <div class="tm-row"><div class="tm-num">4</div><div><div class="tm-name">Ricky Rinaldy</div><div class="tm-role">PPDS Sp.PK &middot; FK Unair</div></div></div>
     </div>
+    
     <div class="ap-card">
       <div class="ap-ttl">🏅 Appreciation Note</div>
-      <div style="font-size:13px;color:var(--t2);line-height:1.8">Projek ini tidak akan berjalan tanpa dukungan luar biasa dari keluarga besar KSM Patologi Klinik RSUD Dr. Soetomo - FK Universitas Airlangga. Terima kasih kepada seluruh staf yang telah memberikan inspirasi dan ilmu yang sangat berharga bagi kami.</div>
+      <div style="font-size:13px;color:var(--t2);line-height:1.8;margin-bottom:12px">Projek ini tidak akan berjalan tanpa dukungan luar biasa dari keluarga besar KSM Patologi Klinik RSUD Dr. Soetomo - FK Universitas Airlangga. Ucapan terima kasih sebesar-besarnya kepada para Staf Divisi Hematologi KSM Patologi Klinik RSUD Dr. Soetomo - FK Universitas Airlangga:</div>
+      
+      <ul class="ap-list">
+        <li><div class="num-badge">1</div>Prof. Dr. Yetti Hernaningsih, dr., Sp.PK, Subsp. H.K (K)</li>
+        <li><div class="num-badge">2</div>Dr. Paulus B. Notopuro, dr., Sp.PK, Subsp. H.K (K)</li>
+        <li><div class="num-badge">3</div>Arifoel Hajat, dr., Sp.PK, Subsp. H.K (K)</li>
+        <li><div class="num-badge">4</div>Yulia Nadar Indrasari, dr., Sp.PK, Subsp. H.K (K)</li>
+      </ul>
+      
+      <div style="font-size:13px;color:var(--t2);line-height:1.8;margin-top:12px">Ucapan terima kasih juga kami haturkan kepada seluruh staf dari KSM Patologi Klinik RSUD Dr. Soetomo - FK Universitas Airlangga yang telah memberikan inspirasi dan ilmu yang sangat berharga bagi kami.</div>
     </div>
-    <div class="ap-card">
-      <div class="ap-ttl">📖 Atribusi Dataset</div>
+    
+    <div class="ap-card" style="background:transparent;border:1px solid rgba(226, 232, 240, 0.8);box-shadow:var(--shadow-sm)">
+      <div class="ap-ttl" style="color:var(--marrow)">#️⃣ Atribusi Dataset</div>
       <div style="font-size:13px;color:var(--t2);line-height:1.8">Atlas referensi morfologi sel pada aplikasi ini menggunakan gambar dari dataset <i>Bone Marrow Cytomorphology</i> (Matek et al., 2019), The Cancer Imaging Archive.</div>
     </div>
-    <div class="ver">versi 0.1.0<br>Pengembangan Juni 2026<br>Tim Empat Serangkai</div>
+    <div class="ver">versi 0.1.0<br>Pengembangan Juni 2026<br>Tim Tiga Serangkai</div>
   </div>
 
 </div>
 </div>
 
-<!-- FLOATING DOCK BOTTOM (Eksklusif seperti UI Dribbble) -->
+<!-- FLOATING DOCK BOTTOM -->
 <div class="dock" id="dock" style="display:none">
   <button class="dbtn on" id="db-q" onclick="goTab('q')"><span class="di">⚡</span>Cepat</button>
   <button class="dbtn" id="db-i" onclick="goTab('i')"><span class="di">📝</span>Input</button>
@@ -484,7 +497,7 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
         <span style="font-size:20px">🗄️</span>
         <div><div style="font-size:13px;font-weight:600;color:var(--t1)">Database Terhubung</div><div style="font-size:11px;color:var(--t3);margin-top:2px" id="sDb">Memuat...</div></div>
       </div>
-      <div class="ipill" style="background:var(--cream)">Database dikelola Tim Empat Serangkai. Diperbarui secara berkala.</div>
+      <div class="ipill" style="background:var(--cream)">Database dikelola Tim Tiga Serangkai. Diperbarui secara berkala.</div>
       <button class="btn-sv" onclick="reloadDB()" style="border-color:var(--plasma);color:var(--plasma);margin-top:10px">🔄 Muat Ulang Database</button>
     </div>
   </div>
@@ -630,7 +643,7 @@ async function loadDB() {
   }
 }
 
-/* ── NAVIGATION ASLI ── */
+/* ── NAVIGATION ── */
 function goTab(t) {
   ['q','i','d','h','a'].forEach(function(x) {
     var p = document.getElementById('pnl-'+x);
