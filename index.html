@@ -7,10 +7,10 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <title>AspirA.I-Qu</title>
 <link rel="manifest" href="manifest.json">
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Menggunakan font Google premium & modern -->
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght=0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  /* Palet Warna Mewah terinspirasi dari Dribbble Health Care App */
   --bg: #f8fafc;
   --bg2: #ffffff;
   --bg3: #f1f5f9;
@@ -30,12 +30,8 @@
   --t2: #334155;
   --t3: #64748b;
   --t4: #cbd5e1;
-  
-  /* Kelengkungan Ekstra Tinggi khas Dribbble UI */
   --r: 16px;
   --r2: 24px;
-  
-  /* Soft Shadow Premium berkepadatan tinggi */
   --shadow-sm: 0 2px 8px rgba(148, 163, 184, 0.05);
   --shadow-md: 0 12px 34px rgba(148, 163, 184, 0.12);
   --shadow-lg: 0 20px 40px rgba(15, 23, 42, 0.05);
@@ -45,8 +41,24 @@
 *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent }
 body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:var(--t1); min-height:100dvh; overflow-x:hidden; -webkit-font-smoothing:antialiased }
 
-/* DRIBBBLE PREMIUM SPLASH */
-#splash { position:fixed; inset:0; z-index:9999; background:#ffffff; display:flex; flex-direction:column; align-items:center; justify-content:center; opacity:1; transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1) }
+/* ASYNC NATIVE CSS SPLASH - ANTI STUCK TOTAL */
+#splash { 
+  position:fixed; 
+  inset:0; 
+  z-index:9999; 
+  background:#ffffff; 
+  display:flex; 
+  flex-direction:column; 
+  align-items:center; 
+  justify-content:center; 
+  animation: safeFadeOut 0.4s cubic-bezier(0.16, 1, 0.3, 1) 2.2s forwards;
+  pointer-events: none;
+}
+@keyframes safeFadeOut {
+  0% { opacity: 1; visibility: visible; }
+  100% { opacity: 0; visibility: hidden; display: none !important; }
+}
+
 .sp-logo { width:96px; height:96px; border-radius:24px; object-fit:contain; filter: drop-shadow(0 20px 30px rgba(15,23,42,0.06)); animation: pulseGlow 3s infinite ease-in-out }
 .sp-name { font-family:'Playfair Display',serif; font-size:32px; font-weight:700; color:var(--blood); margin-top:20px; letter-spacing:-0.5px }
 .sp-name em { color:var(--bone); font-style:normal }
@@ -56,7 +68,7 @@ body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:v
 @keyframes prog { 0%{width:0%} 100%{width:100%} }
 @keyframes pulseGlow { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); filter: drop-shadow(0 20px 40px rgba(185,28,28,0.15)); } }
 
-/* DRIBBBLE GLASSMORPHISM ONBOARDING */
+/* ONBOARDING DI-SET STANDBY */
 #onboard { display:none; min-height:100dvh; background:radial-gradient(circle at 0% 0%, #ffffff 0%, #f1f5f9 100%); padding:44px 24px; overflow-y:auto }
 #onboard.show { display:block; animation: fadeIn 0.5s ease }
 .ob-wrap { max-width:420px; margin:0 auto }
@@ -73,9 +85,8 @@ body { font-family:'Plus Jakarta Sans',sans-serif; background:var(--bg); color:v
 .ob-skip { font-size:13px; color:var(--t3); text-align:center; margin-top:20px; cursor:pointer; font-weight:500; transition: var(--transition) }
 .ob-skip:hover { color: var(--blood) }
 
-/* MAIN WORKSPACE */
-#main { display:none }
-#main.show { display:block }
+/* WORKSPACE CONTAINER - DEFAULT SHOW SUPAYA ANTI LOCKOUT */
+#main { display: block !important; opacity: 1; }
 #app { max-width:480px; margin:0 auto; padding-bottom:96px; background: #ffffff; min-height: 100dvh; box-shadow: 0 0 50px rgba(15,23,42,0.02) }
 
 /* DRIBBBLE MINIMALIST HEADER */
@@ -239,7 +250,7 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
 .dbtn.on { color:#ffffff; background: rgba(255,255,255,0.1) }
 .di { font-size:18px; font-style:normal; line-height:1; display:block; margin-bottom:2px }
 
-/* LUXURY FLOATING TOAST ALERT */
+/* TOAST ALERT */
 .toast { position:fixed; bottom:96px; left:50%; transform:translateX(-50%); background:#0f172a; border-radius:30px; padding:12px 24px; font-size:12px; color:#fff; z-index:200; opacity:0; transition:var(--transition); pointer-events:none; white-space:nowrap; box-shadow:var(--shadow-lg); font-weight:600 }
 .toast.on { opacity:1; transform:translateX(-50%) translateY(-4px) }
 
@@ -250,6 +261,7 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
 </head>
 <body>
 
+<!-- NATIVE CSS AUTO-FADE OUT SPLASH SCREEN -->
 <div id="splash">
   <img class="sp-logo" src="logo.png" alt="logo" onerror="this.style.display='none'">
   <div class="sp-name">AspirA<em>.I</em>-Qu</div>
@@ -257,6 +269,7 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
   <div class="sp-bar"><div class="sp-prog"></div></div>
 </div>
 
+<!-- ONBOARDING MODAL ASLI -->
 <div id="onboard">
   <div class="ob-wrap">
     <img class="ob-logo" src="logo.png" alt="logo" onerror="this.style.display='none'">
@@ -289,6 +302,7 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
   </div>
 </div>
 
+<!-- MAIN FRAMEWORK ASLI -->
 <div id="main">
 <div id="app">
   <div class="hdr">
@@ -309,6 +323,7 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
     <button class="ntab" id="nt-a" onclick="goTab('a')">ℹ️ Tentang</button>
   </div>
 
+  <!-- TAB CEPAT -->
   <div class="pnl on" id="pnl-q">
     <div class="slbl"><span class="dot"></span>Upload Foto Morfologi</div>
     <div class="card card-red">
@@ -348,6 +363,7 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
     </div>
   </div>
 
+  <!-- TAB INPUT -->
   <div class="pnl" id="pnl-i">
     <div class="msw">
       <button class="mbtn on" id="mm" onclick="swMode('m')">✍️ Manual</button>
@@ -390,6 +406,7 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
     </div>
   </div>
 
+  <!-- TAB DETEKSI -->
   <div class="pnl" id="pnl-d">
     <div class="slbl"><span class="dot"></span>Upload Foto untuk Deteksi Jenis Sel</div>
     <div class="card card-red">
@@ -415,11 +432,13 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
     </div>
   </div>
 
+  <!-- TAB RIWAYAT -->
   <div class="pnl" id="pnl-h">
     <div class="slbl"><span class="dot"></span>Riwayat Kasus</div>
     <div id="hList"></div>
   </div>
 
+  <!-- TAB TENTANG -->
   <div class="pnl" id="pnl-a">
     <div class="ab-hero">
       <img class="ab-logo" src="logo.png" alt="logo" onerror="this.style.display='none'">
@@ -463,6 +482,7 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
 </div>
 </div>
 
+<!-- FLOATING DOCK BOTTOM -->
 <div class="dock" id="dock" style="display:none">
   <button class="dbtn on" id="db-q" onclick="goTab('q')"><span class="di">⚡</span>Cepat</button>
   <button class="dbtn" id="db-i" onclick="goTab('i')"><span class="di">📝</span>Input</button>
@@ -471,6 +491,7 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
   <button class="dbtn" id="db-a" onclick="goTab('a')"><span class="di">ℹ️</span>Tentang</button>
 </div>
 
+<!-- SETTINGS PANEL OVERLAY -->
 <div class="ov" id="ovSet">
   <div class="ovhdr"><button class="btn-sm" onclick="closeOv()">&#8592;</button><div class="ovttl">Pengaturan</div></div>
   <div style="padding:20px 16px">
@@ -496,44 +517,49 @@ textarea { resize:vertical; min-height:84px; line-height:1.6 }
 
 <script>
 'use strict';
-const DB_ID='1GsWjXfsVWkup_GeLnOhFcMP-OZHWrYE-';
-const PROXY='https://script.google.com/macros/s/AKfycbwlM9U_3rtqYiPDSJLab-YQfqp3IdLSAvnqvG3e4v2smJWJldZQ5-4XzCEAaaQgVIdA/exec';
-let qPh=[], iPh=[], dtPh=[], docF=[], caseDB=null, qLast=null, iLast=null;
-const MORPH_GUIDE = 'PANDUAN MORFOLOGI (gunakan sebagai acuan pembeda):\n'
-+ '- Mieloblas: inti besar bulat/oval, kromatin halus homogen, 1-2 nukleolus jelas, rasio inti:sitoplasma tinggi, sitoplasma sedikit TANPA granula.\n'
-+ '- Promielosit: inti eksentrik (sering masih ada nukleolus), granula azurofilik primer KASAR melimpah menutupi sitoplasma.\n'
-+ '- Mielosit: inti oval/bulat sedikit eksentrik, kromatin mulai memadat, TIDAK ada nukleolus, granula sekunder (spesifik) mulai tampak halus.\n'
-+ '- Metamielosit: inti berbentuk GINJAL/CEKUNG (indented), kromatin padat, granula sekunder jelas.\n'
-+ '- Batang (Band): inti memanjang berbentuk PITA/HURUF U/S TANPA segmentasi/filamen, lebar inti relatif seragam.\n'
-+ '- Segmen: inti terbagi 2-5 LOBUS terpisah dihubungkan FILAMEN KROMATIN TIPIS.\n'
-+ '- Pronormoblas: sel besar, inti bulat dengan nukleolus jelas, sitoplasma basofilik gelap dengan halo perinuklear.\n'
-+ '- Normoblas Basofilik: inti bulat padat lebih kecil dari pronormoblas, sitoplasma basofilik gelap homogen, TANPA nukleolus.\n'
-+ '- Normoblas Polikromatik: inti bulat padat lebih kecil & lebih gelap, sitoplasma abu-keunguan (campuran basofilik+hemoglobin).\n'
-+ '- Normoblas Ortokromatik: inti sangat kecil padat gelap (mendekati piknotik), sitoplasma kemerahan (hemoglobin dominan), mirip ukuran eritrosit.\n'
-+ '- Limfosit matur: sel kecil, inti bulat padat gelap mengisi hampir seluruh sel, sitoplasma sangat sempit/tipis biru pucat.\n'
-+ '- Monosit: sel besar, inti berlekuk/bentuk tapal kuda/otak, sitoplasma abu-kebiruan dengan granula halus seperti kaca buram.\n'
-+ '- Megakariosit: sel SANGAT besar (multinuklear/inti besar berlobus banyak), sitoplasma luas granular.\n'
-+ 'JANGAN tertukar antara Mielosit (tanpa nukleolus, granula halus) dengan Promielosit (ada nukleolus, granula kasar melimpah). JANGAN tertukar antara Batang (tanpa filamen) dengan Segmen (dengan filamen pemisah lobus).\n';
+// BALUT SELURUH LOGIKA AWAL SCRIPT AGAR JIKA ADA EROR DATABASE/LOCALSTORAGE TIDAK AKAN MENGUNCI CODE UTAMA
+try {
+  var DB_ID='1GsWjXfsVWkup_GeLnOhFcMP-OZHWrYE-';
+  var PROXY='https://script.google.com/macros/s/AKfycbwlM9U_3rtqYiPDSJLab-YQfqp3IdLSAvnqvG3e4v2smJWJldZQ5-4XzCEAaaQgVIdA/exec';
+  var qPh=[], iPh=[], dtPh=[], docF=[], caseDB=null, qLast=null, iLast=null;
+  
+  var MORPH_GUIDE = 'PANDUAN MORFOLOGI (gunakan sebagai acuan pembeda):\n'
+  + '- Mieloblas: inti besar bulat/oval, kromatin halus homogen, 1-2 nukleolus jelas, rasio inti:sitoplasma tinggi, sitoplasma sedikit TANPA granula.\n'
+  + '- Promielosit: inti eksentrik (sering masih ada nukleolus), granula azurofilik primer KASAR melimpah menutupi sitoplasma.\n'
+  + '- Mielosit: inti oval/bulat sedikit eksentrik, kromatin mulai memadat, TIDAK ada nukleolus, granula sekunder (spesifik) mulai tampak halus.\n'
+  + '- Metamielosit: inti berbentuk GINJAL/CEKUNG (indented), kromatin padat, granula sekunder jelas.\n'
+  + '- Batang (Band): inti memanjang berbentuk PITA/HURUF U/S TANPA segmentasi/filamen, lebar inti relatif seragam.\n'
+  + '- Segmen: inti terbagi 2-5 LOBUS terpisah dihubungkan FILAMEN KROMATIN TIPIS.\n'
+  + '- Pronormoblas: sel besar, inti bulat dengan nukleolus jelas, sitoplasma basofilik gelap dengan halo perinuklear.\n'
+  + '- Normoblas Basofilik: inti bulat padat lebih kecil dari pronormoblas, sitoplasma basofilik gelap homogen, TANPA nukleolus.\n'
+  + '- Normoblas Polikromatik: inti bulat padat lebih kecil & lebih gelap, sitoplasma abu-keunguan (campuran basofilik+hemoglobin).\n'
+  + '- Normoblas Ortokromatik: inti sangat kecil padat gelap (mendekati piknotik), sitoplasma kemerahan (hemoglobin dominan), mirip ukuran eritrosit.\n'
+  + '- Limfosit matur: sel kecil, inti bulat padat gelap mengisi hampir seluruh sel, sitoplasma sangat sempit/tipis biru pucat.\n'
+  + '- Monosit: sel besar, inti berlekuk/bentuk tapal kuda/otak, sitoplasma abu-kebiruan dengan granula halus seperti kaca buram.\n'
+  + '- Megakariosit: sel SANGAT besar (multinuklear/inti besar berlobus banyak), sitoplasma luas granular.\n'
+  + 'JANGAN tertukar antara Mielosit (tanpa nukleolus, granula halus) dengan Promielosit (ada nukleolus, granula kasar melimpah). JANGAN tertukar antara Batang (tanpa filamen) dengan Segmen (dengan filamen pemisah lobus).\n';
 
-const NAME_TO_ATLAS = {
-  'pronormoblas': 'PEB',
-  'normoblas basofilik': 'EBO',
-  'normoblas polikromatik': 'EBO',
-  'normoblas ortokromatik': 'EBO',
-  'mieloblas': 'BLA',
-  'promielosit': 'PMO',
-  'mielosit': 'MYB',
-  'metamielosit': 'MMZ',
-  'batang': 'NGB',
-  'segmen': 'NGS',
-  'limfosit matur': 'LYT',
-  'limfosit': 'LYT',
-  'monosit': 'MON',
-  'eosinofil': 'EOS',
-  'basofil': 'BAS',
-  'sel plasma': 'PLM',
-};
-let atlasMap = null;
+  var NAME_TO_ATLAS = {
+    'pronormoblas': 'PEB',
+    'normoblas basofilik': 'EBO',
+    'normoblas polikromatik': 'EBO',
+    'normoblas ortokromatik': 'EBO',
+    'mieloblas': 'BLA',
+    'promielosit': 'PMO',
+    'mielosit': 'MYB',
+    'metamielosit': 'MMZ',
+    'batang': 'NGB',
+    'segmen': 'NGS',
+    'limfosit matur': 'LYT',
+    'limfosit': 'LYT',
+    'monosit': 'MON',
+    'eosinofil': 'EOS',
+    'basofil': 'BAS',
+    'sel plasma': 'PLM',
+  };
+  var atlasMap = null;
+} catch(err) { console.error("Initialization failure bypassed", err); }
+
 async function loadAtlas() {
   if(atlasMap) return atlasMap;
   try {
@@ -545,42 +571,35 @@ async function loadAtlas() {
   return atlasMap;
 }  
   
-/* ── SPLASH & BOOT LOGIC (BUG SINKRONISASI CO-DEPENDENCY FIX) ── */
+/* ── BOOT LOGIC ── */
 window.addEventListener('load', function() {
-  var tg = document.getElementById('iTg');
-  if(tg) tg.valueAsDate = new Date();
-
-  var k = localStorage.getItem('bma_k');
-  if(k) {
-    var sk = document.getElementById('sKey');
-    if(sk) sk.value = k;
-    setAS(true);
-  }
-  
-  // Bungkus fungsi render awal riwayat dalam try-catch agar jika data local storage lama corrupt tidak menyandera splash screen
   try {
-    renderH();
-  } catch(e) { console.error("History initialization deferred:", e); }
+    var tg = document.getElementById('iTg');
+    if(tg) tg.valueAsDate = new Date();
 
+    var k = localStorage.getItem('bma_k');
+    if(k) {
+      var sk = document.getElementById('sKey');
+      if(sk) sk.value = k;
+      setAS(true);
+    }
+    renderH();
+  } catch(e) { console.error("Non-blocking configuration error:", e); }
+
+  // Tampilkan framework workspace utama secara instan agar tidak stuck
   setTimeout(function() {
-    var sp = document.getElementById('splash');
-    if (sp) {
-      sp.style.opacity = '0';
-      setTimeout(function() {
-        sp.style.display = 'none';
-        if(!localStorage.getItem('bma_k')) {
-          document.getElementById('onboard').classList.add('show');
-        } else {
-          showMain();
-        }
-      }, 400);
+    if(!localStorage.getItem('bma_k')) {
+      var ob = document.getElementById('onboard');
+      if(ob) ob.classList.add('show');
+    } else {
+      showMain();
     }
   }, 2200);
 });
 
 function showMain() {
-  document.getElementById('main').style.display = 'block';
-  document.getElementById('main').classList.add('show');
+  var mn = document.getElementById('main');
+  if(mn) { mn.style.display = 'block'; mn.classList.add('show'); }
   var dk = document.getElementById('dock');
   if (dk) dk.style.display = 'flex';
   loadDB();
@@ -594,18 +613,20 @@ function finishOb() {
   var sk = document.getElementById('sKey');
   if(sk) sk.value = k;
   setAS(true);
-  document.getElementById('onboard').classList.remove('show');
+  var ob = document.getElementById('onboard');
+  if(ob) ob.classList.remove('show');
   showMain();
   tst('Pengaturan tersimpan!');
 }
 function skipOb() {
-  document.getElementById('onboard').classList.remove('show');
+  var ob = document.getElementById('onboard');
+  if(ob) ob.classList.remove('show');
   showMain();
 }
 
 /* ── SETTINGS ── */
-function openOv() { document.getElementById('ovSet').classList.add('on'); }
-function closeOv() { document.getElementById('ovSet').classList.remove('on'); }
+function openOv() { var ov = document.getElementById('ovSet'); if(ov) ov.classList.add('on'); }
+function closeOv() { var ov = document.getElementById('ovSet'); if(ov) ov.classList.remove('on'); }
 function svKey() {
   var k = document.getElementById('sKey').value.trim();
   if(!k) { tst('Masukkan API Key dulu'); return; }
@@ -636,7 +657,7 @@ async function loadDB() {
   }
 }
 
-/* ── NAVIGATION ASLI ── */
+/* ── NAVIGATION ── */
 function goTab(t) {
   ['q','i','d','h','a'].forEach(function(x) {
     var p = document.getElementById('pnl-'+x);
@@ -673,9 +694,12 @@ function rmPh(pfx, i) {
   renderPs(arr, sid, pfx);
 }
 function renderPs(arr, sid, pfx) {
-  document.getElementById(sid).innerHTML = arr.map(function(p,i) {
-    return '<div class="pthumb"><img src="'+p.url+'"><button class="del" onclick="rmPh(\''+pfx+'\','+i+')">&times;</button></div>';
-  }).join('');
+  var target = document.getElementById(sid);
+  if(target) {
+    target.innerHTML = arr.map(function(p,i) {
+      return '<div class="pthumb"><img src="'+p.url+'"><button class="del" onclick="rmPh(\''+pfx+'\','+i+')">&times;</button></div>';
+    }).join('');
+  }
 }
 
 /* ── RAG ── */
@@ -723,7 +747,8 @@ async function callAI(prompt, photos, opts) {
 }
 function pj(txt) {
   if(!txt) return null;
-  var clean = txt.replace(/```json|```/g,'').trim();
+  var clean = txt.replace(/```json|
+```/g,'').trim();
   try { return JSON.parse(clean); } catch(e) {}
   var arrM = clean.match(/\[[\s\S]*\]/);
   if(arrM) { try { return JSON.parse(arrM[0]); } catch(e) {} }
@@ -748,7 +773,6 @@ async function quickAn() {
     var r = pj(txt);
     if(!r) throw new Error('Format respons tidak valid.');
     
-    // SINKRONISASI BUG FIX: Menyimpan properti kembar kesimpluan dan kesimpulan agar fungsi simpan bawaan Anda tidak mengalami crash
     r.kesimpluan = r.kesan;
     r.kesimpulan = r.kesan;
     if(r.observasi && r.observasi.length) {
@@ -868,7 +892,6 @@ async function inputAn() {
     var txt = await callAI(prompt, iPh, {noThink:true, maxTokens:1500});
     var r = pj(txt) || {kesan:txt.slice(0,200), kesimpulan:'', catatan:''};
     
-    // SINKRONISASI BUG FIX: Menyediakan fallback kunci typo ganda
     r.kesimpluan = r.kesimpulan; 
     
     iLast = Object.assign({inputData:d, ts:new Date().toISOString()}, r);
@@ -938,22 +961,24 @@ function svI() {
   tst('Tersimpan'); renderH();
 }
 function renderH() {
-  var h = JSON.parse(localStorage.getItem('bma_h')||'[]');
-  var el = document.getElementById('hList');
-  if(!el) return;
-  if(!h.length) { 
-    el.innerHTML = '<div class="empty">📂 Belum ada kasus tersimpan</div>'; 
-    return; 
-  }
-  el.innerHTML = h.map(function(x,i) {
-    var nm = (x.inputData && x.inputData.nm) || (x.type==='q' ? 'Respons Cepat' : 'Pasien');
-    var um = (x.inputData && x.inputData.um) || '';
-    var dx = x.kesimpulan || x.kesimpluan || '-';
-    var kl = (x.inputData && x.inputData.kl) || x.kl || '';
-    var tg = new Date(x.ts).toLocaleDateString('id-ID');
-    var ico = x.type === 'q' ? '⚡' : '📝';
-    return '<div class="hitm" onclick="viewH('+i+')"><div class="hnm">'+ico+' '+nm+(um?' - '+um:'')+'</div><div class="hdx">'+dx.slice(0,70)+'</div><div class="hmt">'+(kl?kl+' &middot; ':'')+tg+'</div></div>';
-  }).join('');
+  try {
+    var h = JSON.parse(localStorage.getItem('bma_h')||'[]');
+    var el = document.getElementById('hList');
+    if(!el) return;
+    if(!h.length) { 
+      el.innerHTML = '<div class="empty">📂 Belum ada kasus tersimpan</div>'; 
+      return; 
+    }
+    el.innerHTML = h.map(function(x,i) {
+      var nm = (x.inputData && x.inputData.nm) || (x.type==='q' ? 'Respons Cepat' : 'Pasien');
+      var um = (x.inputData && x.inputData.um) || '';
+      var dx = x.kesimpulan || x.kesimpluan || '-';
+      var kl = (x.inputData && x.inputData.kl) || x.kl || '';
+      var tg = new Date(x.ts).toLocaleDateString('id-ID');
+      var ico = x.type === 'q' ? '⚡' : '📝';
+      return '<div class="hitm" onclick="viewH('+i+')"><div class="hnm">'+ico+' '+nm+(um?' - '+um:'')+'</div><div class="hdx">'+dx.slice(0,70)+'</div><div class="hmt">'+(kl?kl+' &middot; ':'')+tg+'</div></div>';
+    }).join('');
+  } catch(err) { console.error("History rendering caught safely", err); }
 }
 function viewH(i) {
   var h = JSON.parse(localStorage.getItem('bma_h')||'[]');
@@ -973,7 +998,7 @@ function rstQ() { qPh=[]; renderPs(qPh,'qPs','q'); document.getElementById('qR')
 function rstI() { iPh=[]; renderPs(iPh,'iPs','i'); document.getElementById('iR').classList.remove('on'); iLast=null; window.scrollTo({top:0,behavior:'smooth'}); }
 
 /* ── TOAST ── */
-function tst(msg) { var t=document.getElementById('tst'); t.textContent=msg; t.classList.add('on'); setTimeout(function(){t.classList.remove('on');}, 2500); }
+function tst(msg) { var t=document.getElementById('tst'); if(t) { t.textContent=msg; t.classList.add('on'); setTimeout(function(){t.classList.remove('on');}, 2500); } }
 </script>
 </body>
 </html>
