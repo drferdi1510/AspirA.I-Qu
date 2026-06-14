@@ -747,8 +747,7 @@ async function callAI(prompt, photos, opts) {
 }
 function pj(txt) {
   if(!txt) return null;
-  var clean = txt.replace(/```json|
-```/g,'').trim();
+  var clean = txt.replace(/```json|```/g,'').trim();
   try { return JSON.parse(clean); } catch(e) {}
   var arrM = clean.match(/\[[\s\S]*\]/);
   if(arrM) { try { return JSON.parse(arrM[0]); } catch(e) {} }
